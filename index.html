@@ -5,18 +5,13 @@
   <title>PWRS - Transform Your Vision</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/three@0.144.0/build/three.min.js"></script>
-  <script src="https://unpkg.com/globe.gl@4.3.0/dist/globe.gl.min.js"></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <!-- Loading Screen -->
   <div class="loading">
-    <svg width="50" height="50" viewBox="0 0 50 50">
-      <circle cx="25" cy="25" r="20" fill="none" stroke="#1DB954" stroke-width="4">
-        <animate attributeName="stroke-dasharray" from="0 126" to="126 126" dur="1s" fill="freeze" />
-      </circle>
-    </svg>
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Loading PWRS...</p>
   </div>
 
   <!-- Animated Background -->
@@ -61,50 +56,77 @@
     </div>
   </section>
 
+  <!-- Deferred Loading of Heavy Scripts -->
   <script>
-    // Initialize the background globe
-    const Globe = window.Globe();
-    const globeViz = Globe(document.getElementById('globeViz'))
-      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-      .backgroundColor('rgba(0,0,0,0)')
-      .width(window.innerWidth)
-      .height(window.innerHeight)
-      .atmosphereColor('#1DB954')
-      .atmosphereAltitude(0.1);
-
-    // Sample points for the background globe
-    const points = [
-      { lat: 34.0522, lng: -118.2437 }, // LA
-      { lat: 40.7128, lng: -74.0060 },  // NYC
-      { lat: 51.5074, lng: -0.1278 },   // London
-      { lat: 35.6762, lng: 139.6503 },  // Tokyo
-      { lat: -33.8688, lng: 151.2093 }  // Sydney
-    ];
-
-    globeViz.pointsData(points)
-      .pointColor(() => '#1DB954')
-      .pointAltitude(0.1)
-      .pointRadius(0.5);
-
-    // Auto-rotate the globe
-    let frame = 0;
-    const animate = () => {
-      frame = requestAnimationFrame(animate);
-      globeViz.rotation({ lat: 0, lng: frame * 0.1 % 360 });
-    };
-    animate();
-
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      globeViz
-        .width(window.innerWidth)
-        .height(window.innerHeight);
-    });
-
-    // Handle loading screen
-    window.addEventListener('load', () => {
+    // Show content even if globe fails to load
+    setTimeout(() => {
       document.querySelector('.loading').classList.add('hidden');
+    }, 3000);
+
+    // Load heavy scripts after initial content
+    window.addEventListener('load', () => {
+      // Load Three.js and Globe.gl asynchronously
+      Promise.all([
+        loadScript('https://unpkg.com/three@0.144.0/build/three.min.js'),
+        loadScript('https://unpkg.com/globe.gl@4.3.0/dist/globe.gl.min.js')
+      ]).then(() => {
+        initGlobe();
+      }).catch(() => {
+        console.log('Globe visualization failed to load');
+        document.querySelector('.loading').classList.add('hidden');
+      });
     });
+
+    // Helper function to load scripts
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.body.appendChild(script);
+      });
+    }
+
+    // Initialize globe after scripts are loaded
+    function initGlobe() {
+      const Globe = window.Globe();
+      const globeViz = Globe(document.getElementById('globeViz'))
+        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+        .backgroundColor('rgba(0,0,0,0)')
+        .width(window.innerWidth)
+        .height(window.innerHeight)
+        .atmosphereColor('#1DB954')
+        .atmosphereAltitude(0.1);
+
+      const points = [
+        { lat: 34.0522, lng: -118.2437 }, // LA
+        { lat: 40.7128, lng: -74.0060 },  // NYC
+        { lat: 51.5074, lng: -0.1278 },   // London
+        { lat: 35.6762, lng: 139.6503 },  // Tokyo
+        { lat: -33.8688, lng: 151.2093 }  // Sydney
+      ];
+
+      globeViz.pointsData(points)
+        .pointColor(() => '#1DB954')
+        .pointAltitude(0.1)
+        .pointRadius(0.5);
+
+      let frame = 0;
+      const animate = () => {
+        frame = requestAnimationFrame(animate);
+        globeViz.rotation({ lat: 0, lng: frame * 0.1 % 360 });
+      };
+      animate();
+
+      window.addEventListener('resize', () => {
+        globeViz
+          .width(window.innerWidth)
+          .height(window.innerHeight);
+      });
+
+      document.querySelector('.loading').classList.add('hidden');
+    }
 
     // Feature card hover effect
     document.querySelectorAll('.feature-card').forEach(card => {
