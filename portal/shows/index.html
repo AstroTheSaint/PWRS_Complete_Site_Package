@@ -227,66 +227,67 @@
                     <span class="profile-name">Metro Boomin</span>
                 </div>
             </div>
-
-            <div class="shows-container">
-                <div class="shows-list">
-                    <h2>Upcoming Shows</h2>
-                    <div class="show-item">
-                        <div class="show-date">
-                            <div class="show-date-day">15</div>
-                            <div class="show-date-month">Jun 2024</div>
-                        </div>
-                        <div class="show-info">
-                            <div class="show-venue">Madison Square Garden</div>
-                            <div class="show-location">New York, NY</div>
-                        </div>
-                        <div class="show-status">
-                            <div class="status-badge sold-out">Sold Out</div>
-                            <div class="show-capacity">20,000 capacity</div>
-                        </div>
-                    </div>
-                    <div class="show-item">
-                        <div class="show-date">
-                            <div class="show-date-day">20</div>
-                            <div class="show-date-month">Jun 2024</div>
-                        </div>
-                        <div class="show-info">
-                            <div class="show-venue">O2 Arena</div>
-                            <div class="show-location">London, UK</div>
-                        </div>
-                        <div class="show-status">
-                            <div class="status-badge">On Sale</div>
-                            <div class="show-capacity">18,000 capacity</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shows-sidebar">
-                    <div class="stats-card">
-                        <h3 class="stats-title">Tour Statistics</h3>
-                        <div class="stats-grid">
-                            <div class="stat-item">
-                                <div class="stat-label">Total Shows</div>
-                                <div class="stat-value">127</div>
+            <div class="page-content">
+                <div class="shows-container">
+                    <div class="shows-list">
+                        <h2>Upcoming Shows</h2>
+                        <div class="show-item">
+                            <div class="show-date">
+                                <div class="show-date-day">15</div>
+                                <div class="show-date-month">Jun 2024</div>
                             </div>
-                            <div class="stat-item">
-                                <div class="stat-label">Countries</div>
-                                <div class="stat-value">15</div>
+                            <div class="show-info">
+                                <div class="show-venue">Madison Square Garden</div>
+                                <div class="show-location">New York, NY</div>
                             </div>
-                            <div class="stat-item">
-                                <div class="stat-label">Total Revenue</div>
-                                <div class="stat-value">$4.8M</div>
+                            <div class="show-status">
+                                <div class="status-badge sold-out">Sold Out</div>
+                                <div class="show-capacity">20,000 capacity</div>
                             </div>
-                            <div class="stat-item">
-                                <div class="stat-label">Avg. Capacity</div>
-                                <div class="stat-value">18.5K</div>
+                        </div>
+                        <div class="show-item">
+                            <div class="show-date">
+                                <div class="show-date-day">20</div>
+                                <div class="show-date-month">Jun 2024</div>
+                            </div>
+                            <div class="show-info">
+                                <div class="show-venue">O2 Arena</div>
+                                <div class="show-location">London, UK</div>
+                            </div>
+                            <div class="show-status">
+                                <div class="status-badge">On Sale</div>
+                                <div class="show-capacity">18,000 capacity</div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="tour-map">
-                        <h3 class="stats-title">Tour Map</h3>
-                        <div id="tourMap"></div>
+                    <div class="shows-sidebar">
+                        <div class="stats-card">
+                            <h3 class="stats-title">Tour Statistics</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-label">Total Shows</div>
+                                    <div class="stat-value">127</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-label">Countries</div>
+                                    <div class="stat-value">15</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-label">Total Revenue</div>
+                                    <div class="stat-value">$4.8M</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-label">Avg. Capacity</div>
+                                    <div class="stat-value">18.5K</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tour-map">
+                            <h3 class="stats-title">Tour Map</h3>
+                            <div id="tourMap"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -294,11 +295,13 @@
     </div>
 
     <script src="../portal-data.js"></script>
+    <script src="../portal-navigation.js"></script>
     <script>
-        // Hide loading screen
+        // Hide loading screen and show content
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.querySelector('.loading').classList.add('hidden');
+                document.querySelector('.page-content').classList.add('loaded');
             }, 1000);
         });
 

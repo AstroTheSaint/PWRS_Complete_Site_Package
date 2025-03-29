@@ -10,75 +10,84 @@
         /* Profile-specific styles */
         .profile-container {
             display: grid;
-            grid-template-columns: 300px 1fr;
+            grid-template-columns: 1fr 300px;
             gap: 1.5rem;
         }
 
-        .profile-sidebar {
+        .profile-main {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
 
-        .profile-card {
+        .profile-header {
             background: var(--card-bg);
             border-radius: 12px;
-            padding: 1.5rem;
-        }
-
-        .profile-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            align-items: center;
         }
 
         .profile-image-large {
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            margin: 0 auto 1rem;
-            border: 3px solid var(--green-accent);
+            overflow: hidden;
+            border: 4px solid var(--green-accent);
+        }
+
+        .profile-image-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
         .profile-name-large {
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            color: var(--white);
         }
 
         .profile-role {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
+            color: var(--green-accent);
+            font-size: 1.1rem;
         }
 
         .profile-stats {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
             margin-top: 1rem;
         }
 
-        .stat-item {
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1rem;
             text-align: center;
         }
 
         .stat-value {
-            font-size: 1.2rem;
-            font-weight: 500;
+            font-size: 1.5rem;
+            font-weight: 600;
             color: var(--green-accent);
+            margin-bottom: 0.25rem;
         }
 
         .stat-label {
-            font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
         }
 
-        .profile-content {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .section-card {
+        .profile-section {
             background: var(--card-bg);
             border-radius: 12px;
             padding: 1.5rem;
@@ -88,6 +97,7 @@
             font-size: 1.2rem;
             font-weight: 500;
             margin-bottom: 1.5rem;
+            color: var(--white);
         }
 
         .form-group {
@@ -98,21 +108,24 @@
             display: block;
             margin-bottom: 0.5rem;
             color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
         }
 
         .form-input {
             width: 100%;
             padding: 0.75rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: var(--white);
             font-size: 1rem;
+            transition: var(--transition);
         }
 
         .form-input:focus {
             outline: none;
             border-color: var(--green-accent);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .form-textarea {
@@ -126,7 +139,7 @@
             margin-top: 2rem;
         }
 
-        .button {
+        .btn {
             padding: 0.75rem 1.5rem;
             border-radius: 8px;
             font-weight: 500;
@@ -134,47 +147,74 @@
             transition: var(--transition);
         }
 
-        .button-primary {
+        .btn-primary {
             background: var(--green-accent);
             color: var(--white);
             border: none;
         }
 
-        .button-primary:hover {
+        .btn-primary:hover {
             background: #1ed760;
+            transform: translateY(-1px);
         }
 
-        .button-secondary {
-            background: transparent;
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
             color: var(--white);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .button-secondary:hover {
-            background: rgba(255, 255, 255, 0.05);
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
 
-        .social-links {
+        .profile-sidebar {
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
-        .social-link {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .verification-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .verification-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .verification-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
             color: var(--white);
-            text-decoration: none;
-            transition: var(--transition);
         }
 
-        .social-link:hover {
+        .verification-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .verification-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
             background: var(--green-accent);
+            color: var(--white);
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .verification-button:hover {
+            background: #1ed760;
+            transform: translateY(-1px);
         }
 
         @media (max-width: 768px) {
@@ -183,12 +223,24 @@
             }
 
             .profile-header {
-                text-align: left;
+                grid-template-columns: 1fr;
+                text-align: center;
             }
 
             .profile-image-large {
-                width: 100px;
-                height: 100px;
+                margin: 0 auto;
+            }
+
+            .profile-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
             }
         }
     </style>
@@ -254,72 +306,82 @@
                     <span class="profile-name">Metro Boomin</span>
                 </div>
             </div>
-
-            <div class="profile-container">
-                <div class="profile-sidebar">
-                    <div class="profile-card">
+            <div class="page-content">
+                <div class="profile-container">
+                    <div class="profile-main">
                         <div class="profile-header">
-                            <img src="https://example.com/metro-boomin.jpg" alt="Profile" class="profile-image-large">
-                            <div class="profile-name-large">Metro Boomin</div>
-                            <div class="profile-role">Producer & Artist</div>
-                        </div>
-                        <div class="profile-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">50M+</div>
-                                <div class="stat-label">Monthly Listeners</div>
+                            <div class="profile-image-large">
+                                <img src="https://example.com/metro-boomin.jpg" alt="Profile">
                             </div>
-                            <div class="stat-item">
-                                <div class="stat-value">127</div>
-                                <div class="stat-label">Shows</div>
+                            <div class="profile-info">
+                                <h2 class="profile-name-large">Metro Boomin</h2>
+                                <div class="profile-role">Producer & Artist</div>
+                                <div class="profile-stats">
+                                    <div class="stat-box">
+                                        <div class="stat-value">2.5M</div>
+                                        <div class="stat-label">Monthly Listeners</div>
+                                    </div>
+                                    <div class="stat-box">
+                                        <div class="stat-value">127</div>
+                                        <div class="stat-label">Shows</div>
+                                    </div>
+                                    <div class="stat-box">
+                                        <div class="stat-value">15</div>
+                                        <div class="stat-label">Countries</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="social-links">
-                            <a href="#" class="social-link">🎵</a>
-                            <a href="#" class="social-link">📱</a>
-                            <a href="#" class="social-link">📸</a>
-                            <a href="#" class="social-link">🐦</a>
+
+                        <div class="profile-section">
+                            <h3 class="section-title">Profile Information</h3>
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-input" value="Metro Boomin">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-input" value="metro@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Bio</label>
+                                <textarea class="form-input form-textarea">Grammy-winning producer and artist known for creating chart-topping hits and innovative soundscapes.</textarea>
+                            </div>
+                            <div class="button-group">
+                                <button class="btn btn-primary">Save Changes</button>
+                                <button class="btn btn-secondary">Cancel</button>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h3 class="section-title">Account Settings</h3>
+                            <div class="form-group">
+                                <label class="form-label">Current Password</label>
+                                <input type="password" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">New Password</label>
+                                <input type="password" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Confirm New Password</label>
+                                <input type="password" class="form-input">
+                            </div>
+                            <div class="button-group">
+                                <button class="btn btn-primary">Change Password</button>
+                                <button class="btn btn-secondary">Cancel</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="profile-content">
-                    <div class="section-card">
-                        <h2 class="section-title">Profile Information</h2>
-                        <div class="form-group">
-                            <label class="form-label">Full Name</label>
-                            <input type="text" class="form-input" value="Metro Boomin">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-input" value="metro@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Bio</label>
-                            <textarea class="form-input form-textarea">Grammy-winning producer and artist known for chart-topping hits and innovative sound.</textarea>
-                        </div>
-                        <div class="button-group">
-                            <button class="button button-primary">Save Changes</button>
-                            <button class="button button-secondary">Cancel</button>
-                        </div>
-                    </div>
-
-                    <div class="section-card">
-                        <h2 class="section-title">Account Settings</h2>
-                        <div class="form-group">
-                            <label class="form-label">Current Password</label>
-                            <input type="password" class="form-input">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">New Password</label>
-                            <input type="password" class="form-input">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Confirm New Password</label>
-                            <input type="password" class="form-input">
-                        </div>
-                        <div class="button-group">
-                            <button class="button button-primary">Update Password</button>
-                            <button class="button button-secondary">Cancel</button>
+                    <div class="profile-sidebar">
+                        <div class="verification-card">
+                            <div class="verification-icon">✅</div>
+                            <h3 class="verification-title">Verified Artist</h3>
+                            <p class="verification-text">
+                                Your account is verified. This badge helps fans identify your official profile and content.
+                            </p>
+                            <button class="verification-button">Update Verification</button>
                         </div>
                     </div>
                 </div>
@@ -328,11 +390,13 @@
     </div>
 
     <script src="../portal-data.js"></script>
+    <script src="../portal-navigation.js"></script>
     <script>
-        // Hide loading screen
+        // Hide loading screen and show content
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.querySelector('.loading').classList.add('hidden');
+                document.querySelector('.page-content').classList.add('loaded');
             }, 1000);
         });
     </script>

@@ -10,100 +10,183 @@
         /* Revenue-specific styles */
         .revenue-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr 300px;
             gap: 1.5rem;
         }
 
-        .revenue-card {
+        .revenue-overview {
             background: var(--card-bg);
             border-radius: 12px;
             padding: 1.5rem;
-        }
-
-        .revenue-card.full-width {
-            grid-column: 1 / -1;
+            margin-bottom: 1.5rem;
         }
 
         .revenue-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .revenue-title {
-            font-size: 1.2rem;
-            font-weight: 500;
+            font-size: 1.5rem;
+            font-weight: 600;
         }
 
-        .revenue-value {
+        .revenue-period {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .period-selector {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .period-selector:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .revenue-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
             font-size: 2rem;
             font-weight: 600;
             color: var(--green-accent);
+            margin-bottom: 0.5rem;
         }
 
-        .revenue-change {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.9rem;
-            color: var(--green-accent);
         }
 
-        .revenue-change.negative {
-            color: #ff4444;
+        .revenue-chart {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .chart-container {
             height: 300px;
-            margin-top: 1rem;
-        }
-
-        .revenue-breakdown {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .breakdown-item {
-            text-align: center;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-        }
-
-        .breakdown-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 0.5rem;
-        }
-
-        .breakdown-value {
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--green-accent);
+            position: relative;
         }
 
         .revenue-table {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .table-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-button {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .revenue-table th,
-        .revenue-table td {
+        th, td {
             padding: 1rem;
             text-align: left;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .revenue-table th {
+        th {
             font-weight: 500;
             color: rgba(255, 255, 255, 0.7);
         }
 
-        .revenue-table tr:hover {
-            background: rgba(255, 255, 255, 0.05);
+        td {
+            color: var(--white);
+        }
+
+        .revenue-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .revenue-breakdown {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .breakdown-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .breakdown-label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .breakdown-value {
+            font-weight: 500;
+            color: var(--green-accent);
         }
 
         @media (max-width: 768px) {
@@ -111,8 +194,23 @@
                 grid-template-columns: 1fr;
             }
 
-            .revenue-breakdown {
+            .revenue-stats {
                 grid-template-columns: 1fr;
+            }
+
+            .revenue-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .table-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .table-actions {
+                width: 100%;
+                justify-content: space-between;
             }
         }
     </style>
@@ -121,7 +219,7 @@
     <!-- Loading Screen -->
     <div class="loading">
         <div class="loading-spinner"></div>
-        <p class="loading-text">Loading Revenue...</p>
+        <p class="loading-text">Loading Revenue Data...</p>
     </div>
 
     <div class="portal-container">
@@ -178,110 +276,146 @@
                     <span class="profile-name">Metro Boomin</span>
                 </div>
             </div>
+            <div class="page-content">
+                <div class="revenue-container">
+                    <div class="revenue-main">
+                        <div class="revenue-overview">
+                            <div class="revenue-header">
+                                <h2 class="revenue-title">Revenue Overview</h2>
+                                <div class="revenue-period">
+                                    <select class="period-selector">
+                                        <option>This Month</option>
+                                        <option>Last Month</option>
+                                        <option>Last 3 Months</option>
+                                        <option>Last 6 Months</option>
+                                        <option>This Year</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="revenue-stats">
+                                <div class="stat-card">
+                                    <div class="stat-value">$2.4M</div>
+                                    <div class="stat-label">Total Revenue</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">+12.5%</div>
+                                    <div class="stat-label">Month over Month</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">$1.8M</div>
+                                    <div class="stat-label">Net Revenue</div>
+                                </div>
+                            </div>
+                            <div class="revenue-chart">
+                                <div class="chart-container">
+                                    <canvas id="revenueChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
 
-            <div class="revenue-container">
-                <div class="revenue-card">
-                    <div class="revenue-header">
-                        <h2 class="revenue-title">Total Revenue</h2>
-                        <div class="revenue-change">
-                            <span>↑ 12.5%</span>
-                            <span>vs last month</span>
+                        <div class="revenue-table">
+                            <div class="table-header">
+                                <h3 class="table-title">Revenue History</h3>
+                                <div class="table-actions">
+                                    <button class="action-button">
+                                        <span>📥</span> Export
+                                    </button>
+                                    <button class="action-button">
+                                        <span>🔍</span> Filter
+                                    </button>
+                                </div>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Transaction ID</th>
+                                        <th>Source</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2024-03-15</td>
+                                        <td>#TRX-1234</td>
+                                        <td>Streaming</td>
+                                        <td>$12,500</td>
+                                        <td>Completed</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2024-03-14</td>
+                                        <td>#TRX-1233</td>
+                                        <td>Merchandise</td>
+                                        <td>$8,750</td>
+                                        <td>Completed</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2024-03-13</td>
+                                        <td>#TRX-1232</td>
+                                        <td>Concert</td>
+                                        <td>$45,000</td>
+                                        <td>Completed</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="revenue-value">$8.2M</div>
-                    <div class="revenue-breakdown">
-                        <div class="breakdown-item">
-                            <div class="breakdown-label">Music</div>
-                            <div class="breakdown-value">$4.8M</div>
-                        </div>
-                        <div class="breakdown-item">
-                            <div class="breakdown-label">Touring</div>
-                            <div class="breakdown-value">$2.4M</div>
-                        </div>
-                        <div class="breakdown-item">
-                            <div class="breakdown-label">Merch</div>
-                            <div class="breakdown-value">$1.0M</div>
+
+                    <div class="revenue-sidebar">
+                        <div class="revenue-breakdown">
+                            <h3 class="breakdown-title">Revenue Breakdown</h3>
+                            <div class="breakdown-item">
+                                <span class="breakdown-label">Streaming</span>
+                                <span class="breakdown-value">45%</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-label">Concerts</span>
+                                <span class="breakdown-value">30%</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-label">Merchandise</span>
+                                <span class="breakdown-value">15%</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-label">Licensing</span>
+                                <span class="breakdown-value">10%</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="revenue-card">
-                    <div class="revenue-header">
-                        <h2 class="revenue-title">Monthly Revenue</h2>
-                        <div class="revenue-change negative">
-                            <span>↓ 3.2%</span>
-                            <span>vs last month</span>
-                        </div>
-                    </div>
-                    <div class="revenue-value">$1.2M</div>
-                    <div class="chart-container" id="monthlyChart"></div>
-                </div>
-
-                <div class="revenue-card full-width">
-                    <h2 class="revenue-title">Revenue History</h2>
-                    <table class="revenue-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Source</th>
-                                <th>Amount</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Jun 15, 2024</td>
-                                <td>Madison Square Garden</td>
-                                <td>$450,000</td>
-                                <td>Completed</td>
-                            </tr>
-                            <tr>
-                                <td>Jun 10, 2024</td>
-                                <td>Streaming Royalties</td>
-                                <td>$280,000</td>
-                                <td>Completed</td>
-                            </tr>
-                            <tr>
-                                <td>Jun 5, 2024</td>
-                                <td>Merchandise Sales</td>
-                                <td>$120,000</td>
-                                <td>Completed</td>
-                            </tr>
-                            <tr>
-                                <td>Jun 20, 2024</td>
-                                <td>O2 Arena</td>
-                                <td>$380,000</td>
-                                <td>Pending</td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </main>
     </div>
 
     <script src="../portal-data.js"></script>
+    <script src="../portal-navigation.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Hide loading screen
+        // Hide loading screen and show content
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.querySelector('.loading').classList.add('hidden');
+                document.querySelector('.page-content').classList.add('loaded');
             }, 1000);
         });
 
-        // Initialize monthly revenue chart
-        function initMonthlyChart() {
-            const ctx = document.getElementById('monthlyChart').getContext('2d');
+        // Initialize revenue chart
+        function initRevenueChart() {
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, 'rgba(29, 185, 84, 0.2)');
+            gradient.addColorStop(1, 'rgba(29, 185, 84, 0)');
+
             new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
                     datasets: [{
                         label: 'Monthly Revenue',
-                        data: [0.8, 0.9, 1.1, 1.0, 1.2, 1.2],
+                        data: [1.8, 2.1, 2.4, 2.2, 2.5, 2.4],
                         borderColor: '#1DB954',
-                        backgroundColor: 'rgba(29, 185, 84, 0.1)',
+                        backgroundColor: gradient,
                         fill: true,
                         tension: 0.4
                     }]
@@ -306,7 +440,7 @@
                         },
                         x: {
                             grid: {
-                                display: false
+                                color: 'rgba(255, 255, 255, 0.1)'
                             },
                             ticks: {
                                 color: 'rgba(255, 255, 255, 0.7)'
@@ -317,9 +451,9 @@
             });
         }
 
-        // Initialize chart after loading
+        // Initialize chart after content is loaded
         window.addEventListener('load', () => {
-            initMonthlyChart();
+            setTimeout(initRevenueChart, 1000);
         });
     </script>
 </body>
