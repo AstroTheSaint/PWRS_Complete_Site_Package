@@ -7,18 +7,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
     <style>
-        /* Portal-specific styles */
+        /* Portal Layout Styles */
+        :root {
+            --transition: all 0.3s ease;
+        }
+
         .portal-container {
             display: grid;
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: 250px 1fr;
             min-height: 100vh;
-            background: var(--dark-bg);
+            background: var(--bg-color);
+            color: var(--text-color);
         }
 
         .sidebar {
-            background: rgba(0, 0, 0, 0.2);
+            background: var(--card-bg);
             padding: 2rem;
             border-right: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            width: 250px;
+            height: 100vh;
+            overflow-y: auto;
         }
 
         .logo {
@@ -27,8 +36,9 @@
         }
 
         .logo h2 {
-            color: var(--green-accent);
             font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--green-accent);
         }
 
         .nav-menu {
@@ -45,25 +55,27 @@
             display: flex;
             align-items: center;
             padding: 0.75rem 1rem;
-            color: var(--white);
+            color: var(--text-color);
             text-decoration: none;
             border-radius: 8px;
             transition: var(--transition);
+            opacity: 0.7;
         }
 
-        .nav-link:hover,
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            opacity: 1;
+        }
+
         .nav-link.active {
-            background: rgba(29, 185, 84, 0.1);
-            color: var(--green-accent);
-        }
-
-        .nav-link span {
-            margin-left: 0.75rem;
+            background: var(--green-accent);
+            color: var(--white);
+            opacity: 1;
         }
 
         .main-content {
             padding: 2rem;
-            overflow-y: auto;
+            margin-left: 250px;
         }
 
         .page-header {
@@ -75,7 +87,7 @@
 
         .page-title {
             font-size: 1.8rem;
-            color: var(--white);
+            font-weight: 600;
         }
 
         .profile-section {
@@ -92,8 +104,61 @@
         }
 
         .profile-name {
-            color: var(--white);
             font-weight: 500;
+        }
+
+        /* Loading Screen */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--green-accent);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        .loading-text {
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Page Transitions */
+        .page-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .page-content.loaded {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @media (max-width: 768px) {
@@ -104,6 +169,10 @@
             .sidebar {
                 display: none;
             }
+
+            .main-content {
+                margin-left: 0;
+            }
         }
     </style>
 </head>
@@ -111,7 +180,7 @@
     <!-- Loading Screen -->
     <div class="loading">
         <div class="loading-spinner"></div>
-        <p class="loading-text">Loading Portal...</p>
+        <p class="loading-text">Loading...</p>
     </div>
 
     <div class="portal-container">
@@ -162,37 +231,27 @@
 
         <main class="main-content">
             <div class="page-header">
-                <h1 class="page-title">Artist Dashboard</h1>
+                <h1 class="page-title">Dashboard</h1>
                 <div class="profile-section">
                     <img src="https://example.com/metro-boomin.jpg" alt="Profile" class="profile-image">
                     <span class="profile-name">Metro Boomin</span>
                 </div>
             </div>
-
-            <!-- Page content will be injected here -->
-            <div id="page-content"></div>
+            <div class="page-content">
+                <!-- Page content will be injected here -->
+            </div>
         </main>
     </div>
 
     <script src="portal-data.js"></script>
+    <script src="portal-navigation.js"></script>
     <script>
-        // Hide loading screen after content loads
+        // Hide loading screen and show content
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.querySelector('.loading').classList.add('hidden');
+                document.querySelector('.page-content').classList.add('loaded');
             }, 1000);
-        });
-
-        // Set active nav link based on current page
-        document.addEventListener('DOMContentLoaded', () => {
-            const currentPath = window.location.pathname;
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            navLinks.forEach(link => {
-                if (currentPath.includes(link.getAttribute('href'))) {
-                    link.classList.add('active');
-                }
-            });
         });
     </script>
 </body>
