@@ -577,6 +577,10 @@
                         <div class="progress-fill" style="width: 35%;"></div>
                     </div>
                     <p>35% of yearly goal ($5M)</p>
+                    <div class="achievement-badge">
+                        <span class="badge-icon">🏆</span>
+                        <span class="badge-text">Gold Tier</span>
+                    </div>
                 </div>
                 <div class="stat-card">
                     <h3>Monthly Revenue</h3>
@@ -585,6 +589,10 @@
                         <div class="progress-fill" style="width: 79%;"></div>
                     </div>
                     <p>79% of monthly goal ($600K)</p>
+                    <div class="achievement-badge">
+                        <span class="badge-icon">⭐</span>
+                        <span class="badge-text">On Track</span>
+                    </div>
                 </div>
             </div>
             <div class="revenue-breakdown">
@@ -596,6 +604,10 @@
                             <div class="progress-fill" style="width: 80%;"></div>
                         </div>
                         <span>$1.4M (80%)</span>
+                        <div class="achievement-badge">
+                            <span class="badge-icon">🎭</span>
+                            <span class="badge-text">Top Performer</span>
+                        </div>
                     </div>
                     <div class="breakdown-item">
                         <span>Merchandise</span>
@@ -603,6 +615,10 @@
                             <div class="progress-fill" style="width: 14.3%;"></div>
                         </div>
                         <span>$250K (14.3%)</span>
+                        <div class="achievement-badge">
+                            <span class="badge-icon">👕</span>
+                            <span class="badge-text">Growing</span>
+                        </div>
                     </div>
                     <div class="breakdown-item">
                         <span>Other Sources</span>
@@ -610,6 +626,37 @@
                             <div class="progress-fill" style="width: 5.7%;"></div>
                         </div>
                         <span>$100K (5.7%)</span>
+                        <div class="achievement-badge">
+                            <span class="badge-icon">💎</span>
+                            <span class="badge-text">Diversified</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="revenue-milestones">
+                <h3>Achievement Milestones</h3>
+                <div class="milestones-grid">
+                    <div class="milestone-card">
+                        <div class="milestone-icon">🎯</div>
+                        <div class="milestone-title">Next Milestone</div>
+                        <div class="milestone-value">$2M</div>
+                        <div class="milestone-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 87.5%;"></div>
+                            </div>
+                        </div>
+                        <div class="milestone-reward">+100 XP</div>
+                    </div>
+                    <div class="milestone-card">
+                        <div class="milestone-icon">🏆</div>
+                        <div class="milestone-title">Platinum Status</div>
+                        <div class="milestone-value">$5M</div>
+                        <div class="milestone-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 35%;"></div>
+                            </div>
+                        </div>
+                        <div class="milestone-reward">+500 XP</div>
                     </div>
                 </div>
             </div>
@@ -619,10 +666,16 @@
         <div id="git" class="tab-content">
             <div class="git-container">
                 <div class="git-filters">
-                    <select id="yearFilter">
+                    <select id="yearFilter" onchange="updateGitGlobeData(this.value)">
+                        <option value="2025">2025</option>
                         <option value="2024">2024</option>
                         <option value="2023">2023</option>
-                        <option value="2022">2022</option>
+                    </select>
+                    <select id="dataTypeFilter" onchange="updateGitGlobeData(document.getElementById('yearFilter').value)">
+                        <option value="all">All Data</option>
+                        <option value="shows">Shows Only</option>
+                        <option value="revenue">Revenue Only</option>
+                        <option value="attendance">Attendance Only</option>
                     </select>
                 </div>
                 <div id="globeViz"></div>
@@ -630,14 +683,17 @@
                     <div class="stat-card">
                         <h3>Countries Toured</h3>
                         <h2>15</h2>
+                        <p class="stat-subtext">+3 New in 2025</p>
                     </div>
                     <div class="stat-card">
                         <h3>Total Shows</h3>
                         <h2>127</h2>
+                        <p class="stat-subtext">42 Planned for 2025</p>
                     </div>
                     <div class="stat-card">
                         <h3>Total Attendance</h3>
                         <h2>1.5M</h2>
+                        <p class="stat-subtext">Projected: 2.2M by 2025</p>
                     </div>
                 </div>
             </div>
@@ -655,16 +711,56 @@
                         <div class="show-card">
                             <div class="show-header">
                                 <div>
-                                    <h3>TD Garden Booking</h3>
-                                    <p>Initial Amount: $175,000</p>
-                                    <p>Final Amount: $200,000</p>
+                                    <h3>Dubai Arena</h3>
+                                    <p>Dubai, UAE</p>
+                                    <p>April 20, 2025 - 9:00 PM</p>
                                 </div>
                                 <span class="show-status status-confirmed">Approved</span>
                             </div>
                             <div class="show-details">
+                                <p>Capacity: 16,000</p>
+                                <p>Ticket Range: $150 - $500</p>
+                                <p>Expected Revenue: $2.8M</p>
+                                <p>Setup Time: 3:00 PM</p>
                                 <p>Duration: 2.5 hours</p>
-                                <p>Setup Time: 2:00 PM</p>
-                                <p>Equipment: Full Stage Setup Required</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="show-request">
+                        <div class="show-card">
+                            <div class="show-header">
+                                <div>
+                                    <h3>LIV Nightclub Miami</h3>
+                                    <p>Miami, FL</p>
+                                    <p>May 5, 2025 - 11:00 PM</p>
+                                </div>
+                                <span class="show-status status-negotiating">Negotiating</span>
+                            </div>
+                            <div class="show-details">
+                                <p>Capacity: 2,000</p>
+                                <p>Ticket Range: $100 - $500</p>
+                                <p>Expected Revenue: $450K</p>
+                                <p>Setup Time: 8:00 PM</p>
+                                <p>Duration: 1.5 hours</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="show-request">
+                        <div class="show-card">
+                            <div class="show-header">
+                                <div>
+                                    <h3>LIV Nightclub Las Vegas</h3>
+                                    <p>Las Vegas, NV</p>
+                                    <p>May 15, 2025 - 11:00 PM</p>
+                                </div>
+                                <span class="show-status status-confirmed">Approved</span>
+                            </div>
+                            <div class="show-details">
+                                <p>Capacity: 2,500</p>
+                                <p>Ticket Range: $150 - $600</p>
+                                <p>Expected Revenue: $600K</p>
+                                <p>Setup Time: 8:00 PM</p>
+                                <p>Duration: 1.5 hours</p>
                             </div>
                         </div>
                     </div>
@@ -747,7 +843,7 @@
         });
 
         // Initialize globe visualization
-        function initGlobe(containerId = 'globeViz') {
+        function initGlobe(containerId = 'globeViz', year = 'all', dataType = 'all') {
             const globeContainer = document.getElementById(containerId);
             if (!globeContainer) return;
 
@@ -764,23 +860,31 @@
 
             // Past shows (2024)
             const pastShows = [
-                { lat: 40.7128, lng: -74.0060, city: 'New York', date: '2024-01-15', revenue: '$2.1M', status: 'completed' },
-                { lat: 34.0522, lng: -118.2437, city: 'Los Angeles', date: '2024-02-20', revenue: '$1.8M', status: 'completed' },
-                { lat: 51.5074, lng: -0.1278, city: 'London', date: '2024-03-10', revenue: '$2.5M', status: 'completed' },
-                { lat: 25.7617, lng: -80.1918, city: 'Miami', date: '2024-04-05', revenue: '$1.2M', status: 'completed' }
+                { lat: 40.7128, lng: -74.0060, city: 'New York', date: '2024-01-15', revenue: '$2.1M', status: 'completed', attendance: '15,000' },
+                { lat: 34.0522, lng: -118.2437, city: 'Los Angeles', date: '2024-02-20', revenue: '$1.8M', status: 'completed', attendance: '12,000' },
+                { lat: 51.5074, lng: -0.1278, city: 'London', date: '2024-03-10', revenue: '$2.5M', status: 'completed', attendance: '18,000' },
+                { lat: 25.7617, lng: -80.1918, city: 'Miami', date: '2024-04-05', revenue: '$1.2M', status: 'completed', attendance: '8,000' }
             ];
 
             // Future shows (2024-2025)
             const futureShows = [
-                { lat: 35.6762, lng: 139.6503, city: 'Tokyo', date: '2024-09-15', revenue: '$3.0M', status: 'upcoming' },
-                { lat: 1.3521, lng: 103.8198, city: 'Singapore', date: '2024-10-20', revenue: '$1.5M', status: 'upcoming' },
-                { lat: -33.8688, lng: 151.2093, city: 'Sydney', date: '2025-01-10', revenue: '$2.2M', status: 'upcoming' },
-                { lat: 55.7558, lng: 37.6173, city: 'Moscow', date: '2025-03-15', revenue: '$1.8M', status: 'upcoming' }
+                { lat: 35.6762, lng: 139.6503, city: 'Tokyo', date: '2024-09-15', revenue: '$3.0M', status: 'upcoming', attendance: '20,000' },
+                { lat: 1.3521, lng: 103.8198, city: 'Singapore', date: '2024-10-20', revenue: '$1.5M', status: 'upcoming', attendance: '10,000' },
+                { lat: -33.8688, lng: 151.2093, city: 'Sydney', date: '2025-01-10', revenue: '$2.2M', status: 'upcoming', attendance: '15,000' },
+                { lat: 55.7558, lng: 37.6173, city: 'Moscow', date: '2025-03-15', revenue: '$1.8M', status: 'upcoming', attendance: '12,000' },
+                { lat: 25.2048, lng: 55.2708, city: 'Dubai', date: '2025-04-20', revenue: '$2.8M', status: 'upcoming', attendance: '16,000' },
+                { lat: 25.7617, lng: -80.1918, city: 'Miami', date: '2025-05-05', revenue: '$1.5M', status: 'upcoming', attendance: '9,000' },
+                { lat: 36.1147, lng: -115.1728, city: 'Las Vegas', date: '2025-05-15', revenue: '$1.8M', status: 'upcoming', attendance: '10,000' }
             ];
 
-            // Combine and add all points
-            const allPoints = [...pastShows, ...futureShows];
-            globe.pointsData(allPoints)
+            // Filter data based on year and type
+            let filteredData = [...pastShows, ...futureShows];
+            if (year !== 'all') {
+                filteredData = filteredData.filter(d => d.date.startsWith(year));
+            }
+
+            // Add points to globe
+            globe.pointsData(filteredData)
                 .pointColor(d => d.status === 'completed' ? '#1DB954' : '#FFB900')
                 .pointAltitude(0.1)
                 .pointRadius(0.5)
@@ -788,10 +892,24 @@
                     <div style="color: white; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 5px;">
                         <div style="font-weight: bold;">${d.city}</div>
                         <div>${d.date}</div>
-                        <div>${d.revenue}</div>
+                        <div>Revenue: ${d.revenue}</div>
+                        <div>Attendance: ${d.attendance}</div>
                         <div style="color: ${d.status === 'completed' ? '#1DB954' : '#FFB900'}">${d.status}</div>
                     </div>
                 `);
+
+            // Add arcs for tour routes
+            globe.arcsData(filteredData.slice(0, -1).map((d, i) => ({
+                startLat: d.lat,
+                startLng: d.lng,
+                endLat: filteredData[i + 1].lat,
+                endLng: filteredData[i + 1].lng,
+                color: d.status === 'completed' ? '#1DB954' : '#FFB900'
+            })))
+            .arcColor('color')
+            .arcDashLength(0.5)
+            .arcDashGap(0.1)
+            .arcDashAnimateTime(2000);
 
             // Auto-rotate
             globe.controls().autoRotate = true;
@@ -800,10 +918,10 @@
             return globe;
         }
 
-        // Function to update globe data based on year selection
-        function updateGlobeData(year) {
-            // Re-initialize globe with filtered data based on year
-            initGlobe('dashboardGlobeViz');
+        // Function to update GIT globe data
+        function updateGitGlobeData(year) {
+            const dataType = document.getElementById('dataTypeFilter').value;
+            initGlobe('globeViz', year, dataType);
         }
 
         // Initialize dashboard globe on load
