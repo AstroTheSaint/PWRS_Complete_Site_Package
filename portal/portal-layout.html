@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWRS - Artist Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        /* Portal-specific styles */
+        .portal-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+            background: var(--dark-bg);
+        }
+
+        .sidebar {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .logo h2 {
+            color: var(--green-accent);
+            font-size: 1.5rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(29, 185, 84, 0.1);
+            color: var(--green-accent);
+        }
+
+        .nav-link span {
+            margin-left: 0.75rem;
+        }
+
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            color: var(--white);
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .profile-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .portal-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading Portal...</p>
+    </div>
+
+    <div class="portal-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>PWRS</h2>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="dashboard/index.html" class="nav-link">
+                            📊 Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music/index.html" class="nav-link">
+                            🎵 Music
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="shows/index.html" class="nav-link">
+                            🎫 Shows
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="revenue/index.html" class="nav-link">
+                            💰 Revenue
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="communications/index.html" class="nav-link">
+                            📬 Communications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile/index.html" class="nav-link">
+                            👤 Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link">
+                            ← Back Home
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">Artist Dashboard</h1>
+                <div class="profile-section">
+                    <img src="https://example.com/metro-boomin.jpg" alt="Profile" class="profile-image">
+                    <span class="profile-name">Metro Boomin</span>
+                </div>
+            </div>
+
+            <!-- Page content will be injected here -->
+            <div id="page-content"></div>
+        </main>
+    </div>
+
+    <script src="portal-data.js"></script>
+    <script>
+        // Hide loading screen after content loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loading').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Set active nav link based on current page
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                if (currentPath.includes(link.getAttribute('href'))) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

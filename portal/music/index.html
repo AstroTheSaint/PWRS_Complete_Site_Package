@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWRS - Music</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Music-specific styles */
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .album-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .album-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(29, 185, 84, 0.2);
+        }
+
+        .album-cover {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .album-info {
+            padding: 1.5rem;
+        }
+
+        .album-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .album-date {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .album-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--green-accent);
+        }
+
+        .track-list {
+            margin-top: 1rem;
+        }
+
+        .track-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .track-item:last-child {
+            border-bottom: none;
+        }
+
+        .track-number {
+            width: 24px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .track-title {
+            flex: 1;
+            margin-left: 0.5rem;
+        }
+
+        .singles-section {
+            margin-top: 3rem;
+        }
+
+        .singles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .single-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .single-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(29, 185, 84, 0.2);
+        }
+
+        .single-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .single-date {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .single-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading Music...</p>
+    </div>
+
+    <div class="portal-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>PWRS</h2>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="dashboard/index.html" class="nav-link">
+                            📊 Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music/index.html" class="nav-link active">
+                            🎵 Music
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="shows/index.html" class="nav-link">
+                            🎫 Shows
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="revenue/index.html" class="nav-link">
+                            💰 Revenue
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="communications/index.html" class="nav-link">
+                            📬 Communications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile/index.html" class="nav-link">
+                            👤 Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../index.html" class="nav-link">
+                            ← Back Home
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">Music</h1>
+                <div class="profile-section">
+                    <img src="https://example.com/metro-boomin.jpg" alt="Profile" class="profile-image">
+                    <span class="profile-name">Metro Boomin</span>
+                </div>
+            </div>
+
+            <div class="music-grid">
+                <div class="album-card">
+                    <img src="https://example.com/heroes-villains.jpg" alt="HEROES & VILLAINS" class="album-cover">
+                    <div class="album-info">
+                        <h2 class="album-title">HEROES & VILLAINS</h2>
+                        <div class="album-date">December 2, 2022</div>
+                        <div class="album-stats">
+                            <div class="stat-item">
+                                <div class="stat-label">Revenue</div>
+                                <div class="stat-value">$8.2M</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Streams</div>
+                                <div class="stat-value">1.2B</div>
+                            </div>
+                        </div>
+                        <div class="track-list">
+                            <div class="track-item">
+                                <span class="track-number">1</span>
+                                <span class="track-title">Superhero (Heroes & Villains)</span>
+                            </div>
+                            <div class="track-item">
+                                <span class="track-number">2</span>
+                                <span class="track-title">Creepin'</span>
+                            </div>
+                            <div class="track-item">
+                                <span class="track-number">3</span>
+                                <span class="track-title">Niagara Falls</span>
+                            </div>
+                            <div class="track-item">
+                                <span class="track-number">4</span>
+                                <span class="track-title">Metro Spider</span>
+                            </div>
+                            <div class="track-item">
+                                <span class="track-number">5</span>
+                                <span class="track-title">Walk Em Down</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="album-card">
+                    <img src="https://example.com/not-all-heroes.jpg" alt="NOT ALL HEROES WEAR CAPES" class="album-cover">
+                    <div class="album-info">
+                        <h2 class="album-title">NOT ALL HEROES WEAR CAPES</h2>
+                        <div class="album-date">November 2, 2018</div>
+                        <div class="album-stats">
+                            <div class="stat-item">
+                                <div class="stat-label">Revenue</div>
+                                <div class="stat-value">$6.5M</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Streams</div>
+                                <div class="stat-value">980M</div>
+                            </div>
+                        </div>
+                        <div class="track-list">
+                            <div class="track-item">
+                                <span class="track-number">1</span>
+                                <span class="track-title">10 Freaky Girls</span>
+                            </div>
+                            <div class="track-item">
+                                <span class="track-number">2</span>
+                                <span class="track-title">Space Cadet</span>
+                            </div>
+                            <div class="track-item">
+                                <span class="track-number">3</span>
+                                <span class="track-title">Don't Come Out The House</span>
+                            </div>
+                            <div class="track-item">
+                                <span class="track-number">4</span>
+                                <span class="track-title">Dreamcatcher</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="singles-section">
+                <h2>Recent Singles</h2>
+                <div class="singles-grid">
+                    <div class="single-card">
+                        <h3 class="single-title">Creepin'</h3>
+                        <div class="single-date">December 16, 2022</div>
+                        <div class="single-stats">
+                            <div class="stat-item">
+                                <div class="stat-label">Revenue</div>
+                                <div class="stat-value">$2.1M</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Streams</div>
+                                <div class="stat-value">450M</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-card">
+                        <h3 class="single-title">Superhero (Heroes & Villains)</h3>
+                        <div class="single-date">December 2, 2022</div>
+                        <div class="single-stats">
+                            <div class="stat-item">
+                                <div class="stat-label">Revenue</div>
+                                <div class="stat-value">$1.8M</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Streams</div>
+                                <div class="stat-value">380M</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../portal-data.js"></script>
+    <script>
+        // Hide loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loading').classList.add('hidden');
+            }, 1000);
+        });
+    </script>
+</body>
+</html> 

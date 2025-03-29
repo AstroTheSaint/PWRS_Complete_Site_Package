@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWRS - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Dashboard-specific styles */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--green-accent);
+        }
+
+        .globe-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            height: 500px;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        #globeViz {
+            width: 100%;
+            height: 100%;
+        }
+
+        .year-filter {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .year-filter select {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .recent-activity {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .activity-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(29, 185, 84, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: var(--green-accent);
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-date {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .upcoming-shows {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .show-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .show-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .show-item:last-child {
+            border-bottom: none;
+        }
+
+        .show-info {
+            flex: 1;
+        }
+
+        .show-date {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.25rem;
+        }
+
+        .show-venue {
+            font-weight: 500;
+        }
+
+        .show-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            background: rgba(29, 185, 84, 0.1);
+            color: var(--green-accent);
+        }
+
+        .show-status.sold-out {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading Dashboard...</p>
+    </div>
+
+    <div class="portal-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>PWRS</h2>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="dashboard/index.html" class="nav-link active">
+                            📊 Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music/index.html" class="nav-link">
+                            🎵 Music
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="shows/index.html" class="nav-link">
+                            🎫 Shows
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="revenue/index.html" class="nav-link">
+                            💰 Revenue
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="communications/index.html" class="nav-link">
+                            📬 Communications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile/index.html" class="nav-link">
+                            👤 Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../index.html" class="nav-link">
+                            ← Back Home
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">Dashboard</h1>
+                <div class="profile-section">
+                    <img src="https://example.com/metro-boomin.jpg" alt="Profile" class="profile-image">
+                    <span class="profile-name">Metro Boomin</span>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <h3>Total Revenue</h3>
+                    <div class="stat-value">$18.5M</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Monthly Listeners</h3>
+                    <div class="stat-value">45M</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Shows</h3>
+                    <div class="stat-value">127</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Streams</h3>
+                    <div class="stat-value">2.8B</div>
+                </div>
+            </div>
+
+            <div class="globe-section">
+                <div class="year-filter">
+                    <select id="yearSelect">
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024" selected>2024</option>
+                    </select>
+                </div>
+                <div id="globeViz"></div>
+            </div>
+
+            <div class="recent-activity">
+                <h2>Recent Activity</h2>
+                <ul class="activity-list">
+                    <li class="activity-item">
+                        <div class="activity-icon">🎵</div>
+                        <div class="activity-content">
+                            <div class="activity-title">New Single Released</div>
+                            <div class="activity-date">March 20, 2024</div>
+                        </div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-icon">🎫</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Madison Square Garden Show Sold Out</div>
+                            <div class="activity-date">March 19, 2024</div>
+                        </div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-icon">💰</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Monthly Revenue Report</div>
+                            <div class="activity-date">March 18, 2024</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="upcoming-shows">
+                <h2>Upcoming Shows</h2>
+                <ul class="show-list">
+                    <li class="show-item">
+                        <div class="show-info">
+                            <div class="show-date">June 15, 2024</div>
+                            <div class="show-venue">Madison Square Garden, New York</div>
+                        </div>
+                        <div class="show-status sold-out">Sold Out</div>
+                    </li>
+                    <li class="show-item">
+                        <div class="show-info">
+                            <div class="show-date">June 20, 2024</div>
+                            <div class="show-venue">O2 Arena, London</div>
+                        </div>
+                        <div class="show-status">On Sale</div>
+                    </li>
+                </ul>
+            </div>
+        </main>
+    </div>
+
+    <script src="../portal-data.js"></script>
+    <script>
+        // Show content even if globe fails to load
+        setTimeout(() => {
+            document.querySelector('.loading').classList.add('hidden');
+        }, 2000);
+
+        // Load heavy scripts after initial content
+        window.addEventListener('load', () => {
+            Promise.all([
+                loadScript('https://unpkg.com/three@0.144.0/build/three.min.js'),
+                loadScript('https://unpkg.com/globe.gl@4.3.0/dist/globe.gl.min.js')
+            ]).then(() => {
+                initGlobe();
+            }).catch(() => {
+                console.log('Globe visualization failed to load');
+                document.querySelector('.loading').classList.add('hidden');
+            });
+        });
+
+        // Helper function to load scripts
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = resolve;
+                script.onerror = reject;
+                document.body.appendChild(script);
+            });
+        }
+
+        // Initialize globe after scripts are loaded
+        function initGlobe() {
+            const Globe = window.Globe();
+            const globeViz = Globe(document.getElementById('globeViz'))
+                .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+                .backgroundColor('rgba(0,0,0,0)')
+                .atmosphereColor('#1DB954')
+                .atmosphereAltitude(0.1);
+
+            const tourData = {
+                "2024": [
+                    { lat: 34.0522, lng: -118.2437, city: 'Los Angeles', value: 2000000 },
+                    { lat: 40.7128, lng: -74.0060, city: 'New York', value: 1800000 },
+                    { lat: 51.5074, lng: -0.1278, city: 'London', value: 1500000 },
+                    { lat: 35.6762, lng: 139.6503, city: 'Tokyo', value: 1200000 },
+                    { lat: -33.8688, lng: 151.2093, city: 'Sydney', value: 1000000 }
+                ],
+                "2023": [
+                    { lat: 19.4326, lng: -99.1332, city: 'Mexico City', value: 1600000 },
+                    { lat: 55.7558, lng: 37.6173, city: 'Moscow', value: 1400000 },
+                    { lat: 48.8566, lng: 2.3522, city: 'Paris', value: 1300000 }
+                ],
+                "2022": [
+                    { lat: 1.3521, lng: 103.8198, city: 'Singapore', value: 900000 },
+                    { lat: 25.2048, lng: 55.2708, city: 'Dubai', value: 1100000 },
+                    { lat: -22.9068, lng: -43.1729, city: 'Rio de Janeiro', value: 800000 }
+                ]
+            };
+
+            function updateGlobeData(year) {
+                const data = tourData[year] || [];
+                globeViz
+                    .pointsData(data)
+                    .pointColor(() => '#1DB954')
+                    .pointAltitude(0.1)
+                    .pointRadius(d => Math.sqrt(d.value) * 0.00015)
+                    .pointLabel(d => `${d.city}: $${(d.value / 1000000).toFixed(1)}M`);
+            }
+
+            // Handle year selection
+            document.getElementById('yearSelect').addEventListener('change', (e) => {
+                updateGlobeData(e.target.value);
+            });
+
+            // Initialize with 2024 data
+            updateGlobeData('2024');
+
+            // Auto-rotate
+            let frame = 0;
+            const animate = () => {
+                frame = requestAnimationFrame(animate);
+                globeViz.rotation({ lat: 0, lng: frame * 0.05 % 360 });
+            };
+            animate();
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                const container = document.querySelector('.globe-section');
+                globeViz
+                    .width(container.clientWidth)
+                    .height(container.clientHeight);
+            });
+
+            // Initial size set
+            const container = document.querySelector('.globe-section');
+            globeViz
+                .width(container.clientWidth)
+                .height(container.clientHeight);
+
+            // Hide loading screen
+            document.querySelector('.loading').classList.add('hidden');
+        }
+    </script>
+</body>
+</html> 
