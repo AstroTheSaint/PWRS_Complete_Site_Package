@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWRS - Communications</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Communications-specific styles */
+        .communications-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 1.5rem;
+        }
+
+        .messages-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .message-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .message-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .message-item:last-child {
+            border-bottom: none;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .message-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .message-sender {
+            font-weight: 500;
+        }
+
+        .message-date {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .message-subject {
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+
+        .message-preview {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .message-status {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            background: rgba(29, 185, 84, 0.1);
+            color: var(--green-accent);
+        }
+
+        .status-badge.unread {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        .communications-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .announcements-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .announcement-item {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .announcement-item:last-child {
+            border-bottom: none;
+        }
+
+        .announcement-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .announcement-date {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        .announcement-content {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .compose-button {
+            background: var(--green-accent);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .compose-button:hover {
+            background: #1ed760;
+        }
+
+        @media (max-width: 768px) {
+            .communications-container {
+                grid-template-columns: 1fr;
+            }
+
+            .message-item {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .message-avatar {
+                display: none;
+            }
+
+            .message-status {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading Communications...</p>
+    </div>
+
+    <div class="portal-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>PWRS</h2>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="dashboard/index.html" class="nav-link">
+                            📊 Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music/index.html" class="nav-link">
+                            🎵 Music
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="shows/index.html" class="nav-link">
+                            🎫 Shows
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="revenue/index.html" class="nav-link">
+                            💰 Revenue
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="communications/index.html" class="nav-link active">
+                            📬 Communications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile/index.html" class="nav-link">
+                            👤 Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../index.html" class="nav-link">
+                            ← Back Home
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">Communications</h1>
+                <div class="profile-section">
+                    <img src="https://example.com/metro-boomin.jpg" alt="Profile" class="profile-image">
+                    <span class="profile-name">Metro Boomin</span>
+                </div>
+            </div>
+
+            <div class="communications-container">
+                <div class="messages-section">
+                    <button class="compose-button">
+                        ✉️ Compose Message
+                    </button>
+                    <div class="message-item">
+                        <div class="message-avatar">🎵</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-sender">Spotify</span>
+                                <span class="message-date">2 hours ago</span>
+                            </div>
+                            <div class="message-subject">Monthly Streaming Report</div>
+                            <div class="message-preview">Your tracks have reached 50M streams this month...</div>
+                        </div>
+                        <div class="message-status">
+                            <div class="status-badge unread">New</div>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-avatar">🎫</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-sender">Live Nation</span>
+                                <span class="message-date">5 hours ago</span>
+                            </div>
+                            <div class="message-subject">Tour Update</div>
+                            <div class="message-preview">The Madison Square Garden show has sold out...</div>
+                        </div>
+                        <div class="message-status">
+                            <div class="status-badge">Read</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="communications-sidebar">
+                    <div class="announcements-card">
+                        <h2 class="revenue-title">Announcements</h2>
+                        <div class="announcement-item">
+                            <div class="announcement-title">New Single Release</div>
+                            <div class="announcement-date">Jun 15, 2024</div>
+                            <div class="announcement-content">
+                                "Creepin'" featuring The Weeknd and 21 Savage has been released.
+                            </div>
+                        </div>
+                        <div class="announcement-item">
+                            <div class="announcement-title">Tour Extension</div>
+                            <div class="announcement-date">Jun 10, 2024</div>
+                            <div class="announcement-content">
+                                European leg of the tour has been extended with 5 new dates.
+                            </div>
+                        </div>
+                        <div class="announcement-item">
+                            <div class="announcement-title">Merch Drop</div>
+                            <div class="announcement-date">Jun 5, 2024</div>
+                            <div class="announcement-content">
+                                New collection of tour merchandise available now.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../portal-data.js"></script>
+    <script>
+        // Hide loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loading').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Handle message clicks
+        document.querySelectorAll('.message-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const statusBadge = item.querySelector('.status-badge');
+                if (statusBadge.classList.contains('unread')) {
+                    statusBadge.classList.remove('unread');
+                    statusBadge.textContent = 'Read';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
