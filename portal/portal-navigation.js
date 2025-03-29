@@ -1,42 +1,67 @@
-// Portal Navigation Handler
+// Navigation handling
 document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const loadingScreen = document.querySelector('.loading');
+    const pageContent = document.querySelector('.page-content');
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const sidebar = document.querySelector('.sidebar');
+
+    // Set active state based on current page
+    const currentPath = window.location.pathname;
+    navLinks.forEach(link => {
+        if (link.getAttribute('href') && currentPath.includes(link.getAttribute('href'))) {
+            link.classList.add('active');
+        }
+    });
+
     // Handle navigation clicks
-    document.querySelectorAll('.nav-link').forEach(link => {
+    navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const href = link.getAttribute('href');
             
             // Update active state
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            navLinks.forEach(l => l.classList.remove('active'));
             link.classList.add('active');
-            
+
             // Show loading screen
-            const loading = document.querySelector('.loading');
-            loading.classList.remove('hidden');
-            
-            // Fade out current content
-            const pageContent = document.querySelector('.page-content');
+            loadingScreen.classList.add('visible');
             pageContent.classList.remove('loaded');
-            
-            // Navigate to the new page after a short delay
+
+            // Close mobile menu if open
+            if (window.innerWidth <= 768) {
+                mobileMenuButton.classList.remove('active');
+                sidebar.classList.remove('active');
+            }
+
+            // Navigate after a short delay
             setTimeout(() => {
                 window.location.href = href;
             }, 300);
         });
     });
 
-    // Set active state based on current page
-    const currentPath = window.location.pathname;
-    document.querySelectorAll('.nav-link').forEach(link => {
-        const linkPath = link.getAttribute('href');
-        if (currentPath.includes(linkPath)) {
-            link.classList.add('active');
-        }
+    // Handle back/forward browser navigation
+    window.addEventListener('popstate', () => {
+        loadingScreen.classList.add('visible');
+        pageContent.classList.remove('loaded');
+        
+        setTimeout(() => {
+            loadingScreen.classList.remove('visible');
+            pageContent.classList.add('loaded');
+        }, 300);
     });
 
-    // Show content with animation
-    const pageContent = document.querySelector('.page-content');
-    setTimeout(() => {
+    // Handle initial page load
+    if (document.readyState === 'complete') {
+        loadingScreen.classList.remove('visible');
         pageContent.classList.add('loaded');
-    }, 100);
+    } else {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loadingScreen.classList.remove('visible');
+                pageContent.classList.add('loaded');
+            }, 1000);
+        });
+    }
 }); 
