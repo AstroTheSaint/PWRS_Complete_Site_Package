@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWRS - Shows</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Shows-specific styles */
+        .shows-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 1.5rem;
+        }
+
+        .shows-list {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .show-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .show-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .show-item:last-child {
+            border-bottom: none;
+        }
+
+        .show-date {
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .show-date-day {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--green-accent);
+        }
+
+        .show-date-month {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .show-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .show-venue {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .show-location {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .show-status {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            background: rgba(29, 185, 84, 0.1);
+            color: var(--green-accent);
+        }
+
+        .status-badge.sold-out {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        .show-capacity {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .shows-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .stats-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .stats-title {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--green-accent);
+        }
+
+        .tour-map {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            height: 300px;
+        }
+
+        #tourMap {
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .shows-container {
+                grid-template-columns: 1fr;
+            }
+
+            .show-item {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .show-date {
+                text-align: left;
+            }
+
+            .show-status {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading Shows...</p>
+    </div>
+
+    <div class="portal-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>PWRS</h2>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="dashboard/index.html" class="nav-link">
+                            📊 Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music/index.html" class="nav-link">
+                            🎵 Music
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="shows/index.html" class="nav-link active">
+                            🎫 Shows
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="revenue/index.html" class="nav-link">
+                            💰 Revenue
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="communications/index.html" class="nav-link">
+                            📬 Communications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile/index.html" class="nav-link">
+                            👤 Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../index.html" class="nav-link">
+                            ← Back Home
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">Shows</h1>
+                <div class="profile-section">
+                    <img src="https://example.com/metro-boomin.jpg" alt="Profile" class="profile-image">
+                    <span class="profile-name">Metro Boomin</span>
+                </div>
+            </div>
+
+            <div class="shows-container">
+                <div class="shows-list">
+                    <h2>Upcoming Shows</h2>
+                    <div class="show-item">
+                        <div class="show-date">
+                            <div class="show-date-day">15</div>
+                            <div class="show-date-month">Jun 2024</div>
+                        </div>
+                        <div class="show-info">
+                            <div class="show-venue">Madison Square Garden</div>
+                            <div class="show-location">New York, NY</div>
+                        </div>
+                        <div class="show-status">
+                            <div class="status-badge sold-out">Sold Out</div>
+                            <div class="show-capacity">20,000 capacity</div>
+                        </div>
+                    </div>
+                    <div class="show-item">
+                        <div class="show-date">
+                            <div class="show-date-day">20</div>
+                            <div class="show-date-month">Jun 2024</div>
+                        </div>
+                        <div class="show-info">
+                            <div class="show-venue">O2 Arena</div>
+                            <div class="show-location">London, UK</div>
+                        </div>
+                        <div class="show-status">
+                            <div class="status-badge">On Sale</div>
+                            <div class="show-capacity">18,000 capacity</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="shows-sidebar">
+                    <div class="stats-card">
+                        <h3 class="stats-title">Tour Statistics</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-label">Total Shows</div>
+                                <div class="stat-value">127</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Countries</div>
+                                <div class="stat-value">15</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Total Revenue</div>
+                                <div class="stat-value">$4.8M</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Avg. Capacity</div>
+                                <div class="stat-value">18.5K</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tour-map">
+                        <h3 class="stats-title">Tour Map</h3>
+                        <div id="tourMap"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../portal-data.js"></script>
+    <script>
+        // Hide loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loading').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Initialize tour map
+        function initTourMap() {
+            const Globe = window.Globe();
+            const tourMap = Globe(document.getElementById('tourMap'))
+                .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+                .backgroundColor('rgba(0,0,0,0)')
+                .atmosphereColor('#1DB954')
+                .atmosphereAltitude(0.1);
+
+            const tourData = [
+                { lat: 34.0522, lng: -118.2437, city: 'Los Angeles', value: 2000000 },
+                { lat: 40.7128, lng: -74.0060, city: 'New York', value: 1800000 },
+                { lat: 51.5074, lng: -0.1278, city: 'London', value: 1500000 },
+                { lat: 35.6762, lng: 139.6503, city: 'Tokyo', value: 1200000 },
+                { lat: -33.8688, lng: 151.2093, city: 'Sydney', value: 1000000 }
+            ];
+
+            tourMap
+                .pointsData(tourData)
+                .pointColor(() => '#1DB954')
+                .pointAltitude(0.1)
+                .pointRadius(d => Math.sqrt(d.value) * 0.00015)
+                .pointLabel(d => `${d.city}: $${(d.value / 1000000).toFixed(1)}M`);
+
+            // Auto-rotate
+            let frame = 0;
+            const animate = () => {
+                frame = requestAnimationFrame(animate);
+                tourMap.rotation({ lat: 0, lng: frame * 0.05 % 360 });
+            };
+            animate();
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                const container = document.querySelector('.tour-map');
+                tourMap
+                    .width(container.clientWidth)
+                    .height(container.clientHeight);
+            });
+
+            // Initial size set
+            const container = document.querySelector('.tour-map');
+            tourMap
+                .width(container.clientWidth)
+                .height(container.clientHeight);
+        }
+
+        // Load heavy scripts after initial content
+        window.addEventListener('load', () => {
+            Promise.all([
+                loadScript('https://unpkg.com/three@0.144.0/build/three.min.js'),
+                loadScript('https://unpkg.com/globe.gl@4.3.0/dist/globe.gl.min.js')
+            ]).then(() => {
+                initTourMap();
+            }).catch(() => {
+                console.log('Tour map failed to load');
+            });
+        });
+
+        // Helper function to load scripts
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = resolve;
+                script.onerror = reject;
+                document.body.appendChild(script);
+            });
+        }
+    </script>
+</body>
+</html> 
