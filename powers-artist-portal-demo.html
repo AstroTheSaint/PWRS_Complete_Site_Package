@@ -29,26 +29,31 @@
 
         .portal-container {
             display: grid;
-            grid-template-columns: 250px 1fr;
+            grid-template-columns: 280px 1fr;
             min-height: 100vh;
+            background: var(--background);
         }
 
         .sidebar {
             background: var(--card-bg);
-            padding: 2rem;
+            padding: 2rem 1.5rem;
             border-right: 1px solid rgba(255, 255, 255, 0.1);
             position: fixed;
-            width: 250px;
+            width: 280px;
             height: 100vh;
             overflow-y: auto;
+            transition: transform 0.3s ease;
         }
 
         .logo {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            padding-left: 0.5rem;
         }
 
         .nav-menu {
-            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
         .nav-item {
@@ -56,14 +61,10 @@
         }
 
         .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            color: var(--white);
-            text-decoration: none;
+            padding: 0.875rem 1rem;
             border-radius: 8px;
-            transition: var(--transition);
+            font-weight: 500;
+            letter-spacing: 0.3px;
         }
 
         .nav-link:hover,
@@ -72,8 +73,9 @@
         }
 
         .main-content {
-            margin-left: 250px;
-            padding: 2rem;
+            margin-left: 280px;
+            padding: 2rem 2.5rem;
+            max-width: 1600px;
         }
 
         .page-header {
@@ -261,16 +263,49 @@
         }
 
         @media (max-width: 768px) {
+            .menu-button {
+                display: block;
+            }
+
             .portal-container {
                 grid-template-columns: 1fr;
             }
 
             .sidebar {
-                display: none;
+                transform: translateX(-100%);
+                z-index: 999;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
             }
 
             .main-content {
                 margin-left: 0;
+                padding: 1.5rem;
+            }
+
+            .welcome-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .progress-card {
+                min-width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .activity-item {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .page-header {
+                padding-right: 4rem;
             }
         }
 
@@ -454,29 +489,39 @@
         .welcome-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
+            align-items: flex-start;
+            margin-bottom: 2.5rem;
+            gap: 2rem;
+        }
+
+        .welcome-section {
+            flex: 1;
         }
 
         .welcome-title {
-            font-size: 2.5rem;
+            font-size: 2.75rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.5px;
         }
 
         .artist-status {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             color: #FFD700;
             font-weight: 500;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 20px;
         }
 
         .progress-card {
+            min-width: 240px;
             background: var(--card-bg);
             padding: 1.5rem;
             border-radius: 12px;
-            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .progress-header {
@@ -497,106 +542,86 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            gap: 1.75rem;
+            margin-bottom: 2.5rem;
         }
 
         .stat-card {
             background: var(--card-bg);
-            padding: 1.5rem;
+            padding: 1.75rem;
             border-radius: 12px;
-            display: flex;
-            flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
         }
 
         .stat-icon {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .communications-card {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 12px;
-        }
-
-        .communications-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            font-size: 1.75rem;
             margin-bottom: 1rem;
         }
 
-        .response-rate {
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 600;
             color: var(--green-accent);
-            font-size: 1.1rem;
-            font-weight: 500;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.5px;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            letter-spacing: 0.2px;
+        }
+
+        .communications-card {
+            padding: 1.75rem;
+        }
+
+        .communications-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .communications-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        .response-rate {
+            font-size: 1.125rem;
         }
 
         .activity-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            gap: 1.25rem;
         }
 
         .activity-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .activity-item:last-child {
-            border-bottom: none;
+            padding: 1rem 0;
         }
 
         .activity-venue {
-            font-weight: 500;
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
         }
 
-        .activity-date {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
+        /* Overlay for mobile menu */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
         }
 
-        .status-tag {
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .status-approved {
-            background: rgba(29, 185, 84, 0.1);
-            color: var(--green-accent);
-        }
-
-        .status-negotiating {
-            background: rgba(255, 165, 0, 0.1);
-            color: #FFA500;
-        }
-
-        @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .welcome-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-            
-            .welcome-title {
-                font-size: 2rem;
-            }
-            
-            .activity-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
+        .overlay.active {
+            display: block;
         }
     </style>
     <!-- Move scripts to head with defer -->
@@ -758,6 +783,40 @@
         
         // Final fallback
         setTimeout(initializePortal, 3000);
+
+        // Add mobile menu functionality
+        const menuButton = document.querySelector('.menu-button');
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.querySelector('.overlay');
+        
+        menuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+        
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Close menu when clicking a link on mobile
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        });
     </script>
 </head>
 <body>
@@ -824,7 +883,7 @@
             <div class="content-section active" id="dashboard">
                 <div class="page-content">
                     <div class="welcome-header">
-                        <div>
+                        <div class="welcome-section">
                             <h1 class="welcome-title">Welcome Back!</h1>
                             <div class="artist-status">
                                 🏆 Gold Artist
@@ -1113,5 +1172,14 @@
             </div>
         </main>
     </div>
+
+    <!-- Add hamburger menu button -->
+    <button class="menu-button">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </button>
+
+    <div class="overlay"></div>
 </body>
 </html>
