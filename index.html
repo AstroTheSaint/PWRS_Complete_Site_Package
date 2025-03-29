@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PWRS - Powers Artist Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/three@0.144.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/globe.gl@4.3.0/dist/globe.gl.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Welcome to PWRS</h1>
+    <div class="rotating-roles">
+      <span>Artist Portal</span>
+      <span>Booker Portal</span>
+      <span>Agent Portal</span>
+    </div>
+    <a href="powers-artist-portal-demo.html" class="cta-button">View Demo</a>
+  </header>
+
+  <main>
+    <section class="intro" id="about">
+      <h2>What is PWRS?</h2>
+      <p><strong>PWRS</strong> is your all-in-one platform for powering artists' careers with precision, data, and strategy.</p>
+      <ul class="features">
+        <li>🧭 <strong>Tour Management:</strong> Schedule, optimize, and route your entire tour effortlessly.</li>
+        <li>📈 <strong>Revenue Insights:</strong> Track earnings by city, venue, and time — visually and interactively.</li>
+        <li>🗺️ <strong>GIT (Global Intelligence Tracking):</strong> Explore your career on a globe — past and future tours.</li>
+        <li>🏆 <strong>Progress System:</strong> Earn emblems and level up based on milestones and market success.</li>
+      </ul>
+    </section>
+
+    <section class="preview-section">
+      <div id="previewGlobe"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 PWRS | Contact | Support | Integrations</p>
+  </footer>
+
+  <script>
+    // Initialize a smaller preview globe
+    const Globe = window.Globe();
+    const previewGlobe = Globe(document.getElementById('previewGlobe'))
+      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+      .backgroundColor('rgba(0,0,0,0)')
+      .width(window.innerWidth)
+      .height(300);
+
+    // Add some sample preview points
+    const previewPoints = [
+      { lat: 34.0522, lng: -118.2437 }, // Los Angeles
+      { lat: 40.7128, lng: -74.0060 },  // New York
+      { lat: 51.5074, lng: -0.1278 }    // London
+    ];
+
+    previewGlobe.pointsData(previewPoints)
+      .pointColor(() => '#1DB954')
+      .pointAltitude(0.1)
+      .pointRadius(0.5);
+
+    // Auto-rotate the globe
+    let frame = 0;
+    const animate = () => {
+      frame = requestAnimationFrame(animate);
+      previewGlobe.rotation({ lat: 0, lng: frame * 0.15 % 360 });
+    };
+    animate();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      previewGlobe.width(window.innerWidth);
+    });
+
+    // Add hover effects to features
+    document.querySelectorAll('.features li').forEach(feature => {
+      feature.addEventListener('mouseenter', () => {
+        feature.style.transform = 'translateX(10px)';
+        feature.style.transition = 'transform 0.3s ease';
+      });
+      feature.addEventListener('mouseleave', () => {
+        feature.style.transform = 'translateX(0)';
+      });
+    });
+  </script>
+</body>
+</html>

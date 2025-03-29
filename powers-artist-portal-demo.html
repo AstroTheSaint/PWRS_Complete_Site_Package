@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWRS Demo - Artist Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/three@0.144.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/globe.gl@4.3.0/dist/globe.gl.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>PWRS Artist Portal Demo</h1>
+        <nav>
+            <a href="index.html" class="cta-button">Back to Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="demo-section">
+            <div id="globeViz"></div>
+            <div class="stats-panel">
+                <h2>Artist Statistics</h2>
+                <div class="stat-item">
+                    <span>Total Shows</span>
+                    <strong>127</strong>
+                </div>
+                <div class="stat-item">
+                    <span>Countries Toured</span>
+                    <strong>15</strong>
+                </div>
+                <div class="stat-item">
+                    <span>Revenue Generated</span>
+                    <strong>$1.2M</strong>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 PWRS | <a href="index.html">Back to Home</a></p>
+    </footer>
+
+    <script>
+        // Initialize the Globe visualization
+        const Globe = new window.Globe();
+        const globeViz = Globe(document.getElementById('globeViz'))
+            .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+            .backgroundColor('rgba(0,0,0,0)')
+            .width(window.innerWidth)
+            .height(400);
+
+        // Add some sample data points
+        const sampleData = [
+            { lat: 40.7128, lng: -74.0060, city: 'New York' },
+            { lat: 51.5074, lng: -0.1278, city: 'London' },
+            { lat: 35.6762, lng: 139.6503, city: 'Tokyo' },
+        ];
+
+        globeViz.pointsData(sampleData)
+            .pointColor(() => '#1DB954')
+            .pointAltitude(0.1)
+            .pointRadius(0.5);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            globeViz.width(window.innerWidth);
+        });
+    </script>
+</body>
+</html>
