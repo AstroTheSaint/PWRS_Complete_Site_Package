@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set active state based on current page
     const currentPath = window.location.pathname;
     navLinks.forEach(link => {
-        if (link.getAttribute('href') && currentPath.includes(link.getAttribute('href'))) {
+        const href = link.getAttribute('href');
+        if (href && currentPath.includes(href)) {
             link.classList.add('active');
         }
     });

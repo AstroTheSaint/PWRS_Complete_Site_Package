@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWRS - GIT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* GIT-specific styles */
+        .git-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 1.5rem;
+        }
+
+        .git-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .git-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .git-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .git-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--green-accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .git-content {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .git-content h3 {
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .git-content p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .git-container {
+                grid-template-columns: 1fr;
+            }
+
+            .git-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading GIT...</p>
+    </div>
+
+    <div class="portal-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>PWRS</h2>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../dashboard/index.html" class="nav-link">
+                            📊 Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../music/index.html" class="nav-link">
+                            🎵 Music
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../shows/index.html" class="nav-link">
+                            🎫 Shows
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../revenue/index.html" class="nav-link">
+                            💰 Revenue
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../git/index.html" class="nav-link active">
+                            🌍 GIT
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../communications/index.html" class="nav-link">
+                            📬 Communications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../messages/index.html" class="nav-link">
+                            💬 Messages
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../index.html" class="nav-link">
+                            ← Back Home
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">GIT</h1>
+                <div class="profile-section">
+                    <img src="https://example.com/metro-boomin.jpg" alt="Profile" class="profile-image">
+                    <span class="profile-name">Metro Boomin</span>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="git-container">
+                    <div class="git-section">
+                        <div class="git-header">
+                            <h2 class="git-title">Global Impact Tracker</h2>
+                        </div>
+                        <div class="git-stats">
+                            <div class="stat-card">
+                                <div class="stat-value">15</div>
+                                <div class="stat-label">Countries Reached</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">127</div>
+                                <div class="stat-label">Shows Performed</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">12.4K</div>
+                                <div class="stat-label">Avg. Attendance</div>
+                            </div>
+                        </div>
+                        <div class="git-content">
+                            <h3>Global Impact Overview</h3>
+                            <p>Your music has reached audiences across 15 countries, with an average attendance of 12.4K people per show. Your influence continues to grow globally, with significant impact in North America, Europe, and Asia.</p>
+                            <h3>Recent Achievements</h3>
+                            <p>• Sold-out shows in London, Paris, and Tokyo</p>
+                            <p>• Chart-topping success in multiple countries</p>
+                            <p>• Growing fan base in emerging markets</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../portal-data.js"></script>
+    <script src="../portal-navigation.js"></script>
+    <script>
+        // Hide loading screen and show content
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loading').classList.add('hidden');
+                document.querySelector('.page-content').classList.add('loaded');
+            }, 1000);
+        });
+    </script>
+</body>
+</html> 
