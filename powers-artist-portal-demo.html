@@ -78,6 +78,8 @@
             margin-left: 280px;
             padding: 2rem 2.5rem;
             max-width: 1600px;
+            position: relative;
+            min-height: 100vh;
         }
 
         .page-header {
@@ -138,7 +140,7 @@
         .page-content {
             opacity: 0;
             transform: translateY(20px);
-            transition: all 0.5s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         .page-content.loaded {
@@ -172,10 +174,18 @@
 
         .content-section {
             display: none;
+            width: 100%;
+            position: absolute;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         .content-section.active {
             display: block;
+            position: relative;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Music Section Styles */
@@ -507,9 +517,9 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.5rem 1rem;
-            background: rgba(255, 215, 0, 0.1);
+            background: rgba(255, 165, 0, 0.1);
             border-radius: 20px;
-            color: #FFD700;
+            color: #FFA500;
             font-weight: 500;
         }
 
@@ -711,21 +721,7 @@
 
                     // Show corresponding section
                     const sectionId = link.dataset.section;
-                    sections.forEach(section => {
-                        section.classList.remove('active');
-                        if (section.id === sectionId) {
-                            section.classList.add('active');
-                            section.querySelector('.page-content').classList.add('loaded');
-                        } else {
-                            section.querySelector('.page-content').classList.remove('loaded');
-                        }
-                    });
-
-                    // Update page title
-                    const pageTitle = document.querySelector('.page-title');
-                    if (pageTitle) {
-                        pageTitle.textContent = link.textContent.trim().slice(2);
-                    }
+                    showSection(sectionId);
 
                     // If GIT section is active, try to initialize globe
                     if (sectionId === 'git') {
@@ -849,6 +845,69 @@
                 overlay.classList.remove('active');
             }
         });
+
+        // Update the navigation handling in the script
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            const targetSection = document.getElementById(sectionId);
+            
+            // First remove active class from all sections
+            sections.forEach(section => {
+                section.classList.remove('active');
+                const content = section.querySelector('.page-content');
+                if (content) {
+                    content.classList.remove('loaded');
+                }
+            });
+
+            // Then activate the target section
+            if (targetSection) {
+                targetSection.classList.add('active');
+                const content = targetSection.querySelector('.page-content');
+                if (content) {
+                    // Small delay to ensure smooth transition
+                    setTimeout(() => {
+                        content.classList.add('loaded');
+                    }, 50);
+                }
+            }
+
+            // Update page title
+            const pageTitle = document.querySelector('.page-title');
+            const activeLink = document.querySelector(`.nav-link[data-section="${sectionId}"]`);
+            if (pageTitle && activeLink) {
+                pageTitle.textContent = activeLink.textContent.trim().slice(2);
+            }
+        }
+
+        // Update the click handlers
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Update active link
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+
+                // Show corresponding section
+                const sectionId = link.dataset.section;
+                showSection(sectionId);
+
+                // If GIT section is active, initialize globe
+                if (sectionId === 'git') {
+                    initGlobe();
+                }
+            });
+        });
+
+        // Update hash handling
+        const handleHash = () => {
+            const hash = window.location.hash.slice(1) || 'dashboard';
+            const link = document.querySelector(`.nav-link[data-section="${hash}"]`);
+            if (link) {
+                link.click();
+            }
+        };
     </script>
 </head>
 <body>
