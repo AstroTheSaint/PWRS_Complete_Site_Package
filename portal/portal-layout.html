@@ -14,19 +14,17 @@
 
         .portal-container {
             display: grid;
-            grid-template-columns: 250px 1fr;
+            grid-template-columns: 280px 1fr;
             min-height: 100vh;
-            background: var(--bg-color);
-            color: var(--text-color);
-            position: relative;
+            background: var(--dark-bg);
         }
 
         .sidebar {
-            background: var(--card-bg);
+            background: rgba(0, 0, 0, 0.2);
             padding: 2rem;
             border-right: 1px solid rgba(255, 255, 255, 0.1);
             position: fixed;
-            width: 250px;
+            width: 280px;
             height: 100vh;
             overflow-y: auto;
             z-index: 100;
@@ -58,7 +56,7 @@
             display: flex;
             align-items: center;
             padding: 0.75rem 1rem;
-            color: var(--text-color);
+            color: var(--white);
             text-decoration: none;
             border-radius: 8px;
             transition: var(--transition);
@@ -67,77 +65,79 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        .nav-link:hover {
-            background: rgba(255, 255, 255, 0.05);
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(29, 185, 84, 0.1);
+            color: var(--green-accent);
             opacity: 1;
-            transform: translateX(5px);
         }
 
-        .nav-link.active {
-            background: var(--green-accent);
-            color: var(--white);
-            opacity: 1;
+        .nav-link span {
+            margin-left: 0.75rem;
         }
 
         .main-content {
             padding: 2rem;
-            margin-left: 250px;
-            position: relative;
-            min-height: 100vh;
+            margin-left: 280px;
+            overflow-y: auto;
             transition: var(--transition);
         }
 
-        .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
-        .page-title {
-            font-size: 1.8rem;
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
             font-weight: 600;
+            color: var(--green-accent);
         }
 
-        .profile-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        .globe-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            height: 500px;
+            position: relative;
         }
 
-        .profile-image {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
+        #globeViz {
+            width: 100%;
+            height: 100%;
         }
 
-        .profile-name {
-            font-weight: 500;
-        }
-
-        /* Mobile Menu Button */
-        .mobile-menu-button {
-            display: none;
-            position: fixed;
+        .year-filter {
+            position: absolute;
             top: 1rem;
             right: 1rem;
-            z-index: 1000;
-            background: var(--card-bg);
-            border: none;
-            border-radius: 8px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.5);
             padding: 0.5rem;
-            cursor: pointer;
-            transition: var(--transition);
+            border-radius: 8px;
         }
 
-        .mobile-menu-button span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: var(--text-color);
-            margin: 5px 0;
-            transition: var(--transition);
+        .year-filter select {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            border-radius: 4px;
         }
 
         /* Loading Screen */
@@ -188,18 +188,28 @@
             }
         }
 
-        /* Page Transitions */
-        .page-content {
-            opacity: 0;
-            transform: translateY(20px);
+        /* Mobile Menu Button */
+        .mobile-menu-button {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            background: var(--card-bg);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem;
+            cursor: pointer;
             transition: var(--transition);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
         }
 
-        .page-content.loaded {
-            opacity: 1;
-            transform: translateY(0);
+        .mobile-menu-button span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-color);
+            margin: 5px 0;
+            transition: var(--transition);
         }
 
         @media (max-width: 768px) {
@@ -243,7 +253,7 @@
     <!-- Loading Screen -->
     <div class="loading">
         <div class="loading-spinner"></div>
-        <p class="loading-text">Loading...</p>
+        <p class="loading-text">Loading Portal...</p>
     </div>
 
     <!-- Mobile Menu Button -->
@@ -261,37 +271,37 @@
             <nav>
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="dashboard/index.html" class="nav-link">
+                        <a href="#dashboard" class="nav-link active" data-tab="dashboard">
                             📊 Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="music/index.html" class="nav-link">
+                        <a href="#music" class="nav-link" data-tab="music">
                             🎵 Music
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="shows/index.html" class="nav-link">
+                        <a href="#shows" class="nav-link" data-tab="shows">
                             🎫 Shows
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="revenue/index.html" class="nav-link">
+                        <a href="#revenue" class="nav-link" data-tab="revenue">
                             💰 Revenue
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="git/index.html" class="nav-link">
+                        <a href="#git" class="nav-link" data-tab="git">
                             🌍 GIT
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="communications/index.html" class="nav-link">
+                        <a href="#communications" class="nav-link" data-tab="communications">
                             📬 Communications
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="messages/index.html" class="nav-link">
+                        <a href="#messages" class="nav-link" data-tab="messages">
                             💬 Messages
                         </a>
                     </li>
@@ -306,59 +316,150 @@
 
         <main class="main-content">
             <div class="page-header">
-                <h1 class="page-title">Dashboard</h1>
+                <h1 class="page-title">Artist Dashboard</h1>
                 <div class="profile-section">
                     <img src="https://example.com/metro-boomin.jpg" alt="Profile" class="profile-image">
                     <span class="profile-name">Metro Boomin</span>
                 </div>
             </div>
             <div class="page-content">
-                <!-- Page content will be injected here -->
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <h3>Total Revenue</h3>
+                        <div class="stat-value">$6.5M</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Shows Performed</h3>
+                        <div class="stat-value">127</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Countries</h3>
+                        <div class="stat-value">15</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Attendance</h3>
+                        <div class="stat-value">12.4K</div>
+                    </div>
+                </div>
+
+                <div class="globe-section">
+                    <div class="year-filter">
+                        <select id="yearSelect">
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024" selected>2024</option>
+                        </select>
+                    </div>
+                    <div id="globeViz"></div>
+                </div>
             </div>
         </main>
     </div>
 
-    <script src="portal-data.js"></script>
-    <script src="portal-navigation.js"></script>
+    <script src="../portal-data.js"></script>
+    <script src="../portal-navigation.js"></script>
     <script>
-        // Mobile menu functionality
-        const mobileMenuButton = document.querySelector('.mobile-menu-button');
-        const sidebar = document.querySelector('.sidebar');
-        const mainContent = document.querySelector('.main-content');
+        // Show content even if globe fails to load
+        setTimeout(() => {
+            document.querySelector('.loading').classList.add('hidden');
+        }, 2000);
 
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenuButton.classList.toggle('active');
-            sidebar.classList.toggle('active');
-            mainContent.classList.toggle('sidebar-active');
-        });
-
-        // Close sidebar when clicking outside on mobile
-        document.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768) {
-                if (!sidebar.contains(e.target) && !mobileMenuButton.contains(e.target)) {
-                    mobileMenuButton.classList.remove('active');
-                    sidebar.classList.remove('active');
-                    mainContent.classList.remove('sidebar-active');
-                }
-            }
-        });
-
-        // Hide loading screen and show content
+        // Load heavy scripts after initial content
         window.addEventListener('load', () => {
-            setTimeout(() => {
+            Promise.all([
+                loadScript('https://unpkg.com/three@0.144.0/build/three.min.js'),
+                loadScript('https://unpkg.com/globe.gl@4.3.0/dist/globe.gl.min.js')
+            ]).then(() => {
+                initGlobe();
+            }).catch(() => {
+                console.log('Globe visualization failed to load');
                 document.querySelector('.loading').classList.add('hidden');
-                document.querySelector('.page-content').classList.add('loaded');
-            }, 1000);
+            });
         });
 
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                mobileMenuButton.classList.remove('active');
-                sidebar.classList.remove('active');
-                mainContent.classList.remove('sidebar-active');
+        // Helper function to load scripts
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = resolve;
+                script.onerror = reject;
+                document.body.appendChild(script);
+            });
+        }
+
+        // Initialize globe after scripts are loaded
+        function initGlobe() {
+            const Globe = window.Globe();
+            const globeViz = Globe(document.getElementById('globeViz'))
+                .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+                .backgroundColor('rgba(0,0,0,0)')
+                .atmosphereColor('#1DB954')
+                .atmosphereAltitude(0.1);
+
+            const tourData = {
+                "2024": [
+                    { lat: 34.0522, lng: -118.2437, city: 'Los Angeles', value: 2000000 },
+                    { lat: 40.7128, lng: -74.0060, city: 'New York', value: 1800000 },
+                    { lat: 51.5074, lng: -0.1278, city: 'London', value: 1500000 },
+                    { lat: 35.6762, lng: 139.6503, city: 'Tokyo', value: 1200000 },
+                    { lat: -33.8688, lng: 151.2093, city: 'Sydney', value: 1000000 }
+                ],
+                "2023": [
+                    { lat: 19.4326, lng: -99.1332, city: 'Mexico City', value: 1600000 },
+                    { lat: 55.7558, lng: 37.6173, city: 'Moscow', value: 1400000 },
+                    { lat: 48.8566, lng: 2.3522, city: 'Paris', value: 1300000 }
+                ],
+                "2022": [
+                    { lat: 1.3521, lng: 103.8198, city: 'Singapore', value: 900000 },
+                    { lat: 25.2048, lng: 55.2708, city: 'Dubai', value: 1100000 },
+                    { lat: -22.9068, lng: -43.1729, city: 'Rio de Janeiro', value: 800000 }
+                ]
+            };
+
+            function updateGlobeData(year) {
+                const data = tourData[year] || [];
+                globeViz
+                    .pointsData(data)
+                    .pointColor(() => '#1DB954')
+                    .pointAltitude(0.1)
+                    .pointRadius(d => Math.sqrt(d.value) * 0.00015)
+                    .pointLabel(d => `${d.city}: $${(d.value / 1000000).toFixed(1)}M`);
             }
-        });
+
+            // Handle year selection
+            document.getElementById('yearSelect').addEventListener('change', (e) => {
+                updateGlobeData(e.target.value);
+            });
+
+            // Initialize with 2024 data
+            updateGlobeData('2024');
+
+            // Auto-rotate
+            let frame = 0;
+            const animate = () => {
+                frame = requestAnimationFrame(animate);
+                globeViz.rotation({ lat: 0, lng: frame * 0.05 % 360 });
+            };
+            animate();
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                const container = document.querySelector('.globe-section');
+                globeViz
+                    .width(container.clientWidth)
+                    .height(container.clientHeight);
+            });
+
+            // Initial size set
+            const container = document.querySelector('.globe-section');
+            globeViz
+                .width(container.clientWidth)
+                .height(container.clientHeight);
+
+            // Hide loading screen
+            document.querySelector('.loading').classList.add('hidden');
+        }
     </script>
 </body>
 </html> 

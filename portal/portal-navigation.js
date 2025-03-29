@@ -6,11 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenuButton = document.querySelector('.mobile-menu-button');
     const sidebar = document.querySelector('.sidebar');
 
-    // Set active state based on current page
-    const currentPath = window.location.pathname;
+    // Set active state based on current hash
+    const currentHash = window.location.hash || '#dashboard';
     navLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && currentPath.includes(href)) {
+        if (link.getAttribute('href') === currentHash) {
             link.classList.add('active');
         }
     });
@@ -20,6 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const href = link.getAttribute('href');
+            
+            // Skip if it's the back home link
+            if (href === '../index.html') {
+                window.location.href = href;
+                return;
+            }
             
             // Update active state
             navLinks.forEach(l => l.classList.remove('active'));
@@ -35,22 +40,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 sidebar.classList.remove('active');
             }
 
-            // Navigate after a short delay
+            // Update URL hash
+            window.location.hash = href.substring(1);
+
+            // Hide loading screen after a short delay
             setTimeout(() => {
-                window.location.href = href;
+                loadingScreen.classList.remove('visible');
+                pageContent.classList.add('loaded');
             }, 300);
         });
     });
 
-    // Handle back/forward browser navigation
-    window.addEventListener('popstate', () => {
-        loadingScreen.classList.add('visible');
-        pageContent.classList.remove('loaded');
-        
-        setTimeout(() => {
-            loadingScreen.classList.remove('visible');
-            pageContent.classList.add('loaded');
-        }, 300);
+    // Handle hash changes
+    window.addEventListener('hashchange', () => {
+        const hash = window.location.hash || '#dashboard';
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === hash) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
     });
 
     // Handle initial page load
@@ -65,4 +75,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1000);
         });
     }
+
+    // Mobile menu functionality
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenuButton.classList.toggle('active');
+        sidebar.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+            if (!sidebar.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+                mobileMenuButton.classList.remove('active');
+                sidebar.classList.remove('active');
+            }
+        }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            mobileMenuButton.classList.remove('active');
+            sidebar.classList.remove('active');
+        }
+    });
 }); 
