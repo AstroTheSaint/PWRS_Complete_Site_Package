@@ -271,6 +271,182 @@
                 margin-left: 0;
             }
         }
+
+        /* Messages Section Styles */
+        .messages-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .message-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
+        }
+
+        .message-tab {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .message-tab.active {
+            background: var(--green-accent);
+            color: var(--white);
+        }
+
+        .message-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .message-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .message-venue {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .message-date {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .message-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .detail-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .detail-value {
+            font-weight: 500;
+        }
+
+        /* Album Grid Enhancements */
+        .album-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .album-stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            color: var(--green-accent);
+            font-weight: 600;
+        }
+
+        .stat-text {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Revenue Enhancements */
+        .revenue-chart {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            height: 300px;
+        }
+
+        .revenue-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .breakdown-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .breakdown-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .breakdown-title {
+            font-weight: 600;
+        }
+
+        .breakdown-amount {
+            color: var(--green-accent);
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--green-accent);
+            border-radius: 4px;
+        }
+
+        /* GIT Map Enhancements */
+        .map-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .map-filter {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .map-filter.active {
+            background: var(--green-accent);
+        }
     </style>
 </head>
 <body>
@@ -308,6 +484,11 @@
                     <li class="nav-item">
                         <a href="#git" class="nav-link" data-section="git">
                             🌍 GIT
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#messages" class="nav-link" data-section="messages">
+                            📬 Messages
                         </a>
                     </li>
                     <li class="nav-item">
@@ -358,17 +539,37 @@
                     <h2 class="section-title">Latest Releases</h2>
                     <div class="music-grid">
                         <div class="album-card">
-                            <img src="https://i.imgur.com/placeholder.jpg" alt="HEROES & VILLAINS" class="album-image">
+                            <img src="https://i.discogs.com/V9AtE3hI_g_olcg3ZG9WnHEIZvkR2_YNE_vHiKB0WZE/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIzOTY4/ODY5LTE2NjA2ODY3/ODItNDEyMi5qcGVn.jpeg" alt="HEROES & VILLAINS" class="album-image">
                             <div class="album-info">
                                 <h3 class="album-title">HEROES & VILLAINS</h3>
                                 <div class="album-meta">Released Dec 2, 2022</div>
+                                <div class="album-stats">
+                                    <div class="album-stat">
+                                        <div class="stat-number">2.1M</div>
+                                        <div class="stat-text">Streams</div>
+                                    </div>
+                                    <div class="album-stat">
+                                        <div class="stat-number">$850K</div>
+                                        <div class="stat-text">Revenue</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="album-card">
-                            <img src="https://i.imgur.com/placeholder.jpg" alt="NOT ALL HEROES WEAR CAPES" class="album-image">
+                            <img src="https://i.discogs.com/8FpcYKUz_9dXHBY1UCI2pn_3BN3_qQrI2QhZTN9jFHY/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI3MjQ4/NTY5LTE2Nzc3OTY3/NzItNzU5NC5qcGVn.jpeg" alt="HEROES & VILLAINS (Deluxe)" class="album-image">
                             <div class="album-info">
-                                <h3 class="album-title">NOT ALL HEROES WEAR CAPES</h3>
-                                <div class="album-meta">Released Nov 2, 2018</div>
+                                <h3 class="album-title">HEROES & VILLAINS (Deluxe)</h3>
+                                <div class="album-meta">Released Jan 20, 2023</div>
+                                <div class="album-stats">
+                                    <div class="album-stat">
+                                        <div class="stat-number">1.8M</div>
+                                        <div class="stat-text">Streams</div>
+                                    </div>
+                                    <div class="album-stat">
+                                        <div class="stat-number">$720K</div>
+                                        <div class="stat-text">Revenue</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -384,6 +585,11 @@
                             <div class="show-info">
                                 <h3>TD Garden</h3>
                                 <div class="show-meta">Boston, MA • Mar 15, 2024</div>
+                                <div class="show-details">
+                                    <span>Capacity: 19,580</span>
+                                    <span>• Ticket Price: $175-350</span>
+                                    <span>• Expected Revenue: $2.5M</span>
+                                </div>
                             </div>
                             <div class="show-status">Confirmed</div>
                         </div>
@@ -391,6 +597,11 @@
                             <div class="show-info">
                                 <h3>LIV Nightclub</h3>
                                 <div class="show-meta">Miami, FL • Mar 20, 2024</div>
+                                <div class="show-details">
+                                    <span>Capacity: 2,000</span>
+                                    <span>• Booking Fee: $50,000</span>
+                                    <span>• VIP Tables: $25,000</span>
+                                </div>
                             </div>
                             <div class="show-status">Pending</div>
                         </div>
@@ -405,14 +616,52 @@
                         <div class="stat-card">
                             <div class="stat-value">$1.75M</div>
                             <div class="stat-label">2024 Revenue</div>
+                            <div class="stat-change">↗ +45.8% vs Last Year</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-value">$475K</div>
                             <div class="stat-label">Last Month</div>
+                            <div class="stat-change">↗ +375.0% vs Last Month</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-value">35%</div>
                             <div class="stat-label">Goal Progress</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 35%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="revenue-breakdown">
+                        <div class="breakdown-card">
+                            <div class="breakdown-header">
+                                <span class="breakdown-title">Shows Revenue</span>
+                                <span class="breakdown-amount">$1.4M</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%"></div>
+                            </div>
+                            <div class="breakdown-meta">80% of total revenue</div>
+                        </div>
+                        <div class="breakdown-card">
+                            <div class="breakdown-header">
+                                <span class="breakdown-title">Merchandise</span>
+                                <span class="breakdown-amount">$250K</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 14.3%"></div>
+                            </div>
+                            <div class="breakdown-meta">14.3% of total revenue</div>
+                        </div>
+                        <div class="breakdown-card">
+                            <div class="breakdown-header">
+                                <span class="breakdown-title">Other Sources</span>
+                                <span class="breakdown-amount">$100K</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 5.7%"></div>
+                            </div>
+                            <div class="breakdown-meta">5.7% of total revenue</div>
                         </div>
                     </div>
                 </div>
@@ -421,21 +670,89 @@
             <!-- GIT Section -->
             <div class="content-section" id="git">
                 <div class="page-content">
+                    <div class="map-filters">
+                        <button class="map-filter active">2024</button>
+                        <button class="map-filter">2023</button>
+                        <button class="map-filter">2022</button>
+                    </div>
                     <div class="map-container">
-                        <!-- Map will be added here -->
+                        <div id="globeViz"></div>
                     </div>
                     <div class="tour-stats">
                         <div class="stat-card">
                             <div class="stat-value">15</div>
                             <div class="stat-label">Countries Toured</div>
+                            <div class="stat-change">↗ +25% vs 2023</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-value">127</div>
                             <div class="stat-label">Total Shows</div>
+                            <div class="stat-change">↗ +40% vs 2023</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-value">1.5M</div>
                             <div class="stat-label">Total Attendance</div>
+                            <div class="stat-change">↗ +35% vs 2023</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages Section -->
+            <div class="content-section" id="messages">
+                <div class="page-content">
+                    <div class="message-tabs">
+                        <button class="message-tab active">SHOW REQUESTS</button>
+                        <button class="message-tab">MESSAGES</button>
+                    </div>
+                    <div class="messages-container">
+                        <div class="message-list">
+                            <div class="message-card">
+                                <div class="message-header">
+                                    <div class="message-venue">TD Garden Booking</div>
+                                    <div class="message-date">Updated Mar 10, 2024</div>
+                                </div>
+                                <div class="message-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Initial Amount</span>
+                                        <span class="detail-value">$150,000</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Final Amount</span>
+                                        <span class="detail-value">$175,000</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Duration</span>
+                                        <span class="detail-value">90 minutes</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Setup Time</span>
+                                        <span class="detail-value">2 hours</span>
+                                    </div>
+                                </div>
+                                <div class="message-status">Status: Approved</div>
+                            </div>
+                            <div class="message-card">
+                                <div class="message-header">
+                                    <div class="message-venue">LIV Nightclub Inquiry</div>
+                                    <div class="message-date">Updated Mar 12, 2024</div>
+                                </div>
+                                <div class="message-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Proposed Amount</span>
+                                        <span class="detail-value">$50,000</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Duration</span>
+                                        <span class="detail-value">60 minutes</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">VIP Tables</span>
+                                        <span class="detail-value">10 available</span>
+                                    </div>
+                                </div>
+                                <div class="message-status">Status: Negotiating</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -443,6 +760,8 @@
         </main>
     </div>
 
+    <script src="https://unpkg.com/three@0.144.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/globe.gl@4.3.0/dist/globe.gl.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Hide loading screen after a delay
@@ -489,6 +808,36 @@
 
             window.addEventListener('hashchange', handleHash);
             handleHash(); // Handle initial hash
+
+            // Initialize globe visualization
+            window.addEventListener('load', () => {
+                const Globe = window.Globe();
+                const globeViz = Globe(document.getElementById('globeViz'))
+                    .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+                    .backgroundColor('rgba(0,0,0,0)')
+                    .atmosphereColor('#1DB954')
+                    .atmosphereAltitude(0.1)
+                    .pointsData([
+                        { lat: 34.0522, lng: -118.2437, size: 0.2, city: 'Los Angeles' },
+                        { lat: 40.7128, lng: -74.0060, size: 0.2, city: 'New York' },
+                        { lat: 51.5074, lng: -0.1278, size: 0.2, city: 'London' },
+                        { lat: 35.6762, lng: 139.6503, size: 0.2, city: 'Tokyo' },
+                        { lat: -33.8688, lng: 151.2093, size: 0.2, city: 'Sydney' }
+                    ])
+                    .pointColor(() => '#1DB954')
+                    .pointAltitude(0.1)
+                    .pointRadius('size')
+                    .pointLabel(d => d.city);
+
+                // Handle message tabs
+                const messageTabs = document.querySelectorAll('.message-tab');
+                messageTabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        messageTabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                    });
+                });
+            });
         });
     </script>
 </body>
