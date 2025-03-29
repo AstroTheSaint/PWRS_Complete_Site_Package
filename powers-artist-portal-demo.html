@@ -175,17 +175,10 @@
         .content-section {
             display: none;
             width: 100%;
-            position: absolute;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         .content-section.active {
             display: block;
-            position: relative;
-            opacity: 1;
-            transform: translateY(0);
         }
 
         /* Music Section Styles */
@@ -665,6 +658,104 @@
         .overlay.active {
             display: block;
         }
+
+        /* Revenue page specific styles */
+        .revenue-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .revenue-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .revenue-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .revenue-stat-card {
+            background: var(--card-bg);
+            padding: 1.75rem;
+            border-radius: 12px;
+        }
+
+        .revenue-stat-value {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--green-accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .revenue-stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        .revenue-stat-change {
+            color: var(--green-accent);
+            font-size: 0.9rem;
+        }
+
+        .revenue-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .breakdown-item {
+            background: var(--card-bg);
+            padding: 1.75rem;
+            border-radius: 12px;
+        }
+
+        .breakdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .breakdown-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .breakdown-value {
+            color: var(--green-accent);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .breakdown-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+        }
+
+        .breakdown-fill {
+            height: 100%;
+            background: var(--green-accent);
+            border-radius: 3px;
+        }
+
+        .breakdown-meta {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .revenue-stats {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
     <!-- Move scripts to head with defer -->
     <script defer src="https://unpkg.com/three@0.144.0/build/three.min.js"></script>
@@ -1116,54 +1207,59 @@
             <!-- Revenue Section -->
             <div class="content-section" id="revenue">
                 <div class="page-content">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-value">$1.75M</div>
-                            <div class="stat-label">2024 Revenue</div>
-                            <div class="stat-change">↗ +45.8% vs Last Year</div>
+                    <div class="revenue-header">
+                        <h1 class="revenue-title">Revenue</h1>
+                        <span class="profile-name">Metro Boomin</span>
+                    </div>
+
+                    <div class="revenue-stats">
+                        <div class="revenue-stat-card">
+                            <div class="revenue-stat-value">$1.75M</div>
+                            <div class="revenue-stat-label">2024 Revenue</div>
+                            <div class="revenue-stat-change">↗ +45.8% vs Last Year</div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-value">$475K</div>
-                            <div class="stat-label">Last Month</div>
-                            <div class="stat-change">↗ +375.0% vs Last Month</div>
+                        <div class="revenue-stat-card">
+                            <div class="revenue-stat-value">$475K</div>
+                            <div class="revenue-stat-label">Last Month</div>
+                            <div class="revenue-stat-change">↗ +375.0% vs Last Month</div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-value">35%</div>
-                            <div class="stat-label">Goal Progress</div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 35%"></div>
+                        <div class="revenue-stat-card">
+                            <div class="revenue-stat-value">35%</div>
+                            <div class="revenue-stat-label">Goal Progress</div>
+                            <div class="breakdown-bar">
+                                <div class="breakdown-fill" style="width: 35%"></div>
                             </div>
                         </div>
                     </div>
 
                     <div class="revenue-breakdown">
-                        <div class="breakdown-card">
+                        <div class="breakdown-item">
                             <div class="breakdown-header">
-                                <span class="breakdown-title">Shows Revenue</span>
-                                <span class="breakdown-amount">$1.4M</span>
+                                <div class="breakdown-title">Shows Revenue</div>
+                                <div class="breakdown-value">$1.4M</div>
                             </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 80%"></div>
+                            <div class="breakdown-bar">
+                                <div class="breakdown-fill" style="width: 80%"></div>
                             </div>
                             <div class="breakdown-meta">80% of total revenue</div>
                         </div>
-                        <div class="breakdown-card">
+                        <div class="breakdown-item">
                             <div class="breakdown-header">
-                                <span class="breakdown-title">Merchandise</span>
-                                <span class="breakdown-amount">$250K</span>
+                                <div class="breakdown-title">Merchandise</div>
+                                <div class="breakdown-value">$250K</div>
                             </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 14.3%"></div>
+                            <div class="breakdown-bar">
+                                <div class="breakdown-fill" style="width: 14.3%"></div>
                             </div>
                             <div class="breakdown-meta">14.3% of total revenue</div>
                         </div>
-                        <div class="breakdown-card">
+                        <div class="breakdown-item">
                             <div class="breakdown-header">
-                                <span class="breakdown-title">Other Sources</span>
-                                <span class="breakdown-amount">$100K</span>
+                                <div class="breakdown-title">Other Sources</div>
+                                <div class="breakdown-value">$100K</div>
                             </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 5.7%"></div>
+                            <div class="breakdown-bar">
+                                <div class="breakdown-fill" style="width: 5.7%"></div>
                             </div>
                             <div class="breakdown-meta">5.7% of total revenue</div>
                         </div>
