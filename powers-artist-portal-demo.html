@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PWRS - Artist Portal Demo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>PWRS Artist Portal - Metro Boomin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --background: #121212;
-            --card-bg: #1E1E1E;
-            --white: #FFFFFF;
-            --green-accent: #1DB954;
+            --primary-color: #1DB954;
+            --bg-color: #121212;
+            --sidebar-bg: #000000;
+            --card-bg: #181818;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B3B3B3;
             --transition: all 0.3s ease;
+            --success-color: #1DB954;
+            --warning-color: #FFB946;
+            --danger-color: #FF4646;
+            --border-radius: 8px;
         }
 
         * {
@@ -22,63 +28,51 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--background);
-            color: var(--white);
+            background: var(--bg-color);
+            color: var(--text-primary);
             line-height: 1.6;
         }
 
-        .portal-container {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            min-height: 100vh;
-            background: var(--background);
-        }
-
+        /* Sidebar Styles */
         .sidebar {
-            background: var(--card-bg);
-            padding: 2rem 1.5rem;
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
             position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
             width: 280px;
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 2.5rem;
-            color: var(--white);
+            background: var(--sidebar-bg);
+            padding: 2rem 1rem;
+            z-index: 999;
         }
 
         .nav-menu {
             list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
             padding: 0.75rem 1rem;
-            color: var(--white);
+            color: var(--text-secondary);
             text-decoration: none;
-            border-radius: 8px;
-            transition: background-color 0.2s ease;
-            font-weight: 500;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
         }
 
         .nav-link:hover,
         .nav-link.active {
+            color: var(--text-primary);
             background: rgba(255, 255, 255, 0.1);
         }
 
+        /* Main Content Styles */
         .main-content {
             margin-left: 280px;
             padding: 2rem 2.5rem;
-            max-width: 1600px;
-            position: relative;
             min-height: 100vh;
         }
 
@@ -89,11 +83,6 @@
             margin-bottom: 2rem;
         }
 
-        .page-title {
-            font-size: 2rem;
-            font-weight: 600;
-        }
-
         .profile-section {
             display: flex;
             align-items: center;
@@ -101,146 +90,140 @@
         }
 
         .profile-image {
-            width: 40px;
-            height: 40px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             object-fit: cover;
         }
 
-        .profile-name {
+        /* Tab Content Styles */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Shows Section */
+        .shows-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .show-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+        }
+
+        .show-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .show-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
             font-weight: 500;
         }
 
-        .loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #1DB954;
-            font-size: 24px;
-            z-index: 9999;
-            transition: opacity 0.3s ease-out;
-        }
+        .status-confirmed { background: var(--success-color); }
+        .status-pending { background: var(--warning-color); }
+        .status-negotiating { background: var(--danger-color); }
 
-        .loading.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loading-text {
-            font-size: 1.5rem;
-            color: var(--green-accent);
-        }
-
-        .page-content {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .page-content.loaded {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .stats-grid {
+        /* Revenue Section */
+        .revenue-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
         .stat-card {
             background: var(--card-bg);
+            border-radius: var(--border-radius);
             padding: 1.5rem;
-            border-radius: 12px;
         }
 
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--green-accent);
-            margin-bottom: 0.5rem;
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
         }
 
-        .stat-label {
-            color: rgba(255, 255, 255, 0.7);
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
         }
 
-        .content-section {
-            display: none;
-            width: 100%;
-        }
-
-        .content-section.active {
-            display: block;
-        }
-
-        /* Shows Section Styles */
-        .shows-list {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .show-card {
+        /* GIT Section */
+        .git-container {
             background: var(--card-bg);
+            border-radius: var(--border-radius);
             padding: 1.5rem;
-            border-radius: 12px;
+            height: 600px;
+            position: relative;
+        }
+
+        .git-filters {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 2;
+        }
+
+        .git-stats {
             display: grid;
-            grid-template-columns: 1fr auto;
-            align-items: center;
+            grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
+            margin-top: 1rem;
         }
 
-        .show-info h3 {
-            margin-bottom: 0.5rem;
+        /* Messages Section */
+        .messages-container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
         }
 
-        .show-meta {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
+        .message-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
         }
 
-        .show-status {
+        .message-tab {
             padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            background: rgba(29, 185, 84, 0.1);
-            color: var(--green-accent);
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
         }
 
-        /* GIT Section Styles */
-        .map-container {
-            background: var(--card-bg);
-            border-radius: 12px;
+        .message-tab.active {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .message-content {
             padding: 1.5rem;
-            height: 400px;
-            margin-bottom: 1.5rem;
         }
 
-        .tour-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
+        /* Mobile Styles */
         @media (max-width: 768px) {
-            .menu-button {
-                display: block;
-            }
-
-            .portal-container {
-                grid-template-columns: 1fr;
-            }
-
             .sidebar {
                 transform: translateX(-100%);
-                z-index: 999;
+                transition: transform 0.3s ease;
             }
 
             .sidebar.active {
@@ -249,686 +232,213 @@
 
             .main-content {
                 margin-left: 0;
-                padding: 1.5rem;
             }
 
-            .welcome-header {
-                flex-direction: column;
-                align-items: stretch;
+            .menu-button {
+                display: block;
             }
-
-            .progress-card {
-                min-width: 100%;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .activity-item {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-
-            .page-header {
-                padding-right: 4rem;
-            }
-        }
-
-        /* Messages Section Styles */
-        .messages-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        .message-tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 1rem;
-        }
-
-        .message-tab {
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            background: transparent;
-            color: rgba(255, 255, 255, 0.7);
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .message-tab.active {
-            background: var(--green-accent);
-            color: var(--white);
-        }
-
-        .message-list {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .message-card {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 12px;
-        }
-
-        .message-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-        }
-
-        .message-venue {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .message-date {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-
-        .message-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-        }
-
-        .detail-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .detail-label {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-
-        .detail-value {
-            font-weight: 500;
-        }
-
-        /* Album Grid Enhancements */
-        .album-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 0.5rem;
-            padding-top: 0.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .album-stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            color: var(--green-accent);
-            font-weight: 600;
-        }
-
-        .stat-text {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Revenue Enhancements */
-        .revenue-chart {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            height: 300px;
-        }
-
-        .revenue-breakdown {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .breakdown-card {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 12px;
-        }
-
-        .breakdown-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-        }
-
-        .breakdown-title {
-            font-weight: 600;
-        }
-
-        .breakdown-amount {
-            color: var(--green-accent);
-            font-weight: 600;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 0.5rem 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--green-accent);
-            border-radius: 4px;
-        }
-
-        /* GIT Map Enhancements */
-        .map-filters {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .map-filter {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--white);
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .map-filter.active {
-            background: var(--green-accent);
-        }
-
-        /* Dashboard specific styles */
-        .welcome-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 2.5rem;
-        }
-
-        .welcome-title {
-            font-size: 3rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: var(--white);
-        }
-
-        .artist-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(255, 165, 0, 0.1);
-            border-radius: 20px;
-            color: #FFA500;
-            font-weight: 500;
-        }
-
-        .progress-card {
-            background: var(--card-bg);
-            padding: 1.25rem;
-            border-radius: 12px;
-            min-width: 200px;
-        }
-
-        .progress-text {
-            color: var(--white);
-            margin-bottom: 0.5rem;
-        }
-
-        .progress-bar {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--green-accent);
-            border-radius: 3px;
-            transition: width 0.3s ease;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .stat-icon {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: var(--green-accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .communications-card {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 12px;
-        }
-
-        .communications-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .communications-header h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .response-rate {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            color: var(--green-accent);
-        }
-
-        .activity-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .activity-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .activity-item:last-child {
-            border-bottom: none;
-        }
-
-        .activity-venue {
-            font-weight: 500;
-            margin-bottom: 0.25rem;
-        }
-
-        .activity-date {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.875rem;
-        }
-
-        .status-tag {
-            padding: 0.35rem 0.75rem;
-            border-radius: 16px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        .status-approved {
-            background: rgba(29, 185, 84, 0.1);
-            color: var(--green-accent);
-        }
-
-        .status-negotiating {
-            background: rgba(255, 165, 0, 0.1);
-            color: #FFA500;
-        }
-
-        /* Overlay for mobile menu */
-        .overlay {
-            display: none !important;
-        }
-
-        /* Revenue page specific styles */
-        .revenue-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .revenue-title {
-            font-size: 2.5rem;
-            font-weight: 600;
-        }
-
-        .revenue-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .revenue-stat-card {
-            background: var(--card-bg);
-            padding: 1.75rem;
-            border-radius: 12px;
-        }
-
-        .revenue-stat-value {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: var(--green-accent);
-            margin-bottom: 0.75rem;
-        }
-
-        .revenue-stat-label {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 0.5rem;
-        }
-
-        .revenue-stat-change {
-            color: var(--green-accent);
-            font-size: 0.9rem;
-        }
-
-        .revenue-breakdown {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .breakdown-item {
-            background: var(--card-bg);
-            padding: 1.75rem;
-            border-radius: 12px;
-        }
-
-        .breakdown-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .breakdown-title {
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-
-        .breakdown-value {
-            color: var(--green-accent);
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .breakdown-bar {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-bottom: 0.75rem;
-        }
-
-        .breakdown-fill {
-            height: 100%;
-            background: var(--green-accent);
-            border-radius: 3px;
-        }
-
-        .breakdown-meta {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .revenue-stats {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Tab content styles */
-        .tab-content {
-            display: none;
-            opacity: 0;
-            position: absolute;
-            width: 100%;
-            transition: opacity 0.3s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-            opacity: 1;
-            position: relative;
         }
     </style>
-    <!-- Move scripts to head with defer -->
-    <script defer src="https://unpkg.com/three@0.144.0/build/three.min.js"></script>
-    <script defer src="https://unpkg.com/globe.gl@4.3.0/dist/globe.gl.min.js"></script>
+</head>
+<body>
+    <aside class="sidebar">
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active" data-tab="dashboard">
+                        📊 Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#shows" class="nav-link" data-tab="shows">
+                        🎫 Shows
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#revenue" class="nav-link" data-tab="revenue">
+                        💰 Revenue
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#git" class="nav-link" data-tab="git">
+                        🌍 GIT
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#messages" class="nav-link" data-tab="messages">
+                        📬 Messages
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Dashboard</h1>
+            <div class="profile-section">
+                <img src="https://media.pitchfork.com/photos/63666a22b9cbe0d75d25b3cb/1:1/w_800,h_800,c_limit/Metro-Boomin.jpg" alt="Metro Boomin" class="profile-image">
+                <span class="profile-name">Metro Boomin</span>
+            </div>
+        </div>
+
+        <!-- Shows Section -->
+        <div id="shows" class="tab-content">
+            <div class="shows-list">
+                <div class="show-card">
+                    <div class="show-header">
+                        <div>
+                            <h3>TD Garden</h3>
+                            <p>Boston, MA</p>
+                            <p>March 15, 2024 - 8:00 PM</p>
+                        </div>
+                        <span class="show-status status-confirmed">Confirmed</span>
+                    </div>
+                    <div class="show-details">
+                        <p>Capacity: 19,580</p>
+                        <p>Ticket Range: $75 - $250</p>
+                        <p>Expected Revenue: $2.1M</p>
+                        <p>Setup Time: 2:00 PM</p>
+                        <p>Duration: 2.5 hours</p>
+                    </div>
+                </div>
+                <div class="show-card">
+                    <div class="show-header">
+                        <div>
+                            <h3>LIV Nightclub</h3>
+                            <p>Miami, FL</p>
+                            <p>March 22, 2024 - 11:00 PM</p>
+                        </div>
+                        <span class="show-status status-negotiating">Negotiating</span>
+                    </div>
+                    <div class="show-details">
+                        <p>Capacity: 2,000</p>
+                        <p>Ticket Range: $100 - $500</p>
+                        <p>Expected Revenue: $450K</p>
+                        <p>Setup Time: 8:00 PM</p>
+                        <p>Duration: 1.5 hours</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revenue Section -->
+        <div id="revenue" class="tab-content">
+            <div class="revenue-stats">
+                <div class="stat-card">
+                    <h3>Year-to-Date Revenue</h3>
+                    <h2>$1.75M</h2>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 35%;"></div>
+                    </div>
+                    <p>35% of yearly goal ($5M)</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Monthly Revenue</h3>
+                    <h2>$475K</h2>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 79%;"></div>
+                    </div>
+                    <p>79% of monthly goal ($600K)</p>
+                </div>
+            </div>
+            <div class="revenue-breakdown">
+                <h3>Revenue Breakdown</h3>
+                <div class="stat-card">
+                    <div class="breakdown-item">
+                        <span>Shows Revenue</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 80%;"></div>
+                        </div>
+                        <span>$1.4M (80%)</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Merchandise</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 14.3%;"></div>
+                        </div>
+                        <span>$250K (14.3%)</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Other Sources</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 5.7%;"></div>
+                        </div>
+                        <span>$100K (5.7%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GIT Section -->
+        <div id="git" class="tab-content">
+            <div class="git-container">
+                <div class="git-filters">
+                    <select id="yearFilter">
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                    </select>
+                </div>
+                <div id="globeViz"></div>
+                <div class="git-stats">
+                    <div class="stat-card">
+                        <h3>Countries Toured</h3>
+                        <h2>15</h2>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Shows</h3>
+                        <h2>127</h2>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Attendance</h3>
+                        <h2>1.5M</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages Section -->
+        <div id="messages" class="tab-content">
+            <div class="messages-container">
+                <div class="message-tabs">
+                    <div class="message-tab active">SHOW REQUESTS</div>
+                    <div class="message-tab">MESSAGES</div>
+                </div>
+                <div class="message-content">
+                    <div class="show-request">
+                        <div class="show-card">
+                            <div class="show-header">
+                                <div>
+                                    <h3>TD Garden Booking</h3>
+                                    <p>Initial Amount: $175,000</p>
+                                    <p>Final Amount: $200,000</p>
+                                </div>
+                                <span class="show-status status-confirmed">Approved</span>
+                            </div>
+                            <div class="show-details">
+                                <p>Duration: 2.5 hours</p>
+                                <p>Setup Time: 2:00 PM</p>
+                                <p>Equipment: Full Stage Setup Required</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <button class="menu-button">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <script src="https://unpkg.com/globe.gl"></script>
     <script>
-        console.log('Script starting...');
-        
-        // Ensure the page loads even if scripts fail
-        function initializePortal() {
-            console.log('Initializing portal...');
-            
-            // Force remove loading screen after 2 seconds max
-            setTimeout(() => {
-                console.log('Force removing loading screen...');
-                const loadingScreen = document.querySelector('.loading');
-                if (loadingScreen) {
-                    loadingScreen.classList.add('hidden');
-                    setTimeout(() => loadingScreen.style.display = 'none', 300);
-                }
-            }, 2000);
-
-            // Show initial content immediately
-            const initialSection = document.querySelector('.content-section.active') || document.querySelector('.content-section');
-            if (initialSection) {
-                console.log('Showing initial section:', initialSection.id);
-                initialSection.classList.add('active');
-                const pageContent = initialSection.querySelector('.page-content');
-                if (pageContent) {
-                    pageContent.classList.add('loaded');
-                }
-            }
-
-            // Remove loading screen immediately
-            const loadingScreen = document.querySelector('.loading');
-            if (loadingScreen) {
-                console.log('Removing loading screen...');
-                loadingScreen.classList.add('hidden');
-                setTimeout(() => loadingScreen.style.display = 'none', 300);
-            }
-
-            // Handle navigation
-            const navLinks = document.querySelectorAll('.nav-link[data-tab]');
-            const sections = document.querySelectorAll('.content-section');
-            
-            console.log('Setting up navigation...');
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    console.log('Navigation clicked:', link.dataset.tab);
-
-                    // Update active link
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
-
-                    // Show corresponding section
-                    const sectionId = link.dataset.tab;
-                    showSection(sectionId);
-
-                    // If GIT section is active, try to initialize globe
-                    if (sectionId === 'git') {
-                        initGlobe();
-                    }
-                });
-            });
-
-            // Handle hash-based navigation
-            const handleHash = () => {
-                const hash = window.location.hash.slice(1) || 'dashboard';
-                console.log('Handling hash:', hash);
-                const link = document.querySelector(`.nav-link[data-tab="${hash}"]`);
-                if (link) {
-                    link.click();
-                }
-            };
-
-            window.addEventListener('hashchange', handleHash);
-            handleHash(); // Handle initial hash
-
-            // Initialize globe visualization
-            const initGlobe = () => {
-                console.log('Initializing globe...');
-                if (!window.Globe) {
-                    console.log('Globe not available');
-                    return;
-                }
-                try {
-                    const Globe = window.Globe();
-                    const globeViz = Globe(document.getElementById('globeViz'))
-                        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-                        .backgroundColor('rgba(0,0,0,0)')
-                        .atmosphereColor('#1DB954')
-                        .atmosphereAltitude(0.1)
-                        .pointsData([
-                            { lat: 34.0522, lng: -118.2437, size: 0.2, city: 'Los Angeles' },
-                            { lat: 40.7128, lng: -74.0060, size: 0.2, city: 'New York' },
-                            { lat: 51.5074, lng: -0.1278, size: 0.2, city: 'London' },
-                            { lat: 35.6762, lng: 139.6503, size: 0.2, city: 'Tokyo' },
-                            { lat: -33.8688, lng: 151.2093, size: 0.2, city: 'Sydney' }
-                        ])
-                        .pointColor(() => '#1DB954')
-                        .pointAltitude(0.1)
-                        .pointRadius('size')
-                        .pointLabel(d => d.city);
-
-                    // Auto-rotate
-                    let frame = 0;
-                    const animate = () => {
-                        frame = requestAnimationFrame(animate);
-                        globeViz.rotation({ lat: 0, lng: frame * 0.005 % 360 });
-                    };
-                    animate();
-                } catch (error) {
-                    console.error('Failed to initialize globe:', error);
-                }
-            };
-
-            // Handle message tabs
-            const messageTabs = document.querySelectorAll('.message-tab');
-            messageTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    messageTabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                });
-            });
-
-            // Add profile image
-            const profileImage = document.querySelector('.profile-image');
-            if (profileImage) {
-                profileImage.src = "https://media.pitchfork.com/photos/63666a22b9cbe0d75d25b3cb/1:1/w_800,h_800,c_limit/Metro-Boomin.jpg";
-            }
-            
-            console.log('Portal initialization complete');
-        }
-
-        // Try multiple ways to ensure the portal initializes
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializePortal);
-        } else {
-            initializePortal();
-        }
-        
-        // Backup initialization
-        window.addEventListener('load', initializePortal);
-        
-        // Final fallback
-        setTimeout(initializePortal, 3000);
-
-        // Add mobile menu functionality
-        const menuButton = document.querySelector('.menu-button');
-        const sidebar = document.querySelector('.sidebar');
-        
-        menuButton.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-        });
-        
-        // Close menu when clicking a link on mobile
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    sidebar.classList.remove('active');
-                }
-            });
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                sidebar.classList.remove('active');
-            }
-        });
-
-        // Update the navigation handling in the script
-        function showSection(sectionId) {
-            const sections = document.querySelectorAll('.content-section');
-            const targetSection = document.getElementById(sectionId);
-            
-            // First remove active class from all sections
-            sections.forEach(section => {
-                section.classList.remove('active');
-                const content = section.querySelector('.page-content');
-                if (content) {
-                    content.classList.remove('loaded');
-                }
-            });
-
-            // Then activate the target section
-            if (targetSection) {
-                targetSection.classList.add('active');
-                const content = targetSection.querySelector('.page-content');
-                if (content) {
-                    // Small delay to ensure smooth transition
-                    setTimeout(() => {
-                        content.classList.add('loaded');
-                    }, 50);
-                }
-            }
-
-            // Update page title
-            const pageTitle = document.querySelector('.page-title');
-            const activeLink = document.querySelector(`.nav-link[data-tab="${sectionId}"]`);
-            if (pageTitle && activeLink) {
-                pageTitle.textContent = activeLink.textContent.trim().slice(2);
-            }
-        }
-
-        // Simplified tab switching function
+        // Tab switching functionality
         function showTab(tabId) {
             // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(tab => {
@@ -940,7 +450,6 @@
             const selectedTab = document.getElementById(tabId);
             if (selectedTab) {
                 selectedTab.classList.add('active');
-                // Small delay to ensure smooth transition
                 setTimeout(() => {
                     selectedTab.style.opacity = '1';
                 }, 50);
@@ -967,6 +476,41 @@
             }
         }
 
+        // Initialize globe visualization
+        function initGlobe() {
+            const globeContainer = document.getElementById('globeViz');
+            if (!globeContainer) return;
+
+            // Clear existing globe
+            globeContainer.innerHTML = '';
+
+            const globe = Globe()
+                .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+                .backgroundColor('rgba(0,0,0,0)')
+                .width(globeContainer.clientWidth)
+                .height(500);
+
+            globe(globeContainer);
+
+            // Add points for major cities
+            const points = [
+                { lat: 40.7128, lng: -74.0060, city: 'New York' },
+                { lat: 51.5074, lng: -0.1278, city: 'London' },
+                { lat: 35.6762, lng: 139.6503, city: 'Tokyo' },
+                { lat: 25.7617, lng: -80.1918, city: 'Miami' },
+                { lat: 34.0522, lng: -118.2437, city: 'Los Angeles' }
+            ];
+
+            globe.pointsData(points)
+                .pointColor(() => 'var(--primary-color)')
+                .pointAltitude(0.1)
+                .pointRadius(0.5);
+
+            // Auto-rotate
+            globe.controls().autoRotate = true;
+            globe.controls().autoRotateSpeed = 0.5;
+        }
+
         // Add click handlers to nav links
         document.querySelectorAll('.nav-link[data-tab]').forEach(link => {
             link.addEventListener('click', (e) => {
@@ -987,324 +531,30 @@
             const hash = window.location.hash.slice(1);
             showTab(hash);
         });
+
+        // Mobile menu toggle
+        const menuButton = document.querySelector('.menu-button');
+        const sidebar = document.querySelector('.sidebar');
+
+        menuButton?.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('active');
+            }
+        });
     </script>
-</head>
-<body>
-    <div class="loading">
-        <div class="loading-text">Loading Portal...</div>
-    </div>
-
-    <div class="portal-container">
-        <aside class="sidebar">
-            <div class="logo">
-                <h2>PWRS</h2>
-            </div>
-            <nav>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active" data-tab="dashboard">
-                            📊 Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#shows" class="nav-link" data-tab="shows">
-                            🎫 Shows
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#revenue" class="nav-link" data-tab="revenue">
-                            💰 Revenue
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#git" class="nav-link" data-tab="git">
-                            🌍 GIT
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#messages" class="nav-link" data-tab="messages">
-                            📬 Messages
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/" class="nav-link">
-                            ← Back Home
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
-
-        <main class="main-content">
-            <div class="page-header">
-                <h1 class="page-title">Dashboard</h1>
-                <div class="profile-section">
-                    <img src="https://media.pitchfork.com/photos/63666a22b9cbe0d75d25b3cb/1:1/w_800,h_800,c_limit/Metro-Boomin.jpg" alt="Metro Boomin" class="profile-image">
-                    <span class="profile-name">Metro Boomin</span>
-                </div>
-            </div>
-
-            <!-- Dashboard Section -->
-            <div id="dashboard" class="tab-content active">
-                <div class="page-content">
-                    <div class="welcome-header">
-                        <div class="welcome-section">
-                            <h1 class="welcome-title">Welcome Back!</h1>
-                            <div class="artist-status">
-                                🏆 Gold Artist
-                            </div>
-                        </div>
-                        <div class="progress-card" style="min-width: 200px;">
-                            <div class="progress-header">
-                                <span class="progress-text">Progress to Platinum</span>
-                                <span class="progress-value">75%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 75%"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon">📅</div>
-                            <div class="stat-value">12</div>
-                            <div class="stat-label">Shows This Month</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">📈</div>
-                            <div class="stat-value">$156,000</div>
-                            <div class="stat-label">Revenue This Month</div>
-                        </div>
-                        <div class="stat-card communications-card">
-                            <div class="communications-header">
-                                <h3>Communications</h3>
-                                <div class="response-rate">💬 92%</div>
-                            </div>
-                            <div class="stat-label">Response Rate</div>
-                            
-                            <div class="activity-list">
-                                <div class="activity-item">
-                                    <div>
-                                        <div class="activity-venue">TD Garden</div>
-                                        <div class="activity-date">Last updated Aug 12</div>
-                                    </div>
-                                    <div class="status-tag status-approved">Approved</div>
-                                </div>
-                                <div class="activity-item">
-                                    <div>
-                                        <div class="activity-venue">LIV Nightclub Las Vegas</div>
-                                        <div class="activity-date">Last updated Sep 19</div>
-                                    </div>
-                                    <div class="status-tag status-approved">Approved</div>
-                                </div>
-                                <div class="activity-item">
-                                    <div>
-                                        <div class="activity-venue">LIV Nightclub Miami</div>
-                                        <div class="activity-date">Last updated Dec 12</div>
-                                    </div>
-                                    <div class="status-tag status-negotiating">Negotiating</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Shows Section -->
-            <div id="shows" class="tab-content">
-                <div class="page-content">
-                    <h2 class="section-title">Upcoming Shows</h2>
-                    <div class="shows-list">
-                        <div class="show-card">
-                            <div class="show-info">
-                                <h3>TD Garden</h3>
-                                <div class="show-meta">Boston, MA • Mar 15, 2024</div>
-                                <div class="show-details">
-                                    <span>Capacity: 19,580</span>
-                                    <span>• Ticket Price: $175-350</span>
-                                    <span>• Expected Revenue: $2.5M</span>
-                                </div>
-                            </div>
-                            <div class="show-status">Confirmed</div>
-                        </div>
-                        <div class="show-card">
-                            <div class="show-info">
-                                <h3>LIV Nightclub</h3>
-                                <div class="show-meta">Miami, FL • Mar 20, 2024</div>
-                                <div class="show-details">
-                                    <span>Capacity: 2,000</span>
-                                    <span>• Booking Fee: $50,000</span>
-                                    <span>• VIP Tables: $25,000</span>
-                                </div>
-                            </div>
-                            <div class="show-status">Pending</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Revenue Section -->
-            <div id="revenue" class="tab-content">
-                <div class="page-content">
-                    <div class="revenue-header">
-                        <h1 class="revenue-title">Revenue</h1>
-                        <span class="profile-name">Metro Boomin</span>
-                    </div>
-
-                    <div class="revenue-stats">
-                        <div class="revenue-stat-card">
-                            <div class="revenue-stat-value">$1.75M</div>
-                            <div class="revenue-stat-label">2024 Revenue</div>
-                            <div class="revenue-stat-change">↗ +45.8% vs Last Year</div>
-                        </div>
-                        <div class="revenue-stat-card">
-                            <div class="revenue-stat-value">$475K</div>
-                            <div class="revenue-stat-label">Last Month</div>
-                            <div class="revenue-stat-change">↗ +375.0% vs Last Month</div>
-                        </div>
-                        <div class="revenue-stat-card">
-                            <div class="revenue-stat-value">35%</div>
-                            <div class="revenue-stat-label">Goal Progress</div>
-                            <div class="breakdown-bar">
-                                <div class="breakdown-fill" style="width: 35%"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="revenue-breakdown">
-                        <div class="breakdown-item">
-                            <div class="breakdown-header">
-                                <div class="breakdown-title">Shows Revenue</div>
-                                <div class="breakdown-value">$1.4M</div>
-                            </div>
-                            <div class="breakdown-bar">
-                                <div class="breakdown-fill" style="width: 80%"></div>
-                            </div>
-                            <div class="breakdown-meta">80% of total revenue</div>
-                        </div>
-                        <div class="breakdown-item">
-                            <div class="breakdown-header">
-                                <div class="breakdown-title">Merchandise</div>
-                                <div class="breakdown-value">$250K</div>
-                            </div>
-                            <div class="breakdown-bar">
-                                <div class="breakdown-fill" style="width: 14.3%"></div>
-                            </div>
-                            <div class="breakdown-meta">14.3% of total revenue</div>
-                        </div>
-                        <div class="breakdown-item">
-                            <div class="breakdown-header">
-                                <div class="breakdown-title">Other Sources</div>
-                                <div class="breakdown-value">$100K</div>
-                            </div>
-                            <div class="breakdown-bar">
-                                <div class="breakdown-fill" style="width: 5.7%"></div>
-                            </div>
-                            <div class="breakdown-meta">5.7% of total revenue</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- GIT Section -->
-            <div id="git" class="tab-content">
-                <div class="page-content">
-                    <div class="map-filters">
-                        <button class="map-filter active">2024</button>
-                        <button class="map-filter">2023</button>
-                        <button class="map-filter">2022</button>
-                    </div>
-                    <div class="map-container">
-                        <div id="globeViz"></div>
-                    </div>
-                    <div class="tour-stats">
-                        <div class="stat-card">
-                            <div class="stat-value">15</div>
-                            <div class="stat-label">Countries Toured</div>
-                            <div class="stat-change">↗ +25% vs 2023</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value">127</div>
-                            <div class="stat-label">Total Shows</div>
-                            <div class="stat-change">↗ +40% vs 2023</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value">1.5M</div>
-                            <div class="stat-label">Total Attendance</div>
-                            <div class="stat-change">↗ +35% vs 2023</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Messages Section -->
-            <div id="messages" class="tab-content">
-                <div class="page-content">
-                    <div class="message-tabs">
-                        <button class="message-tab active">SHOW REQUESTS</button>
-                        <button class="message-tab">MESSAGES</button>
-                    </div>
-                    <div class="messages-container">
-                        <div class="message-list">
-                            <div class="message-card">
-                                <div class="message-header">
-                                    <div class="message-venue">TD Garden Booking</div>
-                                    <div class="message-date">Updated Mar 10, 2024</div>
-                                </div>
-                                <div class="message-details">
-                                    <div class="detail-item">
-                                        <span class="detail-label">Initial Amount</span>
-                                        <span class="detail-value">$150,000</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">Final Amount</span>
-                                        <span class="detail-value">$175,000</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">Duration</span>
-                                        <span class="detail-value">90 minutes</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">Setup Time</span>
-                                        <span class="detail-value">2 hours</span>
-                                    </div>
-                                </div>
-                                <div class="message-status">Status: Approved</div>
-                            </div>
-                            <div class="message-card">
-                                <div class="message-header">
-                                    <div class="message-venue">LIV Nightclub Inquiry</div>
-                                    <div class="message-date">Updated Mar 12, 2024</div>
-                                </div>
-                                <div class="message-details">
-                                    <div class="detail-item">
-                                        <span class="detail-label">Proposed Amount</span>
-                                        <span class="detail-value">$50,000</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">Duration</span>
-                                        <span class="detail-value">60 minutes</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">VIP Tables</span>
-                                        <span class="detail-value">10 available</span>
-                                    </div>
-                                </div>
-                                <div class="message-status">Status: Negotiating</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- Add hamburger menu button -->
-    <button class="menu-button">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-    </button>
 </body>
 </html>
