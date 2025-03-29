@@ -42,29 +42,31 @@
             width: 280px;
             height: 100vh;
             overflow-y: auto;
-            transition: transform 0.3s ease;
         }
 
         .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
             margin-bottom: 2.5rem;
-            padding-left: 0.5rem;
+            color: var(--white);
         }
 
         .nav-menu {
+            list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .nav-item {
-            margin-bottom: 1rem;
+            gap: 0.75rem;
         }
 
         .nav-link {
-            padding: 0.875rem 1rem;
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--white);
+            text-decoration: none;
             border-radius: 8px;
+            transition: background-color 0.2s ease;
             font-weight: 500;
-            letter-spacing: 0.3px;
         }
 
         .nav-link:hover,
@@ -491,75 +493,69 @@
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 2.5rem;
-            gap: 2rem;
-        }
-
-        .welcome-section {
-            flex: 1;
         }
 
         .welcome-title {
-            font-size: 2.75rem;
+            font-size: 3rem;
             font-weight: 600;
             margin-bottom: 0.75rem;
-            letter-spacing: -0.5px;
+            color: var(--white);
         }
 
         .artist-status {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            color: #FFD700;
-            font-weight: 500;
             padding: 0.5rem 1rem;
             background: rgba(255, 215, 0, 0.1);
             border-radius: 20px;
+            color: #FFD700;
+            font-weight: 500;
         }
 
         .progress-card {
-            min-width: 240px;
             background: var(--card-bg);
-            padding: 1.5rem;
+            padding: 1.25rem;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.75rem;
+            min-width: 200px;
         }
 
         .progress-text {
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--white);
+            margin-bottom: 0.5rem;
         }
 
-        .progress-value {
-            color: var(--green-accent);
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--green-accent);
+            border-radius: 3px;
+            transition: width 0.3s ease;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.75rem;
-            margin-bottom: 2.5rem;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .stat-card {
             background: var(--card-bg);
-            padding: 1.75rem;
+            padding: 1.5rem;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.2s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-2px);
+            display: flex;
+            flex-direction: column;
         }
 
         .stat-icon {
-            font-size: 1.75rem;
+            font-size: 1.25rem;
             margin-bottom: 1rem;
         }
 
@@ -567,45 +563,81 @@
             font-size: 2.5rem;
             font-weight: 600;
             color: var(--green-accent);
-            margin-bottom: 0.75rem;
-            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
         }
 
         .stat-label {
             color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-            letter-spacing: 0.2px;
         }
 
         .communications-card {
-            padding: 1.75rem;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
         }
 
         .communications-header {
-            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
         }
 
         .communications-header h3 {
             font-size: 1.25rem;
             font-weight: 600;
-            letter-spacing: 0.2px;
         }
 
         .response-rate {
-            font-size: 1.125rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--green-accent);
         }
 
         .activity-list {
-            gap: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
         .activity-item {
-            padding: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
         }
 
         .activity-venue {
-            font-size: 1.125rem;
+            font-weight: 500;
             margin-bottom: 0.25rem;
+        }
+
+        .activity-date {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+        }
+
+        .status-tag {
+            padding: 0.35rem 0.75rem;
+            border-radius: 16px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-approved {
+            background: rgba(29, 185, 84, 0.1);
+            color: var(--green-accent);
+        }
+
+        .status-negotiating {
+            background: rgba(255, 165, 0, 0.1);
+            color: #FFA500;
         }
 
         /* Overlay for mobile menu */
@@ -862,7 +894,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="index.html" class="nav-link">
+                        <a href="/" class="nav-link">
                             ← Back Home
                         </a>
                     </li>
