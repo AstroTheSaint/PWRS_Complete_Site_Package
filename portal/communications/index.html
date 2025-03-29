@@ -9,185 +9,182 @@
     <style>
         /* Communications-specific styles */
         .communications-container {
-            display: grid;
-            grid-template-columns: 1fr 300px;
+            display: flex;
+            flex-direction: column;
             gap: 1.5rem;
         }
 
-        .messages-section {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-
-        .messages-header {
+        .tabs {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 1.5rem;
         }
 
-        .messages-title {
-            font-size: 1.5rem;
-            font-weight: 600;
+        .tab {
+            padding: 0.75rem 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            opacity: 0.7;
+            transition: var(--transition);
         }
 
-        .compose-button {
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            background: var(--green-accent);
-            color: var(--white);
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
+        .tab.active {
+            color: var(--green-accent);
+            border-bottom-color: var(--green-accent);
+            opacity: 1;
+        }
+
+        .show-request {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .show-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .venue-info {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-weight: 500;
-        }
-
-        .compose-button:hover {
-            background: #1ed760;
-            transform: translateY(-1px);
-        }
-
-        .message-item {
-            display: grid;
-            grid-template-columns: auto 1fr auto;
             gap: 1rem;
-            padding: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            transition: var(--transition);
-            -webkit-tap-highlight-color: transparent;
         }
 
-        .message-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .message-item:last-child {
-            border-bottom: none;
-        }
-
-        .message-avatar {
+        .venue-icon {
             width: 40px;
             height: 40px;
-            border-radius: 50%;
-            overflow: hidden;
             background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
         }
 
-        .message-content {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .message-sender {
-            font-weight: 500;
+        .venue-details h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
             color: var(--white);
         }
 
-        .message-preview {
-            color: rgba(255, 255, 255, 0.7);
+        .venue-details p {
             font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
         }
 
-        .message-meta {
+        .show-amount {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--green-accent);
+        }
+
+        .status-tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-tag.approved {
+            background: rgba(29, 185, 84, 0.1);
+            color: var(--green-accent);
+        }
+
+        .status-tag.negotiating {
+            background: rgba(255, 152, 0, 0.1);
+            color: #FF9800;
+        }
+
+        .status-tag.pending {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196F3;
+        }
+
+        .show-details {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .detail-item {
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
-            gap: 0.25rem;
+            gap: 0.5rem;
+        }
+
+        .detail-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .detail-value {
+            font-size: 1rem;
+            color: var(--white);
+        }
+
+        .equipment-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .equipment-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--white);
+        }
+
+        .message-thread {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .message-time {
             font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 0.5rem;
         }
 
-        .message-status {
-            padding: 0.25rem 0.5rem;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            background: rgba(29, 185, 84, 0.1);
-            color: var(--green-accent);
-        }
-
-        .message-status.read {
-            background: rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .announcements-section {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-
-        .announcements-title {
-            font-size: 1.2rem;
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-        }
-
-        .announcement-item {
-            padding: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .announcement-item:last-child {
-            border-bottom: none;
-        }
-
-        .announcement-title {
-            font-weight: 500;
+        .message-content {
             color: var(--white);
-            margin-bottom: 0.5rem;
-        }
-
-        .announcement-date {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 0.5rem;
-        }
-
-        .announcement-content {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
             line-height: 1.5;
         }
 
         @media (max-width: 768px) {
-            .communications-container {
-                grid-template-columns: 1fr;
-            }
-
-            .messages-header {
+            .show-header {
                 flex-direction: column;
+                align-items: flex-start;
                 gap: 1rem;
             }
 
-            .compose-button {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .message-item {
+            .details-grid {
                 grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-
-            .message-avatar {
-                display: none;
-            }
-
-            .message-meta {
-                align-items: flex-start;
             }
         }
     </style>
@@ -227,6 +224,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="../git/index.html" class="nav-link">
+                            🌍 GIT
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="../communications/index.html" class="nav-link active">
                             📬 Communications
                         </a>
@@ -255,69 +257,114 @@
             </div>
             <div class="page-content">
                 <div class="communications-container">
-                    <div class="messages-section">
-                        <div class="messages-header">
-                            <h2 class="messages-title">Messages</h2>
-                            <button class="compose-button">
-                                <span>✏️</span> Compose
-                            </button>
+                    <div class="tabs">
+                        <div class="tab active" data-tab="show-requests">SHOW REQUESTS</div>
+                        <div class="tab" data-tab="messages">MESSAGES</div>
+                    </div>
+
+                    <div class="tab-content" id="show-requests">
+                        <div class="show-request">
+                            <div class="show-header">
+                                <div class="venue-info">
+                                    <div class="venue-icon">T</div>
+                                    <div class="venue-details">
+                                        <h3>TD Garden</h3>
+                                        <p>Aug 13, 2024 • 8:00 PM</p>
+                                    </div>
+                                </div>
+                                <div class="show-amount">$175,000</div>
+                                <div class="status-tag approved">Approved</div>
+                            </div>
+                            <div class="show-details">
+                                <div class="details-grid">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Initial</span>
+                                        <span class="detail-value">$150,000</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Final</span>
+                                        <span class="detail-value">$175,000</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Duration</span>
+                                        <span class="detail-value">120 minutes</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Setup</span>
+                                        <span class="detail-value">4 hours before show</span>
+                                    </div>
+                                </div>
+                                <div class="equipment-list">
+                                    <div class="equipment-tag">Full stage setup</div>
+                                    <div class="equipment-tag">Premium sound system</div>
+                                    <div class="equipment-tag">LED screens</div>
+                                    <div class="equipment-tag">Lighting rig</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="message-item">
-                            <div class="message-avatar">🎵</div>
-                            <div class="message-content">
-                                <div class="message-sender">Spotify Team</div>
-                                <div class="message-preview">Your new single "Creepin'" has reached 1M streams!</div>
-                            </div>
-                            <div class="message-meta">
-                                <div class="message-time">2h ago</div>
-                                <div class="message-status">New</div>
-                            </div>
-                        </div>
-                        <div class="message-item">
-                            <div class="message-avatar">🎫</div>
-                            <div class="message-content">
-                                <div class="message-sender">Tour Manager</div>
-                                <div class="message-preview">Venue details for Madison Square Garden show</div>
-                            </div>
-                            <div class="message-meta">
-                                <div class="message-time">5h ago</div>
-                                <div class="message-status">New</div>
+
+                        <div class="show-request">
+                            <div class="show-header">
+                                <div class="venue-info">
+                                    <div class="venue-icon">L</div>
+                                    <div class="venue-details">
+                                        <h3>LIV Nightclub Las Vegas</h3>
+                                        <p>Sep 20, 2024 • 10:30 PM</p>
+                                    </div>
+                                </div>
+                                <div class="show-amount">$50,000</div>
+                                <div class="status-tag approved">Approved</div>
                             </div>
                         </div>
-                        <div class="message-item">
-                            <div class="message-avatar">💰</div>
-                            <div class="message-content">
-                                <div class="message-sender">Revenue Team</div>
-                                <div class="message-preview">Monthly revenue report for March 2024</div>
+
+                        <div class="show-request">
+                            <div class="show-header">
+                                <div class="venue-info">
+                                    <div class="venue-icon">L</div>
+                                    <div class="venue-details">
+                                        <h3>LIV Nightclub Miami</h3>
+                                        <p>Dec 13, 2024 • 10:30 PM</p>
+                                    </div>
+                                </div>
+                                <div class="show-amount">$45,000</div>
+                                <div class="status-tag negotiating">Negotiating</div>
                             </div>
-                            <div class="message-meta">
-                                <div class="message-time">1d ago</div>
-                                <div class="message-status read">Read</div>
+                        </div>
+
+                        <div class="show-request">
+                            <div class="show-header">
+                                <div class="venue-info">
+                                    <div class="venue-icon">C</div>
+                                    <div class="venue-details">
+                                        <h3>Coca-Cola Arena Dubai</h3>
+                                        <p>Jan 24, 2025 • 8:00 PM</p>
+                                    </div>
+                                </div>
+                                <div class="show-amount">$200,000</div>
+                                <div class="status-tag pending">Pending</div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="announcements-section">
-                        <h3 class="announcements-title">Announcements</h3>
-                        <div class="announcement-item">
-                            <div class="announcement-title">New Feature: Analytics Dashboard</div>
-                            <div class="announcement-date">March 15, 2024</div>
-                            <div class="announcement-content">
-                                We've launched a new analytics dashboard to help you track your performance metrics in real-time.
+                    <div class="tab-content hidden" id="messages">
+                        <div class="message-thread">
+                            <div class="message">
+                                <div class="message-time">6:00 AM</div>
+                                <div class="message-content">
+                                    We would love to have you perform at TD Garden as part of your summer tour. Initial offer is $150,000 for a 2-hour performance.
+                                </div>
                             </div>
-                        </div>
-                        <div class="announcement-item">
-                            <div class="announcement-title">System Maintenance</div>
-                            <div class="announcement-date">March 14, 2024</div>
-                            <div class="announcement-content">
-                                Scheduled maintenance will occur on March 20th from 2-4 AM EST. Some features may be temporarily unavailable.
+                            <div class="message">
+                                <div class="message-time">11:30 AM</div>
+                                <div class="message-content">
+                                    Thank you for the offer. Given the venue size and production requirements, we are looking at $175,000 for the performance.
+                                </div>
                             </div>
-                        </div>
-                        <div class="announcement-item">
-                            <div class="announcement-title">New Partnership</div>
-                            <div class="announcement-date">March 13, 2024</div>
-                            <div class="announcement-content">
-                                We're excited to announce our new partnership with major streaming platforms to enhance your reach.
+                            <div class="message">
+                                <div class="message-time">5:15 AM</div>
+                                <div class="message-content">
+                                    We can meet at $175,000. I will send over the contract for review.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -337,14 +384,26 @@
             }, 1000);
         });
 
-        // Handle message clicks
-        document.querySelectorAll('.message-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const status = item.querySelector('.message-status');
-                if (status && status.textContent === 'New') {
-                    status.textContent = 'Read';
-                    status.classList.add('read');
-                }
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabName = tab.getAttribute('data-tab');
+                
+                // Update active tab
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Show corresponding content
+                tabContents.forEach(content => {
+                    if (content.id === tabName) {
+                        content.classList.remove('hidden');
+                    } else {
+                        content.classList.add('hidden');
+                    }
+                });
             });
         });
     </script>
