@@ -28,6 +28,7 @@
             width: 250px;
             height: 100vh;
             overflow-y: auto;
+            z-index: 100;
         }
 
         .logo {
@@ -60,11 +61,13 @@
             border-radius: 8px;
             transition: var(--transition);
             opacity: 0.7;
+            cursor: pointer;
         }
 
         .nav-link:hover {
             background: rgba(255, 255, 255, 0.05);
             opacity: 1;
+            transform: translateX(5px);
         }
 
         .nav-link.active {
@@ -76,6 +79,8 @@
         .main-content {
             padding: 2rem;
             margin-left: 250px;
+            position: relative;
+            min-height: 100vh;
         }
 
         .page-header {
@@ -121,11 +126,13 @@
             justify-content: center;
             z-index: 1000;
             transition: var(--transition);
-        }
-
-        .loading.hidden {
             opacity: 0;
             pointer-events: none;
+        }
+
+        .loading.visible {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .loading-spinner {

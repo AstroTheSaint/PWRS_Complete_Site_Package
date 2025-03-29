@@ -59,61 +59,69 @@
   <!-- Contact Section -->
   <section class="contact-section">
     <div class="container">
-      <div class="contact-grid">
-        <div class="contact-info">
-          <h2>Get in Touch</h2>
-          <p>Have a question or want to work together? We'd love to hear from you.</p>
-          <div class="contact-details">
-            <div class="contact-item">
-              <span class="contact-icon">📧</span>
-              <div class="contact-text">
-                <h3>Email</h3>
-                <p>contact@pwrs.com</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <span class="contact-icon">📍</span>
-              <div class="contact-text">
-                <h3>Location</h3>
-                <p>Los Angeles, CA</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <span class="contact-icon">📱</span>
-              <div class="contact-text">
-                <h3>Phone</h3>
-                <p>+1 (555) 123-4567</p>
-              </div>
-            </div>
-          </div>
+        <div class="contact-content">
+            <h2>Get in Touch</h2>
+            <p>Have a question or want to work together? We'd love to hear from you.</p>
+            <a href="mailto:j@jrapp.org" class="email-button">
+                Send Email
+                <span class="btn-icon">→</span>
+            </a>
         </div>
-        <div class="contact-form">
-          <form id="contactForm">
-            <div class="form-group">
-              <label for="name">Full Name</label>
-              <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-              <label for="subject">Subject</label>
-              <input type="text" id="subject" name="subject" required>
-            </div>
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="submit-btn">
-              Send Message
-              <span class="btn-icon">→</span>
-            </button>
-          </form>
-        </div>
-      </div>
     </div>
   </section>
+
+  <style>
+    /* Contact Section Styles */
+    .contact-section {
+        padding: 6rem 0;
+        background: var(--card-bg);
+        text-align: center;
+    }
+
+    .contact-content {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .contact-content h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--white);
+    }
+
+    .contact-content p {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 2rem;
+    }
+
+    .email-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--green-accent);
+        color: var(--white);
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .email-button:hover {
+        background: #1ed760;
+        transform: translateY(-2px);
+    }
+
+    .btn-icon {
+        transition: var(--transition);
+    }
+
+    .email-button:hover .btn-icon {
+        transform: translateX(4px);
+    }
+  </style>
 
   <!-- Deferred Loading of Heavy Scripts -->
   <script>

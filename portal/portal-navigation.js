@@ -11,18 +11,32 @@ document.addEventListener('DOMContentLoaded', () => {
             link.classList.add('active');
             
             // Show loading screen
-            document.querySelector('.loading').classList.remove('hidden');
+            const loading = document.querySelector('.loading');
+            loading.classList.remove('hidden');
             
-            // Navigate to the new page
-            window.location.href = href;
+            // Fade out current content
+            const pageContent = document.querySelector('.page-content');
+            pageContent.classList.remove('loaded');
+            
+            // Navigate to the new page after a short delay
+            setTimeout(() => {
+                window.location.href = href;
+            }, 300);
         });
     });
 
     // Set active state based on current page
     const currentPath = window.location.pathname;
     document.querySelectorAll('.nav-link').forEach(link => {
-        if (link.getAttribute('href') === currentPath.split('/').slice(-2).join('/')) {
+        const linkPath = link.getAttribute('href');
+        if (currentPath.includes(linkPath)) {
             link.classList.add('active');
         }
     });
+
+    // Show content with animation
+    const pageContent = document.querySelector('.page-content');
+    setTimeout(() => {
+        pageContent.classList.add('loaded');
+    }, 100);
 }); 
