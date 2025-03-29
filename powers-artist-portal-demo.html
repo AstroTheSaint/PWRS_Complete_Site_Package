@@ -756,6 +756,18 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Tab content styles */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+        }
     </style>
     <!-- Move scripts to head with defer -->
     <script defer src="https://unpkg.com/three@0.144.0/build/three.min.js"></script>
@@ -797,21 +809,21 @@
             }
 
             // Handle navigation
-            const navLinks = document.querySelectorAll('.nav-link[data-section]');
+            const navLinks = document.querySelectorAll('.nav-link[data-tab]');
             const sections = document.querySelectorAll('.content-section');
             
             console.log('Setting up navigation...');
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    console.log('Navigation clicked:', link.dataset.section);
+                    console.log('Navigation clicked:', link.dataset.tab);
 
                     // Update active link
                     navLinks.forEach(l => l.classList.remove('active'));
                     link.classList.add('active');
 
                     // Show corresponding section
-                    const sectionId = link.dataset.section;
+                    const sectionId = link.dataset.tab;
                     showSection(sectionId);
 
                     // If GIT section is active, try to initialize globe
@@ -825,7 +837,7 @@
             const handleHash = () => {
                 const hash = window.location.hash.slice(1) || 'dashboard';
                 console.log('Handling hash:', hash);
-                const link = document.querySelector(`.nav-link[data-section="${hash}"]`);
+                const link = document.querySelector(`.nav-link[data-tab="${hash}"]`);
                 if (link) {
                     link.click();
                 }
@@ -965,40 +977,66 @@
 
             // Update page title
             const pageTitle = document.querySelector('.page-title');
-            const activeLink = document.querySelector(`.nav-link[data-section="${sectionId}"]`);
+            const activeLink = document.querySelector(`.nav-link[data-tab="${sectionId}"]`);
             if (pageTitle && activeLink) {
                 pageTitle.textContent = activeLink.textContent.trim().slice(2);
             }
         }
 
-        // Update the click handlers
-        navLinks.forEach(link => {
+        // Tab switching functionality
+        function showTab(tabId) {
+            // Hide all tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            const selectedTab = document.getElementById(tabId);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+                
+                // Initialize globe if GIT section is active
+                if (tabId === 'git') {
+                    initGlobe();
+                }
+            }
+            
+            // Update active state of nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-tab') === tabId) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Add click handlers to nav links
+        document.querySelectorAll('.nav-link[data-tab]').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
+                const tabId = link.getAttribute('data-tab');
+                showTab(tabId);
+                window.location.hash = tabId;
                 
-                // Update active link
-                navLinks.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-
-                // Show corresponding section
-                const sectionId = link.dataset.section;
-                showSection(sectionId);
-
-                // If GIT section is active, initialize globe
-                if (sectionId === 'git') {
-                    initGlobe();
+                // Close mobile menu if open
+                const mobileMenu = document.querySelector('.nav-menu');
+                if (mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
                 }
             });
         });
 
-        // Update hash handling
-        const handleHash = () => {
+        // Handle initial tab on page load
+        window.addEventListener('DOMContentLoaded', () => {
             const hash = window.location.hash.slice(1) || 'dashboard';
-            const link = document.querySelector(`.nav-link[data-section="${hash}"]`);
-            if (link) {
-                link.click();
-            }
-        };
+            showTab(hash);
+        });
+
+        // Handle hash changes
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.slice(1);
+            showTab(hash);
+        });
     </script>
 </head>
 <body>
@@ -1014,32 +1052,32 @@
             <nav>
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                        <a href="#dashboard" class="nav-link active" data-tab="dashboard">
                             📊 Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#music" class="nav-link" data-section="music">
+                        <a href="#music" class="nav-link" data-tab="music">
                             🎵 Music
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#shows" class="nav-link" data-section="shows">
+                        <a href="#shows" class="nav-link" data-tab="shows">
                             🎫 Shows
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#revenue" class="nav-link" data-section="revenue">
+                        <a href="#revenue" class="nav-link" data-tab="revenue">
                             💰 Revenue
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#git" class="nav-link" data-section="git">
+                        <a href="#git" class="nav-link" data-tab="git">
                             🌍 GIT
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#messages" class="nav-link" data-section="messages">
+                        <a href="#messages" class="nav-link" data-tab="messages">
                             📬 Messages
                         </a>
                     </li>
@@ -1061,8 +1099,8 @@
                 </div>
             </div>
 
-            <!-- Dashboard Section -->
-            <div class="content-section active" id="dashboard">
+            <!-- Add tab content sections -->
+            <div id="dashboard" class="tab-content active">
                 <div class="page-content">
                     <div class="welcome-header">
                         <div class="welcome-section">
@@ -1127,9 +1165,8 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Music Section -->
-            <div class="content-section" id="music">
+            
+            <div id="music" class="tab-content">
                 <div class="page-content">
                     <h2 class="section-title">Latest Releases</h2>
                     <div class="music-grid">
@@ -1170,9 +1207,8 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Shows Section -->
-            <div class="content-section" id="shows">
+            
+            <div id="shows" class="tab-content">
                 <div class="page-content">
                     <h2 class="section-title">Upcoming Shows</h2>
                     <div class="shows-list">
@@ -1203,9 +1239,8 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Revenue Section -->
-            <div class="content-section" id="revenue">
+            
+            <div id="revenue" class="tab-content">
                 <div class="page-content">
                     <div class="revenue-header">
                         <h1 class="revenue-title">Revenue</h1>
@@ -1266,9 +1301,8 @@
                     </div>
                 </div>
             </div>
-
-            <!-- GIT Section -->
-            <div class="content-section" id="git">
+            
+            <div id="git" class="tab-content">
                 <div class="page-content">
                     <div class="map-filters">
                         <button class="map-filter active">2024</button>
@@ -1297,9 +1331,8 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Messages Section -->
-            <div class="content-section" id="messages">
+            
+            <div id="messages" class="tab-content">
                 <div class="page-content">
                     <div class="message-tabs">
                         <button class="message-tab active">SHOW REQUESTS</button>
