@@ -394,28 +394,28 @@
         <nav>
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="#dashboard" class="nav-link active" data-tab="dashboard">
+                    <a href="#dashboard" class="nav-link">
                         📊 Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#shows" class="nav-link" data-tab="shows">
-                        🎫 Shows
+                    <a href="#shows" class="nav-link">
+                        🎭 Shows
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#revenue" class="nav-link" data-tab="revenue">
+                    <a href="#revenue" class="nav-link">
                         💰 Revenue
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#git" class="nav-link" data-tab="git">
+                    <a href="#git" class="nav-link">
                         🌍 GIT
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#messages" class="nav-link" data-tab="messages">
-                        📬 Messages
+                    <a href="#messages" class="nav-link">
+                        💬 Messages
                     </a>
                 </li>
             </ul>
@@ -683,43 +683,68 @@
 
     <script src="https://unpkg.com/globe.gl"></script>
     <script>
-        // Tab switching functionality
-        function showTab(tabId) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-                tab.style.opacity = '0';
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
             });
-            
-            // Show selected tab
-            const selectedTab = document.getElementById(tabId);
-            if (selectedTab) {
-                selectedTab.classList.add('active');
-                setTimeout(() => {
-                    selectedTab.style.opacity = '1';
-                }, 50);
-                
-                // Initialize globe if GIT section
-                if (tabId === 'git') {
-                    initGlobe();
-                }
-                
-                // Update active state in navigation
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('data-tab') === tabId) {
-                        link.classList.add('active');
-                    }
-                });
-                
-                // Update page title
-                const pageTitle = document.querySelector('.page-title');
-                const activeLink = document.querySelector(`.nav-link[data-tab="${tabId}"]`);
-                if (pageTitle && activeLink) {
-                    pageTitle.textContent = activeLink.textContent.trim().slice(2);
-                }
+
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show selected tab content
+            const selectedContent = document.getElementById(tabName);
+            if (selectedContent) {
+                selectedContent.classList.add('active');
             }
+
+            // Add active class to selected nav link
+            const selectedLink = document.querySelector(`[href="#${tabName}"]`);
+            if (selectedLink) {
+                selectedLink.classList.add('active');
+            }
+
+            // Update URL hash
+            window.location.hash = tabName;
         }
+
+        // Initialize tabs on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.slice(1) || 'dashboard';
+            showTab(hash);
+        });
+
+        // Handle hash changes
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.slice(1);
+            showTab(hash);
+        });
+
+        // Mobile menu toggle
+        const menuButton = document.querySelector('.menu-button');
+        const sidebar = document.querySelector('.sidebar');
+
+        menuButton?.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('active');
+            }
+        });
 
         // Initialize globe visualization
         function initGlobe(containerId = 'globeViz') {
@@ -784,51 +809,6 @@
         // Initialize dashboard globe on load
         document.addEventListener('DOMContentLoaded', () => {
             initGlobe('dashboardGlobeViz');
-        });
-
-        // Add click handlers to nav links
-        document.querySelectorAll('.nav-link[data-tab]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const tabId = link.getAttribute('data-tab');
-                showTab(tabId);
-                window.location.hash = tabId;
-            });
-        });
-
-        // Handle initial load and hash changes
-        window.addEventListener('DOMContentLoaded', () => {
-            const hash = window.location.hash.slice(1) || 'dashboard';
-            showTab(hash);
-        });
-
-        window.addEventListener('hashchange', () => {
-            const hash = window.location.hash.slice(1);
-            showTab(hash);
-        });
-
-        // Mobile menu toggle
-        const menuButton = document.querySelector('.menu-button');
-        const sidebar = document.querySelector('.sidebar');
-
-        menuButton?.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    sidebar.classList.remove('active');
-                }
-            });
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                sidebar.classList.remove('active');
-            }
         });
     </script>
 </body>
