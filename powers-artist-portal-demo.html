@@ -181,44 +181,6 @@
             display: block;
         }
 
-        /* Music Section Styles */
-        .music-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .album-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .album-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .album-image {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
-        }
-
-        .album-info {
-            padding: 1rem;
-        }
-
-        .album-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .album-meta {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-
         /* Shows Section Styles */
         .shows-list {
             display: grid;
@@ -645,18 +607,7 @@
 
         /* Overlay for mobile menu */
         .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 998;
-        }
-
-        .overlay.active {
-            display: block;
+            display: none !important;
         }
 
         /* Revenue page specific styles */
@@ -761,12 +712,15 @@
         .tab-content {
             display: none;
             opacity: 0;
+            position: absolute;
+            width: 100%;
             transition: opacity 0.3s ease;
         }
 
         .tab-content.active {
             display: block;
             opacity: 1;
+            position: relative;
         }
     </style>
     <!-- Move scripts to head with defer -->
@@ -918,25 +872,17 @@
         // Add mobile menu functionality
         const menuButton = document.querySelector('.menu-button');
         const sidebar = document.querySelector('.sidebar');
-        const overlay = document.querySelector('.overlay');
         
         menuButton.addEventListener('click', () => {
             sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
         });
         
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-
         // Close menu when clicking a link on mobile
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
                     sidebar.classList.remove('active');
-                    overlay.classList.remove('active');
                 }
             });
         });
@@ -945,7 +891,6 @@
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
                 sidebar.classList.remove('active');
-                overlay.classList.remove('active');
             }
         });
 
@@ -983,31 +928,43 @@
             }
         }
 
-        // Tab switching functionality
+        // Simplified tab switching function
         function showTab(tabId) {
-            // Hide all tab content
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+                tab.style.opacity = '0';
             });
             
-            // Show selected tab content
+            // Show selected tab
             const selectedTab = document.getElementById(tabId);
             if (selectedTab) {
                 selectedTab.classList.add('active');
+                // Small delay to ensure smooth transition
+                setTimeout(() => {
+                    selectedTab.style.opacity = '1';
+                }, 50);
                 
-                // Initialize globe if GIT section is active
+                // Initialize globe if GIT section
                 if (tabId === 'git') {
                     initGlobe();
                 }
-            }
-            
-            // Update active state of nav links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('data-tab') === tabId) {
-                    link.classList.add('active');
+                
+                // Update active state in navigation
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-tab') === tabId) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                // Update page title
+                const pageTitle = document.querySelector('.page-title');
+                const activeLink = document.querySelector(`.nav-link[data-tab="${tabId}"]`);
+                if (pageTitle && activeLink) {
+                    pageTitle.textContent = activeLink.textContent.trim().slice(2);
                 }
-            });
+            }
         }
 
         // Add click handlers to nav links
@@ -1017,22 +974,15 @@
                 const tabId = link.getAttribute('data-tab');
                 showTab(tabId);
                 window.location.hash = tabId;
-                
-                // Close mobile menu if open
-                const mobileMenu = document.querySelector('.nav-menu');
-                if (mobileMenu.classList.contains('active')) {
-                    mobileMenu.classList.remove('active');
-                }
             });
         });
 
-        // Handle initial tab on page load
+        // Handle initial load and hash changes
         window.addEventListener('DOMContentLoaded', () => {
             const hash = window.location.hash.slice(1) || 'dashboard';
             showTab(hash);
         });
 
-        // Handle hash changes
         window.addEventListener('hashchange', () => {
             const hash = window.location.hash.slice(1);
             showTab(hash);
@@ -1054,11 +1004,6 @@
                     <li class="nav-item">
                         <a href="#dashboard" class="nav-link active" data-tab="dashboard">
                             📊 Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#music" class="nav-link" data-tab="music">
-                            🎵 Music
                         </a>
                     </li>
                     <li class="nav-item">
@@ -1092,14 +1037,14 @@
 
         <main class="main-content">
             <div class="page-header">
-                <h1 class="page-title">Artist Dashboard</h1>
+                <h1 class="page-title">Dashboard</h1>
                 <div class="profile-section">
-                    <img src="https://i.imgur.com/placeholder.jpg" alt="Metro Boomin" class="profile-image">
+                    <img src="https://media.pitchfork.com/photos/63666a22b9cbe0d75d25b3cb/1:1/w_800,h_800,c_limit/Metro-Boomin.jpg" alt="Metro Boomin" class="profile-image">
                     <span class="profile-name">Metro Boomin</span>
                 </div>
             </div>
 
-            <!-- Add tab content sections -->
+            <!-- Dashboard Section -->
             <div id="dashboard" class="tab-content active">
                 <div class="page-content">
                     <div class="welcome-header">
@@ -1166,48 +1111,7 @@
                 </div>
             </div>
             
-            <div id="music" class="tab-content">
-                <div class="page-content">
-                    <h2 class="section-title">Latest Releases</h2>
-                    <div class="music-grid">
-                        <div class="album-card">
-                            <img src="https://i.discogs.com/V9AtE3hI_g_olcg3ZG9WnHEIZvkR2_YNE_vHiKB0WZE/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIzOTY4/ODY5LTE2NjA2ODY3/ODItNDEyMi5qcGVn.jpeg" alt="HEROES & VILLAINS" class="album-image">
-                            <div class="album-info">
-                                <h3 class="album-title">HEROES & VILLAINS</h3>
-                                <div class="album-meta">Released Dec 2, 2022</div>
-                                <div class="album-stats">
-                                    <div class="album-stat">
-                                        <div class="stat-number">2.1M</div>
-                                        <div class="stat-text">Streams</div>
-                                    </div>
-                                    <div class="album-stat">
-                                        <div class="stat-number">$850K</div>
-                                        <div class="stat-text">Revenue</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="album-card">
-                            <img src="https://i.discogs.com/8FpcYKUz_9dXHBY1UCI2pn_3BN3_qQrI2QhZTN9jFHY/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI3MjQ4/NTY5LTE2Nzc3OTY3/NzItNzU5NC5qcGVn.jpeg" alt="HEROES & VILLAINS (Deluxe)" class="album-image">
-                            <div class="album-info">
-                                <h3 class="album-title">HEROES & VILLAINS (Deluxe)</h3>
-                                <div class="album-meta">Released Jan 20, 2023</div>
-                                <div class="album-stats">
-                                    <div class="album-stat">
-                                        <div class="stat-number">1.8M</div>
-                                        <div class="stat-text">Streams</div>
-                                    </div>
-                                    <div class="album-stat">
-                                        <div class="stat-number">$720K</div>
-                                        <div class="stat-text">Revenue</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
+            <!-- Shows Section -->
             <div id="shows" class="tab-content">
                 <div class="page-content">
                     <h2 class="section-title">Upcoming Shows</h2>
@@ -1240,6 +1144,7 @@
                 </div>
             </div>
             
+            <!-- Revenue Section -->
             <div id="revenue" class="tab-content">
                 <div class="page-content">
                     <div class="revenue-header">
@@ -1302,6 +1207,7 @@
                 </div>
             </div>
             
+            <!-- GIT Section -->
             <div id="git" class="tab-content">
                 <div class="page-content">
                     <div class="map-filters">
@@ -1332,6 +1238,7 @@
                 </div>
             </div>
             
+            <!-- Messages Section -->
             <div id="messages" class="tab-content">
                 <div class="page-content">
                     <div class="message-tabs">
@@ -1399,7 +1306,5 @@
             <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
     </button>
-
-    <div class="overlay"></div>
 </body>
 </html>
