@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>PWRS - Powers Artist Portal</title>
+  <title>PWRS - Transform Your Vision</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/three@0.144.0/build/three.min.js"></script>
@@ -10,54 +10,78 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>Welcome to PWRS</h1>
-    <div class="rotating-roles">
-      <span>Artist Portal</span>
-      <span>Booker Portal</span>
-      <span>Agent Portal</span>
+  <!-- Loading Screen -->
+  <div class="loading">
+    <svg width="50" height="50" viewBox="0 0 50 50">
+      <circle cx="25" cy="25" r="20" fill="none" stroke="#1DB954" stroke-width="4">
+        <animate attributeName="stroke-dasharray" from="0 126" to="126 126" dur="1s" fill="freeze" />
+      </circle>
+    </svg>
+  </div>
+
+  <!-- Animated Background -->
+  <div class="animated-bg netting"></div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div id="globeViz"></div>
+    <div class="hero-content">
+      <h1>Welcome to PWRS</h1>
+      <div class="rotating-roles">
+        <span>Artist Portal</span>
+        <span>Booker Portal</span>
+        <span>Agent Portal</span>
+      </div>
+      <p class="tagline">Transform Your Vision</p>
+      <a href="powers-artist-portal-demo.html" class="cta-button">View Demo</a>
     </div>
-    <a href="powers-artist-portal-demo.html" class="cta-button">View Demo</a>
-  </header>
+  </section>
 
-  <main>
-    <section class="intro" id="about">
-      <h2>What is PWRS?</h2>
-      <p><strong>PWRS</strong> is your all-in-one platform for powering artists' careers with precision, data, and strategy.</p>
-      <ul class="features">
-        <li>🧭 <strong>Tour Management:</strong> Schedule, optimize, and route your entire tour effortlessly.</li>
-        <li>📈 <strong>Revenue Insights:</strong> Track earnings by city, venue, and time — visually and interactively.</li>
-        <li>🗺️ <strong>GIT (Global Intelligence Tracking):</strong> Explore your career on a globe — past and future tours.</li>
-        <li>🏆 <strong>Progress System:</strong> Earn emblems and level up based on milestones and market success.</li>
-      </ul>
-    </section>
-
-    <section class="preview-section">
-      <div id="previewGlobe"></div>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2025 PWRS | Contact | Support | Integrations</p>
-  </footer>
+  <!-- Features Section -->
+  <section class="features">
+    <div class="feature-card">
+      <div class="feature-icon">🧭</div>
+      <h3 class="feature-title">Tour Management</h3>
+      <p class="feature-description">Schedule and route your shows with ease</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💰</div>
+      <h3 class="feature-title">Revenue Insights</h3>
+      <p class="feature-description">Track what you earn per city, venue, and market</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🗺️</div>
+      <h3 class="feature-title">Global Intelligence Tracking (GIT)</h3>
+      <p class="feature-description">Explore your past and future tour data on a globe</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🏆</div>
+      <h3 class="feature-title">Progress System</h3>
+      <p class="feature-description">Earn emblems and track your growth like a game</p>
+    </div>
+  </section>
 
   <script>
-    // Initialize a smaller preview globe
+    // Initialize the background globe
     const Globe = window.Globe();
-    const previewGlobe = Globe(document.getElementById('previewGlobe'))
+    const globeViz = Globe(document.getElementById('globeViz'))
       .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
       .backgroundColor('rgba(0,0,0,0)')
       .width(window.innerWidth)
-      .height(300);
+      .height(window.innerHeight)
+      .atmosphereColor('#1DB954')
+      .atmosphereAltitude(0.1);
 
-    // Add some sample preview points
-    const previewPoints = [
-      { lat: 34.0522, lng: -118.2437 }, // Los Angeles
-      { lat: 40.7128, lng: -74.0060 },  // New York
-      { lat: 51.5074, lng: -0.1278 }    // London
+    // Sample points for the background globe
+    const points = [
+      { lat: 34.0522, lng: -118.2437 }, // LA
+      { lat: 40.7128, lng: -74.0060 },  // NYC
+      { lat: 51.5074, lng: -0.1278 },   // London
+      { lat: 35.6762, lng: 139.6503 },  // Tokyo
+      { lat: -33.8688, lng: 151.2093 }  // Sydney
     ];
 
-    previewGlobe.pointsData(previewPoints)
+    globeViz.pointsData(points)
       .pointColor(() => '#1DB954')
       .pointAltitude(0.1)
       .pointRadius(0.5);
@@ -66,23 +90,29 @@
     let frame = 0;
     const animate = () => {
       frame = requestAnimationFrame(animate);
-      previewGlobe.rotation({ lat: 0, lng: frame * 0.15 % 360 });
+      globeViz.rotation({ lat: 0, lng: frame * 0.1 % 360 });
     };
     animate();
 
     // Handle window resize
     window.addEventListener('resize', () => {
-      previewGlobe.width(window.innerWidth);
+      globeViz
+        .width(window.innerWidth)
+        .height(window.innerHeight);
     });
 
-    // Add hover effects to features
-    document.querySelectorAll('.features li').forEach(feature => {
-      feature.addEventListener('mouseenter', () => {
-        feature.style.transform = 'translateX(10px)';
-        feature.style.transition = 'transform 0.3s ease';
+    // Handle loading screen
+    window.addEventListener('load', () => {
+      document.querySelector('.loading').classList.add('hidden');
+    });
+
+    // Feature card hover effect
+    document.querySelectorAll('.feature-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-5px)';
       });
-      feature.addEventListener('mouseleave', () => {
-        feature.style.transform = 'translateX(0)';
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0)';
       });
     });
   </script>
