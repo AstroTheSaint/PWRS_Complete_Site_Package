@@ -238,6 +238,155 @@
                 display: block;
             }
         }
+
+        /* Dashboard Specific Styles */
+        .welcome-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2.5rem;
+        }
+
+        .welcome-title {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .artist-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 185, 0, 0.1);
+            border-radius: 20px;
+            color: #FFB900;
+            font-weight: 500;
+        }
+
+        .progress-card {
+            background: var(--card-bg);
+            padding: 1.25rem;
+            border-radius: 12px;
+            min-width: 250px;
+        }
+
+        .progress-text {
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .progress-value {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-top: 0.5rem;
+            text-align: right;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+        }
+
+        .communications-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .communications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .response-rate {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .activity-list {
+            margin-top: 1rem;
+        }
+
+        .activity-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-venue {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-date {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .status-tag {
+            padding: 0.35rem 0.75rem;
+            border-radius: 16px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-approved {
+            background: rgba(29, 185, 84, 0.1);
+            color: var(--primary-color);
+        }
+
+        .status-negotiating {
+            background: rgba(255, 185, 0, 0.1);
+            color: #FFB900;
+        }
+
+        .dashboard-globe-section {
+            margin-top: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-subtext {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -279,6 +428,102 @@
             <div class="profile-section">
                 <img src="https://media.pitchfork.com/photos/63666a22b9cbe0d75d25b3cb/1:1/w_800,h_800,c_limit/Metro-Boomin.jpg" alt="Metro Boomin" class="profile-image">
                 <span class="profile-name">Metro Boomin</span>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="tab-content active">
+            <div class="page-content">
+                <div class="welcome-header">
+                    <div>
+                        <h1 class="welcome-title">Welcome Back!</h1>
+                        <div class="artist-status">
+                            🏆 Gold Artist
+                        </div>
+                    </div>
+                    <div class="progress-card">
+                        <div class="progress-text">Progress to Platinum</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%;"></div>
+                        </div>
+                        <div class="progress-value">75%</div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Shows This Month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-value">$156,000</div>
+                        <div class="stat-label">Revenue This Month</div>
+                    </div>
+                    <div class="stat-card communications-card">
+                        <div class="communications-header">
+                            <h3>Communications</h3>
+                            <div class="response-rate">💬 92%</div>
+                        </div>
+                        <div class="stat-label">Response Rate</div>
+                        
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div>
+                                    <div class="activity-venue">TD Garden</div>
+                                    <div class="activity-date">Last updated Aug 12</div>
+                                </div>
+                                <div class="status-tag status-approved">Approved</div>
+                            </div>
+                            <div class="activity-item">
+                                <div>
+                                    <div class="activity-venue">LIV Nightclub Las Vegas</div>
+                                    <div class="activity-date">Last updated Sep 19</div>
+                                </div>
+                                <div class="status-tag status-approved">Approved</div>
+                            </div>
+                            <div class="activity-item">
+                                <div>
+                                    <div class="activity-venue">LIV Nightclub Miami</div>
+                                    <div class="activity-date">Last updated Dec 12</div>
+                                </div>
+                                <div class="status-tag status-negotiating">Negotiating</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-globe-section">
+                    <h2 class="section-title">Global Tour Overview</h2>
+                    <div class="git-container">
+                        <div class="git-filters">
+                            <select id="dashboardYearFilter" onchange="updateGlobeData(this.value)">
+                                <option value="all">All Time</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                            </select>
+                        </div>
+                        <div id="dashboardGlobeViz"></div>
+                        <div class="git-stats">
+                            <div class="stat-card">
+                                <h3>Past Shows</h3>
+                                <h2>85</h2>
+                                <p class="stat-subtext">Revenue: $12.5M</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Upcoming Shows</h3>
+                                <h2>42</h2>
+                                <p class="stat-subtext">Projected: $8.2M</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Total Markets</h3>
+                                <h2>25</h2>
+                                <p class="stat-subtext">+8 New in 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -477,8 +722,8 @@
         }
 
         // Initialize globe visualization
-        function initGlobe() {
-            const globeContainer = document.getElementById('globeViz');
+        function initGlobe(containerId = 'globeViz') {
+            const globeContainer = document.getElementById(containerId);
             if (!globeContainer) return;
 
             // Clear existing globe
@@ -492,24 +737,54 @@
 
             globe(globeContainer);
 
-            // Add points for major cities
-            const points = [
-                { lat: 40.7128, lng: -74.0060, city: 'New York' },
-                { lat: 51.5074, lng: -0.1278, city: 'London' },
-                { lat: 35.6762, lng: 139.6503, city: 'Tokyo' },
-                { lat: 25.7617, lng: -80.1918, city: 'Miami' },
-                { lat: 34.0522, lng: -118.2437, city: 'Los Angeles' }
+            // Past shows (2024)
+            const pastShows = [
+                { lat: 40.7128, lng: -74.0060, city: 'New York', date: '2024-01-15', revenue: '$2.1M', status: 'completed' },
+                { lat: 34.0522, lng: -118.2437, city: 'Los Angeles', date: '2024-02-20', revenue: '$1.8M', status: 'completed' },
+                { lat: 51.5074, lng: -0.1278, city: 'London', date: '2024-03-10', revenue: '$2.5M', status: 'completed' },
+                { lat: 25.7617, lng: -80.1918, city: 'Miami', date: '2024-04-05', revenue: '$1.2M', status: 'completed' }
             ];
 
-            globe.pointsData(points)
-                .pointColor(() => 'var(--primary-color)')
+            // Future shows (2024-2025)
+            const futureShows = [
+                { lat: 35.6762, lng: 139.6503, city: 'Tokyo', date: '2024-09-15', revenue: '$3.0M', status: 'upcoming' },
+                { lat: 1.3521, lng: 103.8198, city: 'Singapore', date: '2024-10-20', revenue: '$1.5M', status: 'upcoming' },
+                { lat: -33.8688, lng: 151.2093, city: 'Sydney', date: '2025-01-10', revenue: '$2.2M', status: 'upcoming' },
+                { lat: 55.7558, lng: 37.6173, city: 'Moscow', date: '2025-03-15', revenue: '$1.8M', status: 'upcoming' }
+            ];
+
+            // Combine and add all points
+            const allPoints = [...pastShows, ...futureShows];
+            globe.pointsData(allPoints)
+                .pointColor(d => d.status === 'completed' ? '#1DB954' : '#FFB900')
                 .pointAltitude(0.1)
-                .pointRadius(0.5);
+                .pointRadius(0.5)
+                .pointLabel(d => `
+                    <div style="color: white; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 5px;">
+                        <div style="font-weight: bold;">${d.city}</div>
+                        <div>${d.date}</div>
+                        <div>${d.revenue}</div>
+                        <div style="color: ${d.status === 'completed' ? '#1DB954' : '#FFB900'}">${d.status}</div>
+                    </div>
+                `);
 
             // Auto-rotate
             globe.controls().autoRotate = true;
             globe.controls().autoRotateSpeed = 0.5;
+
+            return globe;
         }
+
+        // Function to update globe data based on year selection
+        function updateGlobeData(year) {
+            // Re-initialize globe with filtered data based on year
+            initGlobe('dashboardGlobeViz');
+        }
+
+        // Initialize dashboard globe on load
+        document.addEventListener('DOMContentLoaded', () => {
+            initGlobe('dashboardGlobeViz');
+        });
 
         // Add click handlers to nav links
         document.querySelectorAll('.nav-link[data-tab]').forEach(link => {
