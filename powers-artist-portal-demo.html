@@ -3,68 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PWRS Demo - Artist Portal</title>
+    <title>PWRS - Artist Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Demo-specific styles */
-        .demo-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .demo-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .demo-section {
+        /* Portal-specific styles */
+        .portal-container {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+            background: var(--dark-bg);
         }
 
-        .globe-container {
+        .sidebar {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .logo img {
+            width: 120px;
+            height: auto;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(29, 185, 84, 0.1);
+            color: var(--green-accent);
+        }
+
+        .nav-link span {
+            margin-left: 0.75rem;
+        }
+
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
             background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            min-height: 400px;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--green-accent);
+        }
+
+        .globe-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            height: 500px;
             position: relative;
         }
 
-        .stats-panel {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
+        #globeViz {
+            width: 100%;
+            height: 100%;
         }
 
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .year-filter {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem;
+            border-radius: 8px;
         }
 
-        .stat-item:last-child {
-            border-bottom: none;
-        }
-
-        .stat-item strong {
-            color: var(--green-accent);
-            font-size: 1.2rem;
+        .year-filter select {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            border-radius: 4px;
         }
 
         @media (max-width: 768px) {
-            .demo-section {
+            .portal-container {
                 grid-template-columns: 1fr;
             }
-            
-            .globe-container {
-                min-height: 300px;
+
+            .sidebar {
+                display: none;
             }
         }
     </style>
@@ -73,43 +138,83 @@
     <!-- Loading Screen -->
     <div class="loading">
         <div class="loading-spinner"></div>
-        <p class="loading-text">Loading Demo...</p>
+        <p class="loading-text">Loading Portal...</p>
     </div>
 
-    <div class="demo-container">
-        <header class="demo-header">
-            <h1>PWRS Artist Portal Demo</h1>
+    <div class="portal-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>PWRS</h2>
+            </div>
             <nav>
-                <a href="index.html" class="cta-button">Back to Home</a>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active">
+                            📊 Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            🎵 Music
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            🎫 Shows
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            💰 Revenue
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            🌍 GIT
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            ← Back Home
+                        </a>
+                    </li>
+                </ul>
             </nav>
-        </header>
+        </aside>
 
-        <main>
-            <section class="demo-section">
-                <div class="globe-container">
-                    <div id="globeViz"></div>
+        <main class="main-content">
+            <h1>Artist Dashboard</h1>
+            
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <h3>Total Revenue</h3>
+                    <div class="stat-value">$6.5M</div>
                 </div>
-                <div class="stats-panel">
-                    <h2>Artist Statistics</h2>
-                    <div class="stat-item">
-                        <span>Total Shows</span>
-                        <strong>127</strong>
-                    </div>
-                    <div class="stat-item">
-                        <span>Countries Toured</span>
-                        <strong>15</strong>
-                    </div>
-                    <div class="stat-item">
-                        <span>Revenue Generated</span>
-                        <strong>$1.2M</strong>
-                    </div>
+                <div class="stat-card">
+                    <h3>Shows Performed</h3>
+                    <div class="stat-value">127</div>
                 </div>
-            </section>
+                <div class="stat-card">
+                    <h3>Countries</h3>
+                    <div class="stat-value">15</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Average Attendance</h3>
+                    <div class="stat-value">12.4K</div>
+                </div>
+            </div>
+
+            <div class="globe-section">
+                <div class="year-filter">
+                    <select id="yearSelect">
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024" selected>2024</option>
+                    </select>
+                </div>
+                <div id="globeViz"></div>
+            </div>
         </main>
-
-        <footer>
-            <p>© 2025 PWRS | <a href="index.html">Back to Home</a></p>
-        </footer>
     </div>
 
     <script>
@@ -148,24 +253,46 @@
             const globeViz = Globe(document.getElementById('globeViz'))
                 .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
                 .backgroundColor('rgba(0,0,0,0)')
-                .width(window.innerWidth)
-                .height(400)
                 .atmosphereColor('#1DB954')
                 .atmosphereAltitude(0.1);
 
-            const sampleData = [
-                { lat: 40.7128, lng: -74.0060, city: 'New York', value: 1200000 },
-                { lat: 51.5074, lng: -0.1278, city: 'London', value: 980000 },
-                { lat: 35.6762, lng: 139.6503, city: 'Tokyo', value: 1500000 },
-                { lat: 34.0522, lng: -118.2437, city: 'Los Angeles', value: 2000000 },
-                { lat: -33.8688, lng: 151.2093, city: 'Sydney', value: 850000 }
-            ];
+            const tourData = {
+                "2024": [
+                    { lat: 34.0522, lng: -118.2437, city: 'Los Angeles', value: 2000000 },
+                    { lat: 40.7128, lng: -74.0060, city: 'New York', value: 1800000 },
+                    { lat: 51.5074, lng: -0.1278, city: 'London', value: 1500000 },
+                    { lat: 35.6762, lng: 139.6503, city: 'Tokyo', value: 1200000 },
+                    { lat: -33.8688, lng: 151.2093, city: 'Sydney', value: 1000000 }
+                ],
+                "2023": [
+                    { lat: 19.4326, lng: -99.1332, city: 'Mexico City', value: 1600000 },
+                    { lat: 55.7558, lng: 37.6173, city: 'Moscow', value: 1400000 },
+                    { lat: 48.8566, lng: 2.3522, city: 'Paris', value: 1300000 }
+                ],
+                "2022": [
+                    { lat: 1.3521, lng: 103.8198, city: 'Singapore', value: 900000 },
+                    { lat: 25.2048, lng: 55.2708, city: 'Dubai', value: 1100000 },
+                    { lat: -22.9068, lng: -43.1729, city: 'Rio de Janeiro', value: 800000 }
+                ]
+            };
 
-            globeViz.pointsData(sampleData)
-                .pointColor(() => '#1DB954')
-                .pointAltitude(0.1)
-                .pointRadius(d => Math.sqrt(d.value) * 0.0001)
-                .pointLabel(d => `${d.city}: $${(d.value / 1000000).toFixed(1)}M`);
+            function updateGlobeData(year) {
+                const data = tourData[year] || [];
+                globeViz
+                    .pointsData(data)
+                    .pointColor(() => '#1DB954')
+                    .pointAltitude(0.1)
+                    .pointRadius(d => Math.sqrt(d.value) * 0.00015)
+                    .pointLabel(d => `${d.city}: $${(d.value / 1000000).toFixed(1)}M`);
+            }
+
+            // Handle year selection
+            document.getElementById('yearSelect').addEventListener('change', (e) => {
+                updateGlobeData(e.target.value);
+            });
+
+            // Initialize with 2024 data
+            updateGlobeData('2024');
 
             // Auto-rotate
             let frame = 0;
@@ -177,11 +304,17 @@
 
             // Handle window resize
             window.addEventListener('resize', () => {
-                const container = document.querySelector('.globe-container');
+                const container = document.querySelector('.globe-section');
                 globeViz
                     .width(container.clientWidth)
                     .height(container.clientHeight);
             });
+
+            // Initial size set
+            const container = document.querySelector('.globe-section');
+            globeViz
+                .width(container.clientWidth)
+                .height(container.clientHeight);
 
             // Hide loading screen
             document.querySelector('.loading').classList.add('hidden');
