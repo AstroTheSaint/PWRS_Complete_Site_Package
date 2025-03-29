@@ -448,6 +448,116 @@
             background: var(--green-accent);
         }
     </style>
+    <!-- Move scripts to head with defer -->
+    <script defer src="https://unpkg.com/three@0.144.0/build/three.min.js"></script>
+    <script defer src="https://unpkg.com/globe.gl@4.3.0/dist/globe.gl.min.js"></script>
+    <script>
+        // Ensure the page loads even if globe scripts fail
+        window.addEventListener('load', () => {
+            // Show initial content immediately
+            const initialSection = document.querySelector('.content-section.active');
+            if (initialSection) {
+                initialSection.querySelector('.page-content').classList.add('loaded');
+            }
+
+            // Remove loading screen immediately
+            document.querySelector('.loading').classList.add('hidden');
+
+            // Handle navigation
+            const navLinks = document.querySelectorAll('.nav-link[data-section]');
+            const sections = document.querySelectorAll('.content-section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    // Update active link
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+
+                    // Show corresponding section
+                    const sectionId = link.dataset.section;
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === sectionId) {
+                            section.classList.add('active');
+                            section.querySelector('.page-content').classList.add('loaded');
+                        } else {
+                            section.querySelector('.page-content').classList.remove('loaded');
+                        }
+                    });
+
+                    // Update page title
+                    const pageTitle = document.querySelector('.page-title');
+                    pageTitle.textContent = link.textContent.trim().slice(2);
+
+                    // If GIT section is active, try to initialize globe
+                    if (sectionId === 'git') {
+                        initGlobe();
+                    }
+                });
+            });
+
+            // Handle hash-based navigation
+            const handleHash = () => {
+                const hash = window.location.hash.slice(1) || 'dashboard';
+                const link = document.querySelector(`.nav-link[data-section="${hash}"]`);
+                if (link) {
+                    link.click();
+                }
+            };
+
+            window.addEventListener('hashchange', handleHash);
+            handleHash(); // Handle initial hash
+
+            // Initialize globe visualization
+            const initGlobe = () => {
+                if (!window.Globe) return; // Skip if Globe is not loaded
+                try {
+                    const Globe = window.Globe();
+                    const globeViz = Globe(document.getElementById('globeViz'))
+                        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+                        .backgroundColor('rgba(0,0,0,0)')
+                        .atmosphereColor('#1DB954')
+                        .atmosphereAltitude(0.1)
+                        .pointsData([
+                            { lat: 34.0522, lng: -118.2437, size: 0.2, city: 'Los Angeles' },
+                            { lat: 40.7128, lng: -74.0060, size: 0.2, city: 'New York' },
+                            { lat: 51.5074, lng: -0.1278, size: 0.2, city: 'London' },
+                            { lat: 35.6762, lng: 139.6503, size: 0.2, city: 'Tokyo' },
+                            { lat: -33.8688, lng: 151.2093, size: 0.2, city: 'Sydney' }
+                        ])
+                        .pointColor(() => '#1DB954')
+                        .pointAltitude(0.1)
+                        .pointRadius('size')
+                        .pointLabel(d => d.city);
+
+                    // Auto-rotate
+                    let frame = 0;
+                    const animate = () => {
+                        frame = requestAnimationFrame(animate);
+                        globeViz.rotation({ lat: 0, lng: frame * 0.005 % 360 });
+                    };
+                    animate();
+                } catch (error) {
+                    console.error('Failed to initialize globe:', error);
+                }
+            };
+
+            // Handle message tabs
+            const messageTabs = document.querySelectorAll('.message-tab');
+            messageTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    messageTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+
+            // Add profile image
+            const profileImage = document.querySelector('.profile-image');
+            profileImage.src = "https://media.pitchfork.com/photos/63666a22b9cbe0d75d25b3cb/1:1/w_800,h_800,c_limit/Metro-Boomin.jpg";
+        });
+    </script>
 </head>
 <body>
     <div class="loading">
@@ -759,123 +869,5 @@
             </div>
         </main>
     </div>
-
-    <script src="https://unpkg.com/three@0.144.0/build/three.min.js"></script>
-    <script src="https://unpkg.com/globe.gl@4.3.0/dist/globe.gl.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Show initial content
-            const initialSection = document.querySelector('.content-section.active');
-            if (initialSection) {
-                initialSection.querySelector('.page-content').classList.add('loaded');
-            }
-
-            // Hide loading screen after a delay
-            setTimeout(() => {
-                document.querySelector('.loading').classList.add('hidden');
-            }, 1000);
-
-            // Handle navigation
-            const navLinks = document.querySelectorAll('.nav-link[data-section]');
-            const sections = document.querySelectorAll('.content-section');
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-
-                    // Update active link
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
-
-                    // Show corresponding section
-                    const sectionId = link.dataset.section;
-                    sections.forEach(section => {
-                        section.classList.remove('active');
-                        if (section.id === sectionId) {
-                            section.classList.add('active');
-                            // Add loaded class to show content with animation
-                            section.querySelector('.page-content').classList.add('loaded');
-                        } else {
-                            section.querySelector('.page-content').classList.remove('loaded');
-                        }
-                    });
-
-                    // Update page title
-                    const pageTitle = document.querySelector('.page-title');
-                    pageTitle.textContent = link.textContent.trim().slice(2);
-                });
-            });
-
-            // Handle hash-based navigation
-            const handleHash = () => {
-                const hash = window.location.hash.slice(1) || 'dashboard';
-                const link = document.querySelector(`.nav-link[data-section="${hash}"]`);
-                if (link) {
-                    link.click();
-                }
-            };
-
-            window.addEventListener('hashchange', handleHash);
-            handleHash(); // Handle initial hash
-
-            // Initialize globe visualization
-            const initGlobe = () => {
-                try {
-                    const Globe = window.Globe();
-                    const globeViz = Globe(document.getElementById('globeViz'))
-                        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-                        .backgroundColor('rgba(0,0,0,0)')
-                        .atmosphereColor('#1DB954')
-                        .atmosphereAltitude(0.1)
-                        .pointsData([
-                            { lat: 34.0522, lng: -118.2437, size: 0.2, city: 'Los Angeles' },
-                            { lat: 40.7128, lng: -74.0060, size: 0.2, city: 'New York' },
-                            { lat: 51.5074, lng: -0.1278, size: 0.2, city: 'London' },
-                            { lat: 35.6762, lng: 139.6503, size: 0.2, city: 'Tokyo' },
-                            { lat: -33.8688, lng: 151.2093, size: 0.2, city: 'Sydney' }
-                        ])
-                        .pointColor(() => '#1DB954')
-                        .pointAltitude(0.1)
-                        .pointRadius('size')
-                        .pointLabel(d => d.city);
-
-                    // Auto-rotate
-                    let frame = 0;
-                    const animate = () => {
-                        frame = requestAnimationFrame(animate);
-                        globeViz.rotation({ lat: 0, lng: frame * 0.005 % 360 });
-                    };
-                    animate();
-                } catch (error) {
-                    console.error('Failed to initialize globe:', error);
-                }
-            };
-
-            // Initialize globe when GIT section becomes active
-            const gitSection = document.querySelector('#git');
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    if (mutation.target.classList.contains('active')) {
-                        initGlobe();
-                    }
-                });
-            });
-            observer.observe(gitSection, { attributes: true, attributeFilter: ['class'] });
-
-            // Handle message tabs
-            const messageTabs = document.querySelectorAll('.message-tab');
-            const messageContents = document.querySelectorAll('.message-content');
-            messageTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    messageTabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                });
-            });
-
-            // Add profile image
-            const profileImage = document.querySelector('.profile-image');
-            profileImage.src = "https://media.pitchfork.com/photos/63666a22b9cbe0d75d25b3cb/1:1/w_800,h_800,c_limit/Metro-Boomin.jpg";
-        });
-    </script>
 </body>
 </html>
