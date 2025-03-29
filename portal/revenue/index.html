@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWRS - Revenue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Revenue-specific styles */
+        .revenue-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .revenue-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .revenue-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .revenue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .revenue-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .revenue-value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--green-accent);
+        }
+
+        .revenue-change {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--green-accent);
+        }
+
+        .revenue-change.negative {
+            color: #ff4444;
+        }
+
+        .chart-container {
+            height: 300px;
+            margin-top: 1rem;
+        }
+
+        .revenue-breakdown {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .breakdown-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .breakdown-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        .breakdown-value {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--green-accent);
+        }
+
+        .revenue-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .revenue-table th,
+        .revenue-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .revenue-table th {
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .revenue-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            .revenue-container {
+                grid-template-columns: 1fr;
+            }
+
+            .revenue-breakdown {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading Revenue...</p>
+    </div>
+
+    <div class="portal-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>PWRS</h2>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="dashboard/index.html" class="nav-link">
+                            📊 Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music/index.html" class="nav-link">
+                            🎵 Music
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="shows/index.html" class="nav-link">
+                            🎫 Shows
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="revenue/index.html" class="nav-link active">
+                            💰 Revenue
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="communications/index.html" class="nav-link">
+                            📬 Communications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile/index.html" class="nav-link">
+                            👤 Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../index.html" class="nav-link">
+                            ← Back Home
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">Revenue</h1>
+                <div class="profile-section">
+                    <img src="https://example.com/metro-boomin.jpg" alt="Profile" class="profile-image">
+                    <span class="profile-name">Metro Boomin</span>
+                </div>
+            </div>
+
+            <div class="revenue-container">
+                <div class="revenue-card">
+                    <div class="revenue-header">
+                        <h2 class="revenue-title">Total Revenue</h2>
+                        <div class="revenue-change">
+                            <span>↑ 12.5%</span>
+                            <span>vs last month</span>
+                        </div>
+                    </div>
+                    <div class="revenue-value">$8.2M</div>
+                    <div class="revenue-breakdown">
+                        <div class="breakdown-item">
+                            <div class="breakdown-label">Music</div>
+                            <div class="breakdown-value">$4.8M</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <div class="breakdown-label">Touring</div>
+                            <div class="breakdown-value">$2.4M</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <div class="breakdown-label">Merch</div>
+                            <div class="breakdown-value">$1.0M</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="revenue-card">
+                    <div class="revenue-header">
+                        <h2 class="revenue-title">Monthly Revenue</h2>
+                        <div class="revenue-change negative">
+                            <span>↓ 3.2%</span>
+                            <span>vs last month</span>
+                        </div>
+                    </div>
+                    <div class="revenue-value">$1.2M</div>
+                    <div class="chart-container" id="monthlyChart"></div>
+                </div>
+
+                <div class="revenue-card full-width">
+                    <h2 class="revenue-title">Revenue History</h2>
+                    <table class="revenue-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Source</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jun 15, 2024</td>
+                                <td>Madison Square Garden</td>
+                                <td>$450,000</td>
+                                <td>Completed</td>
+                            </tr>
+                            <tr>
+                                <td>Jun 10, 2024</td>
+                                <td>Streaming Royalties</td>
+                                <td>$280,000</td>
+                                <td>Completed</td>
+                            </tr>
+                            <tr>
+                                <td>Jun 5, 2024</td>
+                                <td>Merchandise Sales</td>
+                                <td>$120,000</td>
+                                <td>Completed</td>
+                            </tr>
+                            <tr>
+                                <td>Jun 20, 2024</td>
+                                <td>O2 Arena</td>
+                                <td>$380,000</td>
+                                <td>Pending</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../portal-data.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Hide loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loading').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Initialize monthly revenue chart
+        function initMonthlyChart() {
+            const ctx = document.getElementById('monthlyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Monthly Revenue',
+                        data: [0.8, 0.9, 1.1, 1.0, 1.2, 1.2],
+                        borderColor: '#1DB954',
+                        backgroundColor: 'rgba(29, 185, 84, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize chart after loading
+        window.addEventListener('load', () => {
+            initMonthlyChart();
+        });
+    </script>
+</body>
+</html> 
