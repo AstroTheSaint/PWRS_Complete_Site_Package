@@ -2028,7 +2028,119 @@
                         </div>
                     </div>
 
-                    <!-- Add more accepted shows here -->
+                    <!-- Dubai Arena Show -->
+                    <div class="show-card">
+                        <div class="show-header">
+                            <h3>Dubai Arena International Music Festival</h3>
+                            <div class="show-meta">
+                                <span class="venue">Coca-Cola Arena, Dubai, UAE</span>
+                                <span class="date">April 20, 2025</span>
+                            </div>
+                        </div>
+                        <div class="show-details">
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <span class="label">Offer From</span>
+                                    <span class="value">Live Nation Middle East</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Performance Type</span>
+                                    <span class="value">International Festival</span>
+                                </div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <span class="label">Confirmed Fee</span>
+                                    <span class="value highlight">$250,000</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Status</span>
+                                    <span class="status accepted">Confirmed</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="show-actions">
+                            <button class="action-btn view">View Contract</button>
+                            <button class="action-btn view">View Technical Rider</button>
+                            <button class="action-btn messages" onclick="switchToMessages('dubai-thread')">View Messages</button>
+                        </div>
+                    </div>
+
+                    <!-- Las Vegas Residency -->
+                    <div class="show-card">
+                        <div class="show-header">
+                            <h3>XS Nightclub Residency</h3>
+                            <div class="show-meta">
+                                <span class="venue">XS Nightclub, Las Vegas, NV</span>
+                                <span class="date">May 15-30, 2025</span>
+                            </div>
+                        </div>
+                        <div class="show-details">
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <span class="label">Offer From</span>
+                                    <span class="value">Wynn Nightlife</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Performance Type</span>
+                                    <span class="value">Club Residency (6 Shows)</span>
+                                </div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <span class="label">Confirmed Fee</span>
+                                    <span class="value highlight">$900,000 Total</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Status</span>
+                                    <span class="status accepted">Confirmed</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="show-actions">
+                            <button class="action-btn view">View Contract</button>
+                            <button class="action-btn view">View Technical Rider</button>
+                            <button class="action-btn messages" onclick="switchToMessages('xs-thread')">View Messages</button>
+                        </div>
+                    </div>
+
+                    <!-- Sydney Show -->
+                    <div class="show-card">
+                        <div class="show-header">
+                            <h3>Sydney Opera House Special Performance</h3>
+                            <div class="show-meta">
+                                <span class="venue">Sydney Opera House, Sydney, Australia</span>
+                                <span class="date">January 10, 2025</span>
+                            </div>
+                        </div>
+                        <div class="show-details">
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <span class="label">Offer From</span>
+                                    <span class="value">Sydney Opera House Trust</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Performance Type</span>
+                                    <span class="value">Special Performance</span>
+                                </div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <span class="label">Confirmed Fee</span>
+                                    <span class="value highlight">$200,000</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Status</span>
+                                    <span class="status accepted">Confirmed</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="show-actions">
+                            <button class="action-btn view">View Contract</button>
+                            <button class="action-btn view">View Technical Rider</button>
+                            <button class="action-btn messages" onclick="switchToMessages('sydney-thread')">View Messages</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2086,11 +2198,127 @@
                         </div>
                     </div>
 
-                    <!-- Add other show requests here -->
+                    <!-- Bonnaroo Request -->
+                    <div class="show-card" id="bonnaroo-request">
+                        <div class="show-header">
+                            <h3>Bonnaroo Music & Arts Festival</h3>
+                            <div class="show-meta">
+                                <span class="venue">Great Stage Park, Manchester, TN</span>
+                                <span class="date">June 14, 2025</span>
+                            </div>
+                        </div>
+                        <div class="show-details">
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <span class="label">Offer From</span>
+                                    <span class="value">Live Nation</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Performance Type</span>
+                                    <span class="value">Festival Headliner</span>
+                                </div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <span class="label">Estimated Fee</span>
+                                    <span class="value highlight">$175,000 - $225,000</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Status</span>
+                                    <span class="status negotiating">Negotiating</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="show-actions">
+                            <button class="action-btn accept" onclick="showContractModal('bonnaroo')">Accept Offer</button>
+                            <button class="action-btn decline">Decline</button>
+                            <button class="action-btn view" onclick="showDetailsModal('bonnaroo')">View Details</button>
+                            <button class="action-btn messages" onclick="switchToThread('bonnaroo-thread')">View Messages</button>
+                        </div>
+                    </div>
+
+                    <!-- LIV Miami Request -->
+                    <div class="show-card" id="liv-request">
+                        <div class="show-header">
+                            <h3>LIV Miami Residency</h3>
+                            <div class="show-meta">
+                                <span class="venue">LIV Nightclub, Miami Beach, FL</span>
+                                <span class="date">July - August 2025</span>
+                            </div>
+                        </div>
+                        <div class="show-details">
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <span class="label">Offer From</span>
+                                    <span class="value">MMG Nightlife</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Performance Type</span>
+                                    <span class="value">Club Residency (8 Shows)</span>
+                                </div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <span class="label">Estimated Fee</span>
+                                    <span class="value highlight">$1.2M Total</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Status</span>
+                                    <span class="status pending">Pending Review</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="show-actions">
+                            <button class="action-btn accept" onclick="showContractModal('liv')">Accept Offer</button>
+                            <button class="action-btn decline">Decline</button>
+                            <button class="action-btn view" onclick="showDetailsModal('liv')">View Details</button>
+                            <button class="action-btn messages" onclick="switchToThread('liv-thread')">View Messages</button>
+                        </div>
+                    </div>
+
+                    <!-- Made In America Request -->
+                    <div class="show-card" id="mia-request">
+                        <div class="show-header">
+                            <h3>Made In America Festival</h3>
+                            <div class="show-meta">
+                                <span class="venue">Benjamin Franklin Parkway, Philadelphia, PA</span>
+                                <span class="date">September 6, 2025</span>
+                            </div>
+                        </div>
+                        <div class="show-details">
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <span class="label">Offer From</span>
+                                    <span class="value">Roc Nation</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Performance Type</span>
+                                    <span class="value">Festival Co-Headliner</span>
+                                </div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <span class="label">Estimated Fee</span>
+                                    <span class="value highlight">$200,000 - $250,000</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Status</span>
+                                    <span class="status negotiating">Negotiating</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="show-actions">
+                            <button class="action-btn accept" onclick="showContractModal('mia')">Accept Offer</button>
+                            <button class="action-btn decline">Decline</button>
+                            <button class="action-btn view" onclick="showDetailsModal('mia')">View Details</button>
+                            <button class="action-btn messages" onclick="switchToThread('mia-thread')">View Messages</button>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Message Thread View -->
+                <!-- Message Threads -->
                 <div class="message-threads">
+                    <!-- Existing Coachella thread -->
                     <div class="message-thread" id="coachella-thread">
                         <div class="thread-header">
                             <h3>Coachella Valley Music and Arts Festival</h3>
@@ -2126,36 +2354,208 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Modal Templates -->
-        <div class="modal" id="details-modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Show Details</h3>
-                    <button class="close-modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <!-- Details content will be populated dynamically -->
-                </div>
-            </div>
-        </div>
+                    <!-- Bonnaroo Thread -->
+                    <div class="message-thread" id="bonnaroo-thread">
+                        <div class="thread-header">
+                            <h3>Bonnaroo Music & Arts Festival</h3>
+                            <span class="thread-meta">Last updated: 1 day ago</span>
+                        </div>
+                        <div class="messages">
+                            <div class="message received">
+                                <div class="message-content">
+                                    <p>Hi Metro! We'd love to have you headline Bonnaroo 2025. Here's our initial offer:</p>
+                                    <div class="attachment">
+                                        <i class="fas fa-file-pdf"></i>
+                                        <span>Bonnaroo_2025_Offer.pdf</span>
+                                    </div>
+                                </div>
+                                <span class="timestamp">2 days ago, 11:30 AM</span>
+                            </div>
+                            <div class="message sent">
+                                <div class="message-content">
+                                    <p>Thanks for the offer. Looking to discuss the production budget and stage setup.</p>
+                                </div>
+                                <span class="timestamp">1 day ago, 3:45 PM</span>
+                            </div>
+                            <div class="message received">
+                                <div class="message-content">
+                                    <p>Of course! We've updated the offer with an increased production budget:</p>
+                                    <div class="attachment">
+                                        <i class="fas fa-file-pdf"></i>
+                                        <span>Bonnaroo_2025_Revised_Offer.pdf</span>
+                                    </div>
+                                </div>
+                                <span class="timestamp">1 day ago, 5:20 PM</span>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="modal" id="contract-modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Contract Review</h3>
-                    <button class="close-modal">&times;</button>
+                    <!-- Add other message threads here -->
                 </div>
-                <div class="modal-body">
-                    <!-- Contract content will be populated dynamically -->
+
+                <!-- Modal Templates -->
+                <div class="modal" id="details-modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Show Details</h3>
+                            <button class="close-modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="show-details-content">
+                                <!-- Content will be populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="action-btn accept">Accept Contract</button>
-                    <button class="action-btn decline">Decline</button>
+
+                <div class="modal" id="contract-modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Contract Review</h3>
+                            <button class="close-modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="contract-content">
+                                <!-- Content will be populated dynamically -->
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="action-btn accept">Accept Contract</button>
+                            <button class="action-btn decline">Decline</button>
+                        </div>
+                    </div>
                 </div>
+
+                <script>
+                    // Show data object
+                    const showData = {
+                        'coachella': {
+                            title: 'Coachella Valley Music and Arts Festival',
+                            venue: 'Empire Polo Club, Indio, CA',
+                            date: 'April 12, 2025',
+                            time: '10:30 PM - 12:00 AM',
+                            type: 'Festival Main Stage',
+                            fee: '$150,000 - $200,000',
+                            productionBudget: '$75,000',
+                            capacity: '125,000',
+                            requirements: [
+                                'Full stage production setup',
+                                'Custom LED wall configuration',
+                                'Minimum 90-minute set',
+                                'Exclusive radius clause (150 miles, 3 months)'
+                            ],
+                            amenities: [
+                                'Private luxury trailer',
+                                'Helicopter transport from LAX',
+                                'Full backstage catering',
+                                'VIP guest allocation (20 passes)'
+                            ]
+                        },
+                        'bonnaroo': {
+                            title: 'Bonnaroo Music & Arts Festival',
+                            venue: 'Great Stage Park, Manchester, TN',
+                            date: 'June 14, 2025',
+                            time: '11:00 PM - 12:30 AM',
+                            type: 'Festival Headliner',
+                            fee: '$175,000 - $225,000',
+                            productionBudget: '$85,000',
+                            capacity: '80,000',
+                            requirements: [
+                                'Full stage production',
+                                'Custom lighting rig',
+                                'Minimum 90-minute set',
+                                'Radius clause (120 miles, 2 months)'
+                            ],
+                            amenities: [
+                                'Artist compound access',
+                                'Private air-conditioned tent',
+                                'Full catering service',
+                                'VIP guest passes (15)'
+                            ]
+                        },
+                        // Add other show data here
+                    };
+
+                    function showDetailsModal(showId) {
+                        const modal = document.getElementById('details-modal');
+                        const content = document.getElementById('show-details-content');
+                        const show = showData[showId];
+
+                        if (show) {
+                            content.innerHTML = `
+                                <div class="show-details-full">
+                                    <h2>${show.title}</h2>
+                                    <div class="detail-section">
+                                        <h4>Event Information</h4>
+                                        <p><strong>Venue:</strong> ${show.venue}</p>
+                                        <p><strong>Date:</strong> ${show.date}</p>
+                                        <p><strong>Time:</strong> ${show.time}</p>
+                                        <p><strong>Type:</strong> ${show.type}</p>
+                                        <p><strong>Capacity:</strong> ${show.capacity}</p>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4>Financial Details</h4>
+                                        <p><strong>Performance Fee:</strong> ${show.fee}</p>
+                                        <p><strong>Production Budget:</strong> ${show.productionBudget}</p>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4>Requirements</h4>
+                                        <ul>
+                                            ${show.requirements.map(req => `<li>${req}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4>Amenities</h4>
+                                        <ul>
+                                            ${show.amenities.map(amenity => `<li>${amenity}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                            `;
+                        }
+
+                        modal.style.display = 'block';
+                    }
+
+                    function showContractModal(showId) {
+                        const modal = document.getElementById('contract-modal');
+                        const content = document.getElementById('contract-content');
+                        const show = showData[showId];
+
+                        if (show) {
+                            content.innerHTML = `
+                                <div class="contract-preview">
+                                    <h2>Performance Agreement</h2>
+                                    <div class="contract-section">
+                                        <h4>Event Details</h4>
+                                        <p><strong>Event:</strong> ${show.title}</p>
+                                        <p><strong>Date:</strong> ${show.date}</p>
+                                        <p><strong>Time:</strong> ${show.time}</p>
+                                        <p><strong>Venue:</strong> ${show.venue}</p>
+                                    </div>
+                                    <div class="contract-section">
+                                        <h4>Compensation</h4>
+                                        <p><strong>Performance Fee:</strong> ${show.fee}</p>
+                                        <p><strong>Production Budget:</strong> ${show.productionBudget}</p>
+                                        <p><strong>Payment Terms:</strong> 50% deposit upon signing, 50% day of show</p>
+                                    </div>
+                                    <div class="contract-section">
+                                        <h4>Terms & Conditions</h4>
+                                        <ul>
+                                            <li>Performance duration: 90 minutes minimum</li>
+                                            <li>Sound check: Day of show, time TBD</li>
+                                            <li>Radius clause: As specified in requirements</li>
+                                            <li>Cancellation policy: 60 days notice required</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            `;
+                        }
+
+                        modal.style.display = 'block';
+                    }
+                </script>
             </div>
         </div>
 
