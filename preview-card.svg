@@ -1,0 +1,40 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Dark Background with Subtle Gradient -->
+    <rect width="1200" height="630" fill="#121212"/>
+    <rect width="1200" height="630" fill="url(#gradient)"/>
+    
+    <!-- Subtle Globe in Background -->
+    <circle cx="900" cy="315" r="250" fill="url(#globe-gradient)" fill-opacity="0.1"/>
+    <path d="M900 65C1042.55 65 1158.33 180.784 1158.33 323.333C1158.33 465.883 1042.55 581.667 900 581.667" stroke="#1DB954" stroke-width="2" stroke-opacity="0.2"/>
+    
+    <!-- Main Content -->
+    <g transform="translate(100, 215)">
+        <!-- Logo -->
+        <text x="0" y="0" fill="#FFFFFF" font-family="Inter" font-weight="700" font-size="72">
+            PWRS
+        </text>
+        
+        <!-- Tagline -->
+        <text x="0" y="80" fill="#FFFFFF" font-family="Inter" font-weight="600" font-size="48">
+            Global Tour Intelligence
+        </text>
+        
+        <!-- Stats -->
+        <text x="0" y="160" fill="#1DB954" font-family="Inter" font-weight="500" font-size="24">
+            25+ Markets • $12.5M+ Revenue • 98% Response Rate
+        </text>
+    </g>
+    
+    <!-- Gradients -->
+    <defs>
+        <linearGradient id="gradient" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#1DB954" stop-opacity="0.1"/>
+            <stop offset="100%" stop-color="#121212" stop-opacity="0"/>
+        </linearGradient>
+        
+        <radialGradient id="globe-gradient" cx="900" cy="315" r="250" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#1DB954" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#1DB954" stop-opacity="0"/>
+        </radialGradient>
+    </defs>
+</svg> 
