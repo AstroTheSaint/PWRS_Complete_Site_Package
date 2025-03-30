@@ -1229,17 +1229,19 @@
         .show-actions {
             margin-top: 1.5rem;
             display: flex;
-            gap: 1rem;
+            gap: 0.75rem;
+            flex-wrap: wrap;
         }
 
         .action-btn {
-            padding: 0.75rem 1.5rem;
+            padding: 0.75rem 1.25rem;
             border-radius: 8px;
             font-weight: 600;
             font-size: 0.875rem;
             cursor: pointer;
             transition: all 0.2s ease;
             border: none;
+            white-space: nowrap;
         }
 
         .action-btn.accept {
@@ -1256,6 +1258,11 @@
             background: transparent;
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: var(--text-primary, #ffffff);
+        }
+
+        .action-btn.messages {
+            background: linear-gradient(135deg, #1DB954, #000000);
+            color: white;
         }
 
         .action-btn:hover {
@@ -1285,6 +1292,121 @@
         .status.negotiating {
             background: rgba(156, 39, 176, 0.2);
             color: #9c27b0;
+        }
+
+        /* Documents Section Styling Update */
+        .documents-grid {
+            display: grid;
+            gap: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-color);
+        }
+
+        .document-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .document-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .document-cards {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .document-card {
+            display: flex;
+            align-items: center;
+            padding: 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .document-card:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .doc-icon {
+            font-size: 2rem;
+            margin-right: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .doc-info {
+            flex: 1;
+        }
+
+        .doc-info h4 {
+            margin: 0;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .doc-info p {
+            margin: 0.25rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .doc-status {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        .doc-status.pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .doc-status.approved {
+            background: rgba(29, 185, 84, 0.2);
+            color: #1db954;
+        }
+
+        .doc-status.active {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196f3;
+        }
+
+        .doc-status.draft {
+            background: rgba(158, 158, 158, 0.2);
+            color: #9e9e9e;
+        }
+
+        .doc-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .doc-action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .doc-action-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
         }
     </style>
 </head>
@@ -1682,6 +1804,7 @@
                                         <button class="action-btn accept">Accept Offer</button>
                                         <button class="action-btn decline">Decline</button>
                                         <button class="action-btn view">View Details</button>
+                                        <button class="action-btn messages" onclick="switchToMessages('coachella-thread')">View Messages</button>
                                     </div>
                                 </div>
                             </div>
@@ -1722,6 +1845,7 @@
                                         <button class="action-btn accept">Accept Terms</button>
                                         <button class="action-btn decline">Decline</button>
                                         <button class="action-btn view">View Details</button>
+                                        <button class="action-btn messages" onclick="switchToMessages('liv-thread')">View Messages</button>
                                     </div>
                                 </div>
                             </div>
@@ -1763,6 +1887,7 @@
                                         <button class="action-btn accept">Accept Offer</button>
                                         <button class="action-btn decline">Decline</button>
                                         <button class="action-btn view">View Details</button>
+                                        <button class="action-btn messages" onclick="switchToMessages('bonnaroo-thread')">View Messages</button>
                                     </div>
                                 </div>
                             </div>
@@ -1804,6 +1929,7 @@
                                         <button class="action-btn accept">Accept Offer</button>
                                         <button class="action-btn decline">Decline</button>
                                         <button class="action-btn view">View Details</button>
+                                        <button class="action-btn messages" onclick="switchToMessages('corporate-thread')">View Messages</button>
                                     </div>
                                 </div>
                             </div>
@@ -1845,6 +1971,7 @@
                                         <button class="action-btn accept">Accept Offer</button>
                                         <button class="action-btn decline">Decline</button>
                                         <button class="action-btn view">View Details</button>
+                                        <button class="action-btn messages" onclick="switchToMessages('wireless-thread')">View Messages</button>
                                     </div>
                                 </div>
                             </div>
@@ -1886,6 +2013,7 @@
                                         <button class="action-btn accept">Accept Offer</button>
                                         <button class="action-btn decline">Decline</button>
                                         <button class="action-btn view">View Details</button>
+                                        <button class="action-btn messages" onclick="switchToMessages('summerfest-thread')">View Messages</button>
                                     </div>
                                 </div>
                             </div>
@@ -1927,6 +2055,7 @@
                                         <button class="action-btn accept">Accept Offer</button>
                                         <button class="action-btn decline">Decline</button>
                                         <button class="action-btn view">View Details</button>
+                                        <button class="action-btn messages" onclick="switchToMessages('birthday-thread')">View Messages</button>
                                     </div>
                                 </div>
                             </div>
@@ -1978,6 +2107,7 @@
                                         <button class="action-btn accept">Accept Package</button>
                                         <button class="action-btn decline">Decline</button>
                                         <button class="action-btn view">View Details</button>
+                                        <button class="action-btn messages" onclick="switchToMessages('lolla-package-thread')">View Messages</button>
                                     </div>
                                 </div>
                             </div>
@@ -2019,6 +2149,7 @@
                                         <button class="action-btn accept">Accept Offer</button>
                                         <button class="action-btn decline">Decline</button>
                                         <button class="action-btn view">View Details</button>
+                                        <button class="action-btn messages" onclick="switchToMessages('mia-thread')">View Messages</button>
                                     </div>
                                 </div>
                             </div>
@@ -2528,6 +2659,22 @@
             // Switch to messages tab and show corresponding thread
             document.querySelector('[data-tab="messages"]').click();
             // Additional logic to show specific message thread
+        }
+
+        function switchToMessages(threadId) {
+            // Switch to messages tab
+            switchMessageTab('messages');
+            
+            // Find and scroll to the specific message thread
+            const messageThread = document.querySelector(`[data-thread="${threadId}"]`);
+            if (messageThread) {
+                messageThread.scrollIntoView({ behavior: 'smooth' });
+                // Add a highlight effect
+                messageThread.classList.add('highlight');
+                setTimeout(() => {
+                    messageThread.classList.remove('highlight');
+                }, 2000);
+            }
         }
     </script>
 </body>
