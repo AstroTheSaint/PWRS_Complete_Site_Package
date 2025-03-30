@@ -147,14 +147,16 @@
     }
 
     .stats {
-      padding: 4rem 2rem;
+      padding: 8rem 2rem;
       background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+      position: relative;
+      z-index: 2;
     }
 
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
+      gap: 3rem;
       max-width: 1200px;
       margin: 0 auto;
       text-align: center;
@@ -162,43 +164,68 @@
 
     .stat-card {
       padding: 2rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--border-radius);
+      border: 1px solid rgba(29, 185, 84, 0.1);
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary-color);
+      box-shadow: 0 4px 20px rgba(29, 185, 84, 0.15);
     }
 
     .stat-value {
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: 700;
       color: var(--primary-color);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+      text-shadow: 0 2px 10px rgba(29, 185, 84, 0.2);
     }
 
     .stat-label {
       color: var(--text-secondary);
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      font-weight: 500;
     }
 
     .cta-section {
-      padding: 6rem 2rem;
+      padding: 10rem 2rem;
       text-align: center;
       background: linear-gradient(135deg, rgba(29, 185, 84, 0.1), rgba(0, 0, 0, 0.3));
+      position: relative;
+      z-index: 2;
     }
 
     .cta-content {
-      max-width: 600px;
+      max-width: 800px;
       margin: 0 auto;
     }
 
     .cta-content h2 {
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #FFFFFF, #1DB954);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .cta-content p {
       color: var(--text-secondary);
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
+      font-size: 1.2rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      align-items: center;
     }
 
     .cta-button {
-      padding: 1rem 2rem;
+      padding: 1rem 2.5rem;
       background: linear-gradient(135deg, #1DB954, #159442);
       border: none;
       border-radius: 30px;
@@ -207,6 +234,10 @@
       font-weight: 600;
       cursor: pointer;
       transition: var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .cta-button:hover {
@@ -214,10 +245,23 @@
       box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
     }
 
+    .cta-button.secondary {
+      background: transparent;
+      border: 2px solid #1DB954;
+      color: #1DB954;
+    }
+
+    .cta-button.secondary:hover {
+      background: rgba(29, 185, 84, 0.1);
+      box-shadow: 0 4px 12px rgba(29, 185, 84, 0.15);
+    }
+
     footer {
-      padding: 4rem 2rem;
+      padding: 6rem 2rem;
       background: #0a0a0a;
       text-align: center;
+      position: relative;
+      z-index: 2;
     }
 
     footer p {
@@ -387,8 +431,23 @@
   <section class="cta-section">
     <div class="cta-content">
       <h2>Ready to Transform Your Touring Strategy?</h2>
-      <p>Join the platform that's revolutionizing how artists manage their global tours.</p>
-      <button class="cta-button" onclick="showContactModal()">Get Started Today</button>
+      <p>Join the platform that's revolutionizing how artists manage their global tours. Experience the future of tour management today.</p>
+      <div class="cta-buttons">
+        <button class="cta-button" onclick="showContactModal()">
+          Get Started Today
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+        <a href="powers-artist-portal-demo.html" class="cta-button secondary">
+          View Demo
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+            <path d="M21 3v5h-5"></path>
+          </svg>
+        </a>
+      </div>
     </div>
   </section>
 
