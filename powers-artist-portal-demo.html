@@ -695,6 +695,252 @@
             font-size: 0.875rem;
             font-weight: 500;
         }
+
+        .messages-container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            height: 800px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            gap: 1rem;
+        }
+
+        .message-tab {
+            padding: 0.75rem 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .message-tab.active {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .message-tab:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .message-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .message-tab-content {
+            display: none;
+        }
+
+        .message-tab-content.active {
+            display: block;
+        }
+
+        .message-input-container {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            position: sticky;
+            top: 0;
+        }
+
+        .message-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: var(--border-radius);
+            color: var(--text-primary);
+        }
+
+        .message-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .send-button {
+            background: var(--primary-color);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .send-button:hover {
+            opacity: 0.9;
+        }
+
+        .messages-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .message-item {
+            display: flex;
+            gap: 1rem;
+            max-width: 80%;
+        }
+
+        .message-item.received {
+            align-self: flex-start;
+        }
+
+        .message-item.sent {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .message-content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .sender-name {
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .message-time {
+            color: var(--text-secondary);
+        }
+
+        .message-text {
+            margin-bottom: 0.5rem;
+        }
+
+        .message-attachment {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            font-size: 0.875rem;
+        }
+
+        .documents-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .document-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+        }
+
+        .document-icon {
+            font-size: 1.5rem;
+        }
+
+        .document-info {
+            flex: 1;
+        }
+
+        .document-info h4 {
+            margin: 0;
+            margin-bottom: 0.25rem;
+        }
+
+        .document-info p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .download-button {
+            background: var(--primary-color);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 0.5rem 1rem;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .download-button:hover {
+            opacity: 0.9;
+        }
+
+        .request-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .action-button.approve {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .action-button.reject {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .document-preview {
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+        }
+
+        .view-doc-button {
+            margin-left: auto;
+            background: var(--primary-color);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 0.5rem 1rem;
+            color: white;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -1047,64 +1293,108 @@
         <div id="messages" class="tab-content">
             <div class="messages-container">
                 <div class="message-tabs">
-                    <div class="message-tab active">SHOW REQUESTS</div>
-                    <div class="message-tab">MESSAGES</div>
+                    <div class="message-tab active" onclick="switchMessageTab('requests')">SHOW REQUESTS</div>
+                    <div class="message-tab" onclick="switchMessageTab('messages')">MESSAGES</div>
+                    <div class="message-tab" onclick="switchMessageTab('documents')">DOCUMENTS</div>
                 </div>
+
                 <div class="message-content">
-                    <div class="show-request">
-                        <div class="show-card">
-                            <div class="show-header">
-                                <div>
-                                    <h3>Dubai Arena</h3>
-                                    <p>Dubai, UAE</p>
-                                    <p>April 20, 2025 - 9:00 PM</p>
+                    <div id="requests-tab" class="message-tab-content active">
+                        <div class="show-requests-list">
+                            <div class="show-request">
+                                <div class="show-card">
+                                    <div class="show-header">
+                                        <div>
+                                            <h3>Dubai Arena</h3>
+                                            <p>Dubai, UAE</p>
+                                            <p>April 20, 2025 - 9:00 PM</p>
+                                        </div>
+                                        <div class="request-actions">
+                                            <button class="action-button approve">Accept</button>
+                                            <button class="action-button reject">Decline</button>
+                                        </div>
+                                    </div>
+                                    <div class="show-details">
+                                        <p>Capacity: 16,000</p>
+                                        <p>Ticket Range: $150 - $500</p>
+                                        <p>Expected Revenue: $2.8M</p>
+                                        <p>Setup Time: 3:00 PM</p>
+                                        <p>Duration: 2.5 hours</p>
+                                        <div class="document-preview">
+                                            <span class="document-icon">📄</span>
+                                            <span>Contract_Dubai_Arena_2025.pdf</span>
+                                            <button class="view-doc-button">View</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <span class="show-status status-confirmed">Approved</span>
-                            </div>
-                            <div class="show-details">
-                                <p>Capacity: 16,000</p>
-                                <p>Ticket Range: $150 - $500</p>
-                                <p>Expected Revenue: $2.8M</p>
-                                <p>Setup Time: 3:00 PM</p>
-                                <p>Duration: 2.5 hours</p>
                             </div>
                         </div>
                     </div>
-                    <div class="show-request">
-                        <div class="show-card">
-                            <div class="show-header">
-                                <div>
-                                    <h3>LIV Nightclub Miami</h3>
-                                    <p>Miami, FL</p>
-                                    <p>May 5, 2025 - 11:00 PM</p>
+
+                    <div id="messages-tab" class="message-tab-content">
+                        <div class="message-input-container">
+                            <input type="text" class="message-input" placeholder="Type your message...">
+                            <button class="send-button">
+                                <span class="send-icon">📤</span>
+                            </button>
+                        </div>
+                        <div class="messages-list">
+                            <div class="message-thread">
+                                <div class="message-item received">
+                                    <div class="message-avatar">JM</div>
+                                    <div class="message-content">
+                                        <div class="message-header">
+                                            <span class="sender-name">John Manager</span>
+                                            <span class="message-time">Today, 10:30 AM</span>
+                                        </div>
+                                        <div class="message-text">
+                                            Hey Metro, the Dubai Arena contract has been updated with the new terms we discussed. Please review when you can.
+                                        </div>
+                                        <div class="message-attachment">
+                                            <span class="attachment-icon">📎</span>
+                                            <span>Updated_Contract_v2.pdf</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <span class="show-status status-negotiating">Negotiating</span>
-                            </div>
-                            <div class="show-details">
-                                <p>Capacity: 2,000</p>
-                                <p>Ticket Range: $100 - $500</p>
-                                <p>Expected Revenue: $450K</p>
-                                <p>Setup Time: 8:00 PM</p>
-                                <p>Duration: 1.5 hours</p>
+                                <div class="message-item sent">
+                                    <div class="message-content">
+                                        <div class="message-header">
+                                            <span class="message-time">Today, 11:15 AM</span>
+                                        </div>
+                                        <div class="message-text">
+                                            Thanks, I'll take a look at it this afternoon. Can we discuss the stage setup requirements?
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="show-request">
-                        <div class="show-card">
-                            <div class="show-header">
-                                <div>
-                                    <h3>LIV Nightclub Las Vegas</h3>
-                                    <p>Las Vegas, NV</p>
-                                    <p>May 15, 2025 - 11:00 PM</p>
+
+                    <div id="documents-tab" class="message-tab-content">
+                        <div class="documents-list">
+                            <div class="document-item">
+                                <div class="document-icon">📄</div>
+                                <div class="document-info">
+                                    <h4>Dubai Arena Contract</h4>
+                                    <p>Updated: March 25, 2024</p>
                                 </div>
-                                <span class="show-status status-confirmed">Approved</span>
+                                <button class="download-button">Download</button>
                             </div>
-                            <div class="show-details">
-                                <p>Capacity: 2,500</p>
-                                <p>Ticket Range: $150 - $600</p>
-                                <p>Expected Revenue: $600K</p>
-                                <p>Setup Time: 8:00 PM</p>
-                                <p>Duration: 1.5 hours</p>
+                            <div class="document-item">
+                                <div class="document-icon">📄</div>
+                                <div class="document-info">
+                                    <h4>Technical Rider</h4>
+                                    <p>Updated: March 23, 2024</p>
+                                </div>
+                                <button class="download-button">Download</button>
+                            </div>
+                            <div class="document-item">
+                                <div class="document-icon">📄</div>
+                                <div class="document-info">
+                                    <h4>Stage Layout</h4>
+                                    <p>Updated: March 20, 2024</p>
+                                </div>
+                                <button class="download-button">Download</button>
                             </div>
                         </div>
                     </div>
@@ -1281,6 +1571,57 @@
         // Initialize dashboard globe on load
         document.addEventListener('DOMContentLoaded', () => {
             initGlobe('dashboardGlobeViz');
+        });
+
+        function switchMessageTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.message-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.message-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+
+            // Add active class to selected tab
+            document.querySelector(`.message-tab[onclick="switchMessageTab('${tabName}')"]`).classList.add('active');
+        }
+
+        // Initialize message input functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const messageInput = document.querySelector('.message-input');
+            const sendButton = document.querySelector('.send-button');
+
+            function sendMessage() {
+                const message = messageInput.value.trim();
+                if (message) {
+                    const messagesList = document.querySelector('.messages-list');
+                    const newMessage = document.createElement('div');
+                    newMessage.className = 'message-item sent';
+                    newMessage.innerHTML = `
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-time">${new Date().toLocaleTimeString()}</span>
+                            </div>
+                            <div class="message-text">${message}</div>
+                        </div>
+                    `;
+                    messagesList.appendChild(newMessage);
+                    messageInput.value = '';
+                    messagesList.scrollTop = messagesList.scrollHeight;
+                }
+            }
+
+            sendButton.addEventListener('click', sendMessage);
+            messageInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
         });
     </script>
 </body>
