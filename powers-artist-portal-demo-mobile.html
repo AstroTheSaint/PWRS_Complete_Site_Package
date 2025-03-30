@@ -86,33 +86,71 @@
             font-weight: 500;
         }
 
-        .stats-grid {
+        .stats-overview {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            padding: 1rem;
-            margin-top: 1rem;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            margin: 1rem 0;
         }
 
-        .stat-card {
+        .stat-block {
             background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 1.25rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
         }
 
-        .stat-value {
+        .stat-number {
             font-size: 1.75rem;
             font-weight: 700;
             color: var(--primary-color);
+            margin-bottom: 0.25rem;
         }
 
-        .stat-label {
+        .stat-description {
             font-size: 0.875rem;
             color: var(--text-secondary);
+        }
+
+        .globe-container {
+            width: 100%;
+            height: 250px;
+            margin: 0 auto;
+            position: relative;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 1rem 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .filter-dropdown {
+            width: 100%;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .revenue-info {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+            text-align: center;
         }
 
         .mobile-nav {
@@ -205,29 +243,6 @@
             transform: rotate(-45deg) translate(7px, -6px);
         }
 
-        .globe-container {
-            width: 100%;
-            height: 300px;
-            aspect-ratio: 16/9;
-            margin: 0.5rem auto;
-            position: relative;
-        }
-
-        .globe-section {
-            padding: 0.5rem;
-            margin: 0.5rem 0;
-            height: auto;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 12px;
-        }
-
-        .section-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
         /* Shows section improvements */
         .shows-grid {
             display: grid;
@@ -303,22 +318,22 @@
             <div class="status-badge">📈 Progress: On Track</div>
         </section>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-value">12</div>
-                <div class="stat-label">Shows</div>
+        <div class="stats-overview">
+            <div class="stat-block">
+                <div class="stat-number">12</div>
+                <div class="stat-description">Shows</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-value">$156,000</div>
-                <div class="stat-label">Revenue This Month</div>
+            <div class="stat-block">
+                <div class="stat-number">$156,000</div>
+                <div class="stat-description">Revenue This Month</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-value">25+</div>
-                <div class="stat-label">Markets</div>
+            <div class="stat-block">
+                <div class="stat-number">25+</div>
+                <div class="stat-description">Markets</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-value">98%</div>
-                <div class="stat-label">Response Rate</div>
+            <div class="stat-block">
+                <div class="stat-number">98%</div>
+                <div class="stat-description">Response Rate</div>
             </div>
         </div>
 
@@ -338,7 +353,7 @@
             Markets
         </a>
         <a href="#" class="nav-item">
-            <span class="nav-icon">📅</span>
+            <span class="nav-icon">��</span>
             Schedule
         </a>
         <a href="#" class="nav-item">
