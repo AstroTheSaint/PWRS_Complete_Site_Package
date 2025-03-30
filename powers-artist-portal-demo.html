@@ -389,10 +389,11 @@
         }
 
         .revenue-battle-pass {
-            background: var(--card-bg);
+            background: linear-gradient(145deg, var(--card-bg), rgba(29, 185, 84, 0.1));
             border-radius: var(--border-radius);
             padding: 2rem;
             margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .tier-progress {
@@ -527,6 +528,172 @@
 
         .reward-icon {
             font-size: 1.2rem;
+        }
+
+        .revenue-overview {
+            margin-top: 2rem;
+        }
+
+        .revenue-charts {
+            margin-top: 2rem;
+        }
+
+        .chart-container {
+            margin-bottom: 2rem;
+        }
+
+        .pie-chart-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+        }
+
+        .pie-chart {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: var(--card-bg);
+        }
+
+        .pie-segment {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            clip-path: polygon(50% 50%, 100% 0, 100% 0);
+            transform-origin: 50% 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .pie-segment::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--color);
+            transform: rotate(calc(3.6deg * var(--percentage)));
+        }
+
+        .segment-tooltip {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 0.75rem;
+            border-radius: 8px;
+            width: 180px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .pie-segment:hover {
+            transform: scale(1.05);
+        }
+
+        .pie-segment:hover .segment-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        .chart-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        .shows { --rotation: 0deg; }
+        .merch { --rotation: calc(360deg * 0.8); }
+        .other { --rotation: calc(360deg * 0.943); }
+
+        .pie-segment.shows { transform: rotate(var(--rotation)); }
+        .pie-segment.merch { transform: rotate(var(--rotation)); }
+        .pie-segment.other { transform: rotate(var(--rotation)); }
+
+        .milestone-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1rem;
+            border-radius: 8px;
+            width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 10;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .milestone-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 8px;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+        }
+
+        .milestone-tooltip h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .milestone-tooltip ul {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0;
+        }
+
+        .milestone-tooltip li {
+            margin: 0.25rem 0;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .milestone-marker:hover .milestone-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        .modern-card {
+            background: linear-gradient(145deg, var(--card-bg), rgba(29, 185, 84, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-pill {
+            background: rgba(29, 185, 84, 0.2);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -713,16 +880,25 @@
             <div class="revenue-battle-pass">
                 <div class="tier-progress">
                     <div class="tier-header">
-                        <h2>Revenue Battle Pass</h2>
+                        <h2>Tour Revenue Progress</h2>
                         <div class="current-tier gold">
                             <span class="tier-icon">👑</span>
-                            <span>GOLD STATUS</span>
+                            <span>GOLD ARTIST</span>
                         </div>
                     </div>
                     <div class="tier-track">
                         <div class="tier-milestone achieved">
                             <div class="milestone-marker">
-                                <span class="tier-icon">🥇</span>
+                                <div class="milestone-tooltip">
+                                    <h4>Gold Status Unlocked!</h4>
+                                    <p>Benefits:</p>
+                                    <ul>
+                                        <li>✓ Premium Venue Access</li>
+                                        <li>✓ Priority Booking</li>
+                                        <li>✓ VIP Meet & Greet Tools</li>
+                                    </ul>
+                                </div>
+                                <span class="tier-icon">🏆</span>
                                 <span class="tier-value">$1M</span>
                                 <span class="tier-name">GOLD</span>
                             </div>
@@ -730,6 +906,15 @@
                         </div>
                         <div class="tier-milestone in-progress">
                             <div class="milestone-marker">
+                                <div class="milestone-tooltip">
+                                    <h4>Platinum Benefits</h4>
+                                    <p>Unlock at $5M:</p>
+                                    <ul>
+                                        <li>• Arena Tour Support</li>
+                                        <li>• Global Booking Access</li>
+                                        <li>• Advanced Analytics</li>
+                                    </ul>
+                                </div>
                                 <span class="tier-icon">💫</span>
                                 <span class="tier-value">$5M</span>
                                 <span class="tier-name">PLATINUM</span>
@@ -738,6 +923,15 @@
                         </div>
                         <div class="tier-milestone">
                             <div class="milestone-marker">
+                                <div class="milestone-tooltip">
+                                    <h4>Diamond Benefits</h4>
+                                    <p>Unlock at $10M:</p>
+                                    <ul>
+                                        <li>• Stadium Tour Access</li>
+                                        <li>• Custom Merch Platform</li>
+                                        <li>• Premium Support Team</li>
+                                    </ul>
+                                </div>
                                 <span class="tier-icon">💎</span>
                                 <span class="tier-value">$10M</span>
                                 <span class="tier-name">DIAMOND</span>
@@ -747,92 +941,66 @@
                 </div>
             </div>
 
-            <div class="revenue-stats">
-                <div class="stat-card battle-pass-style">
+            <div class="revenue-overview">
+                <div class="stat-card modern-card">
                     <div class="stat-header">
-                        <h3>Current Progress</h3>
-                        <div class="level-badge">LVL 75</div>
+                        <h3>Current Tour Progress</h3>
+                        <div class="progress-pill">35% to Platinum</div>
                     </div>
                     <h2>$1.75M / $5M</h2>
                     <div class="progress-bar">
                         <div class="progress-fill animated" style="width: 35%;"></div>
                     </div>
-                    <p>35% to Platinum Status</p>
                     <div class="rewards-preview">
                         <div class="reward-item">
-                            <span class="reward-icon">🎭</span>
-                            <span>VIP Show Access</span>
-                        </div>
-                        <div class="reward-item locked">
-                            <span class="reward-icon">🌟</span>
-                            <span>Platinum Benefits</span>
+                            <span class="reward-icon">🎪</span>
+                            <span>Next Milestone: Arena Tour Support</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="revenue-breakdown">
-                <h3>Revenue Breakdown</h3>
-                <div class="stat-card">
-                    <div class="breakdown-item">
-                        <span>Shows Revenue</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 80%;"></div>
-                        </div>
-                        <span>$1.4M (80%)</span>
-                        <div class="achievement-badge">
-                            <span class="badge-icon">🎭</span>
-                            <span class="badge-text">Top Performer</span>
-                        </div>
-                    </div>
-                    <div class="breakdown-item">
-                        <span>Merchandise</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 14.3%;"></div>
-                        </div>
-                        <span>$250K (14.3%)</span>
-                        <div class="achievement-badge">
-                            <span class="badge-icon">👕</span>
-                            <span class="badge-text">Growing</span>
-                        </div>
-                    </div>
-                    <div class="breakdown-item">
-                        <span>Other Sources</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 5.7%;"></div>
-                        </div>
-                        <span>$100K (5.7%)</span>
-                        <div class="achievement-badge">
-                            <span class="badge-icon">💎</span>
-                            <span class="badge-text">Diversified</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="revenue-milestones">
-                <h3>Achievement Milestones</h3>
-                <div class="milestones-grid">
-                    <div class="milestone-card">
-                        <div class="milestone-icon">🎯</div>
-                        <div class="milestone-title">Next Milestone</div>
-                        <div class="milestone-value">$2M</div>
-                        <div class="milestone-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 87.5%;"></div>
+            <div class="revenue-charts">
+                <div class="chart-container">
+                    <h3>Revenue Distribution</h3>
+                    <div class="pie-chart-wrapper">
+                        <div class="pie-chart">
+                            <div class="pie-segment shows" style="--percentage: 80; --color: var(--primary-color);">
+                                <div class="segment-tooltip">
+                                    <h4>Shows Revenue</h4>
+                                    <p>$1.4M (80%)</p>
+                                    <small>Primary revenue from live performances</small>
+                                </div>
+                            </div>
+                            <div class="pie-segment merch" style="--percentage: 14.3; --color: #FFB946;">
+                                <div class="segment-tooltip">
+                                    <h4>Merchandise</h4>
+                                    <p>$250K (14.3%)</p>
+                                    <small>Tour merchandise and exclusive items</small>
+                                </div>
+                            </div>
+                            <div class="pie-segment other" style="--percentage: 5.7; --color: #FF4646;">
+                                <div class="segment-tooltip">
+                                    <h4>Other Sources</h4>
+                                    <p>$100K (5.7%)</p>
+                                    <small>VIP packages, meet & greets, etc.</small>
+                                </div>
                             </div>
                         </div>
-                        <div class="milestone-reward">+100 XP</div>
-                    </div>
-                    <div class="milestone-card">
-                        <div class="milestone-icon">🏆</div>
-                        <div class="milestone-title">Platinum Status</div>
-                        <div class="milestone-value">$5M</div>
-                        <div class="milestone-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 35%;"></div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: var(--primary-color);"></span>
+                                <span>Shows ($1.4M)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #FFB946;"></span>
+                                <span>Merch ($250K)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #FF4646;"></span>
+                                <span>Other ($100K)</span>
                             </div>
                         </div>
-                        <div class="milestone-reward">+500 XP</div>
                     </div>
                 </div>
             </div>
