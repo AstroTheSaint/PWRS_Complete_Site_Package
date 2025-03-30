@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>PWRS - Global Tour Intelligence Platform</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>
@@ -51,6 +51,12 @@
       text-decoration: none;
     }
 
+    .nav-buttons {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
     .nav-cta {
       padding: 0.75rem 1.5rem;
       background: linear-gradient(135deg, #1DB954, #159442);
@@ -60,11 +66,18 @@
       font-weight: 600;
       cursor: pointer;
       transition: var(--transition);
+      text-decoration: none;
     }
 
-    .nav-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+    .nav-cta.secondary {
+      background: transparent;
+      border: 2px solid #1DB954;
+      color: #1DB954;
+    }
+
+    .nav-cta.secondary:hover {
+      background: rgba(29, 185, 84, 0.1);
+      box-shadow: 0 4px 12px rgba(29, 185, 84, 0.15);
     }
 
     .hero {
@@ -107,43 +120,93 @@
 
     .features {
       padding: 6rem 2rem;
-      background: linear-gradient(180deg, var(--bg-color), #1a1a1a);
+      position: relative;
+      overflow: hidden;
+      background: transparent;
     }
 
     .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      display: flex;
       gap: 2rem;
       max-width: 1200px;
       margin: 0 auto;
+      position: relative;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .feature-card {
-      background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+      flex: 0 0 calc(33.333% - 1.334rem);
+      background: rgba(24, 24, 24, 0.6);
+      backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: var(--border-radius);
       padding: 2rem;
-      transition: var(--transition);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0.3;
+      transform: scale(0.9);
     }
 
-    .feature-card:hover {
-      transform: translateY(-4px);
+    .feature-card.active {
+      opacity: 1;
+      transform: scale(1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
       border-color: var(--primary-color);
+    }
+
+    .feature-card.prev,
+    .feature-card.next {
+      opacity: 0.5;
+      transform: scale(0.95);
     }
 
     .feature-icon {
       font-size: 2rem;
       margin-bottom: 1rem;
       color: var(--primary-color);
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card.active .feature-icon {
+      transform: scale(1.1);
     }
 
     .feature-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+      transition: color 0.3s ease;
     }
 
     .feature-card p {
       color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+      transition: color 0.3s ease;
+    }
+
+    .carousel-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 3rem;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid transparent;
+    }
+
+    .carousel-dot.active {
+      background: var(--primary-color);
+      transform: scale(1.2);
+      border-color: rgba(29, 185, 84, 0.3);
     }
 
     .stats {
@@ -350,119 +413,35 @@
 
       .features {
         padding: 4rem 1rem;
-        overflow: hidden;
       }
 
       .features-grid {
-        display: flex;
-        flex-wrap: nowrap;
         gap: 1rem;
-        overflow-x: hidden;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        margin: 0 -1rem;
-        padding: 0 1rem;
       }
 
       .feature-card {
-        min-width: calc(100% - 2rem);
-        opacity: 0;
-        transform: translateX(100%);
-        transition: all 0.5s ease;
-        position: absolute;
-        left: 0;
-        right: 0;
-        margin: 0 1rem;
+        flex: 0 0 calc(100% - 2rem);
+        padding: 1.5rem;
+        margin: 0;
       }
 
-      .feature-card.active {
-        opacity: 1;
-        transform: translateX(0);
+      .feature-card h3 {
+        font-size: 1.1rem;
       }
 
-      .feature-card.prev {
-        opacity: 0;
-        transform: translateX(-100%);
-      }
-
-      .feature-card.next {
-        opacity: 0;
-        transform: translateX(100%);
-      }
-
-      .carousel-indicators {
-        display: flex;
-        justify-content: center;
-        gap: 0.5rem;
-        margin-top: 2rem;
+      .feature-card p {
+        font-size: 0.9rem;
       }
 
       .carousel-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.2);
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .carousel-dot.active {
-        background: var(--primary-color);
-        transform: scale(1.2);
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-
-      .cta-buttons {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .cta-button {
-        width: 100%;
-        justify-content: center;
+        width: 6px;
+        height: 6px;
       }
     }
 
-    /* Desktop Carousel Option */
-    @media (min-width: 769px) {
-      .features-grid {
-        display: flex;
-        flex-wrap: nowrap;
-        gap: 2rem;
-        overflow-x: hidden;
-        scroll-behavior: smooth;
-      }
-
+    @media (min-width: 769px) and (max-width: 1024px) {
       .feature-card {
-        min-width: calc(33.333% - 1.334rem);
-        opacity: 1;
-        transform: none;
-        transition: all 0.5s ease;
-      }
-
-      .carousel-indicators {
-        display: flex;
-        justify-content: center;
-        gap: 0.5rem;
-        margin-top: 3rem;
-      }
-
-      .carousel-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.2);
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .carousel-dot.active {
-        background: var(--primary-color);
-        transform: scale(1.2);
+        flex: 0 0 calc(50% - 1rem);
       }
     }
 
@@ -521,7 +500,10 @@
 
   <nav class="navbar">
     <a href="#" class="logo">PWRS</a>
-    <button class="nav-cta" onclick="showContactModal()">Get Started</button>
+    <div class="nav-buttons">
+      <a href="powers-artist-portal-demo.html" class="nav-cta secondary">View Demo</a>
+      <button class="nav-cta" onclick="showContactModal()">Get Started</button>
+    </div>
   </nav>
 
   <section class="hero">
@@ -534,35 +516,35 @@
 
   <section class="features">
     <div class="features-grid" id="featuresCarousel">
-      <div class="feature-card active">
+      <div class="feature-card">
         <div class="feature-icon">🌍</div>
-        <h3>Global Market Insights</h3>
-        <p>Access real-time data on venue capacities, ticket pricing, and market demand across different regions.</p>
+        <h3>Market Intelligence</h3>
+        <p>Real-time venue data and market demand insights across regions.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">📈</div>
-        <h3>Revenue Optimization</h3>
-        <p>Maximize your earnings with dynamic pricing strategies and comprehensive revenue analytics.</p>
+        <h3>Revenue Tools</h3>
+        <p>Dynamic pricing and comprehensive revenue analytics.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">✈️</div>
-        <h3>Tour Logistics</h3>
-        <p>Streamline travel planning with integrated flight information and accommodation recommendations.</p>
+        <h3>Tour Planning</h3>
+        <p>Integrated travel and accommodation management.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">💼</div>
-        <h3>Contract Management</h3>
-        <p>Handle negotiations, contracts, and rider requirements all in one place.</p>
+        <h3>Contracts</h3>
+        <p>Streamlined negotiations and rider management.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">📊</div>
-        <h3>Performance Analytics</h3>
-        <p>Track your success with detailed analytics on show attendance, engagement, and revenue.</p>
+        <h3>Analytics</h3>
+        <p>Track attendance, engagement, and revenue metrics.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">💬</div>
-        <h3>Unified Communications</h3>
-        <p>Manage all your show-related communications in a single, organized platform.</p>
+        <h3>Communications</h3>
+        <p>Unified platform for all show-related communications.</p>
       </div>
     </div>
     <div class="carousel-indicators" id="carouselDots"></div>
@@ -959,15 +941,26 @@
       let currentIndex = 0;
       let interval;
 
+      // Clear existing dots
+      dotsContainer.innerHTML = '';
+
       // Create dots
       cards.forEach((_, index) => {
         const dot = document.createElement('div');
         dot.className = `carousel-dot${index === 0 ? ' active' : ''}`;
-        dot.addEventListener('click', () => goToSlide(index));
+        dot.addEventListener('click', () => {
+          goToSlide(index);
+          stopAutoPlay();
+          startAutoPlay();
+        });
         dotsContainer.appendChild(dot);
       });
 
       function updateCards() {
+        const isMobile = window.innerWidth <= 768;
+        const isTablet = window.innerWidth <= 1024 && window.innerWidth > 768;
+        const visibleCards = isMobile ? 1 : isTablet ? 2 : 3;
+
         cards.forEach((card, index) => {
           card.className = 'feature-card';
           if (index === currentIndex) {
@@ -977,6 +970,10 @@
           } else if (index === getNextIndex()) {
             card.classList.add('next');
           }
+
+          // Calculate transform for smooth carousel movement
+          const offset = (index - currentIndex) * (100 / visibleCards);
+          card.style.transform = `translateX(${offset}%)`;
         });
 
         // Update dots
@@ -1032,10 +1029,8 @@
 
         if (Math.abs(diff) > swipeThreshold) {
           if (diff > 0) {
-            // Swipe left
             currentIndex = getNextIndex();
           } else {
-            // Swipe right
             currentIndex = getPrevIndex();
           }
           updateCards();
@@ -1049,8 +1044,8 @@
       carousel.addEventListener('mouseenter', stopAutoPlay);
       carousel.addEventListener('mouseleave', startAutoPlay);
 
-      // Initial update
-      updateCards();
+      // Handle window resize
+      window.addEventListener('resize', updateCards);
 
       // Handle visibility change
       document.addEventListener('visibilitychange', () => {
@@ -1060,6 +1055,9 @@
           startAutoPlay();
         }
       });
+
+      // Initial update
+      updateCards();
     }
 
     // Initialize carousel after DOM is loaded
