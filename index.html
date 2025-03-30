@@ -2,10 +2,308 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>PWRS - Transform Your Vision</title>
+  <title>PWRS - Global Tour Intelligence Platform</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --primary-color: #1DB954;
+      --bg-color: #121212;
+      --card-bg: #181818;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B3B3B3;
+      --transition: all 0.3s ease;
+      --border-radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem 2rem;
+      background: rgba(18, 18, 18, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .nav-cta {
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, #1DB954, #159442);
+      border: none;
+      border-radius: 24px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 8rem 2rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #FFFFFF, #1DB954);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    #heroGlobe {
+      width: 100%;
+      height: 600px;
+      margin: 2rem 0;
+    }
+
+    .features {
+      padding: 6rem 2rem;
+      background: linear-gradient(180deg, var(--bg-color), #1a1a1a);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      transition: var(--transition);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary-color);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card p {
+      color: var(--text-secondary);
+    }
+
+    .stats {
+      padding: 4rem 2rem;
+      background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .stat-card {
+      padding: 2rem;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .cta-section {
+      padding: 6rem 2rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(29, 185, 84, 0.1), rgba(0, 0, 0, 0.3));
+    }
+
+    .cta-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-content p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .cta-button {
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, #1DB954, #159442);
+      border: none;
+      border-radius: 30px;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+    }
+
+    footer {
+      padding: 4rem 2rem;
+      background: #0a0a0a;
+      text-align: center;
+    }
+
+    footer p {
+      color: var(--text-secondary);
+    }
+
+    .contact-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      color: var(--text-secondary);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: var(--text-primary);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      #heroGlobe {
+        height: 400px;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Loading Screen -->
@@ -17,111 +315,113 @@
   <!-- Animated Background -->
   <div class="animated-bg netting"></div>
 
-  <!-- Hero Section -->
+  <nav class="navbar">
+    <a href="#" class="logo">PWRS</a>
+    <button class="nav-cta" onclick="showContactModal()">Get Started</button>
+  </nav>
+
   <section class="hero">
-    <div id="globeViz"></div>
     <div class="hero-content">
-      <h1>Welcome to PWRS</h1>
-      <div class="rotating-roles">
-        <span>Artist Portal</span>
-        <span>Booker Portal</span>
-        <span>Agent Portal</span>
-      </div>
-      <p class="tagline">Transform Your Vision</p>
-      <a href="powers-artist-portal-demo.html" class="cta-button">View Demo</a>
+      <h1>Global Tour Intelligence Platform</h1>
+      <p>Revolutionize your touring strategy with real-time market insights, revenue optimization, and seamless show management.</p>
     </div>
+    <div id="heroGlobe"></div>
   </section>
 
-  <!-- Features Section -->
   <section class="features">
-    <div class="feature-card">
-      <div class="feature-icon">🧭</div>
-      <h3 class="feature-title">Tour Management</h3>
-      <p class="feature-description">Schedule and route your shows with ease</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">💰</div>
-      <h3 class="feature-title">Revenue Insights</h3>
-      <p class="feature-description">Track what you earn per city, venue, and market</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🗺️</div>
-      <h3 class="feature-title">Global Intelligence Tracking (GIT)</h3>
-      <p class="feature-description">Explore your past and future tour data on a globe</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🏆</div>
-      <h3 class="feature-title">Progress System</h3>
-      <p class="feature-description">Earn emblems and track your growth like a game</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">��</div>
+        <h3>Global Market Insights</h3>
+        <p>Access real-time data on venue capacities, ticket pricing, and market demand across different regions.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3>Revenue Optimization</h3>
+        <p>Maximize your earnings with dynamic pricing strategies and comprehensive revenue analytics.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✈️</div>
+        <h3>Tour Logistics</h3>
+        <p>Streamline travel planning with integrated flight information and accommodation recommendations.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💼</div>
+        <h3>Contract Management</h3>
+        <p>Handle negotiations, contracts, and rider requirements all in one place.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Performance Analytics</h3>
+        <p>Track your success with detailed analytics on show attendance, engagement, and revenue.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3>Unified Communications</h3>
+        <p>Manage all your show-related communications in a single, organized platform.</p>
+      </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section class="contact-section">
-    <div class="container">
-        <div class="contact-content">
-            <h2>Get in Touch</h2>
-            <p>Have a question or want to work together? We'd love to hear from you.</p>
-            <a href="mailto:j@jrapp.org" class="email-button">
-                Send Email
-                <span class="btn-icon">→</span>
-            </a>
+  <section class="stats">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">25+</div>
+        <div class="stat-label">Global Markets</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">$12.5M+</div>
+        <div class="stat-label">Revenue Generated</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">85+</div>
+        <div class="stat-label">Shows Managed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">98%</div>
+        <div class="stat-label">Response Rate</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Transform Your Touring Strategy?</h2>
+      <p>Join the platform that's revolutionizing how artists manage their global tours.</p>
+      <button class="cta-button" onclick="showContactModal()">Get Started Today</button>
+    </div>
+  </section>
+
+  <div class="contact-modal" id="contactModal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="hideContactModal()">&times;</button>
+      <h2>Get Started with PWRS</h2>
+      <p style="margin: 1rem 0; color: var(--text-secondary);">Fill out the form below and we'll get back to you shortly.</p>
+      <form class="contact-form" action="mailto:jay@jrap.org" method="post" enctype="text/plain">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required>
         </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="artist">Artist/Company Name</label>
+          <input type="text" id="artist" name="artist" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="cta-button">Send Message</button>
+      </form>
     </div>
-  </section>
+  </div>
 
-  <style>
-    /* Contact Section Styles */
-    .contact-section {
-        padding: 6rem 0;
-        background: var(--card-bg);
-        text-align: center;
-    }
-
-    .contact-content {
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    .contact-content h2 {
-        font-size: 2.5rem;
-        margin-bottom: 1.5rem;
-        color: var(--white);
-    }
-
-    .contact-content p {
-        font-size: 1.1rem;
-        color: rgba(255, 255, 255, 0.7);
-        margin-bottom: 2rem;
-    }
-
-    .email-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: var(--green-accent);
-        color: var(--white);
-        padding: 1rem 2rem;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-weight: 500;
-        text-decoration: none;
-        transition: var(--transition);
-    }
-
-    .email-button:hover {
-        background: #1ed760;
-        transform: translateY(-2px);
-    }
-
-    .btn-icon {
-        transition: var(--transition);
-    }
-
-    .email-button:hover .btn-icon {
-        transform: translateX(4px);
-    }
-  </style>
+  <footer>
+    <p>&copy; 2024 PWRS. All rights reserved.</p>
+  </footer>
 
   <!-- Deferred Loading of Heavy Scripts -->
   <script>
@@ -137,7 +437,7 @@
         loadScript('https://unpkg.com/three@0.144.0/build/three.min.js'),
         loadScript('https://unpkg.com/globe.gl@4.3.0/dist/globe.gl.min.js')
       ]).then(() => {
-        initGlobe();
+        initHeroGlobe();
       }).catch(() => {
         console.log('Globe visualization failed to load');
         document.querySelector('.loading').classList.add('hidden');
@@ -155,79 +455,85 @@
       });
     }
 
-    // Initialize globe after scripts are loaded
-    function initGlobe() {
-      const Globe = window.Globe();
-      const globeViz = Globe(document.getElementById('globeViz'))
+    // Initialize hero globe
+    function initHeroGlobe() {
+      const globeContainer = document.getElementById('heroGlobe');
+      
+      const globe = Globe()
         .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
         .backgroundColor('rgba(0,0,0,0)')
-        .width(window.innerWidth)
-        .height(window.innerHeight)
-        .atmosphereColor('#1DB954')
-        .atmosphereAltitude(0.1);
+        .width(globeContainer.clientWidth)
+        .height(globeContainer.clientHeight)
+        .atmosphereColor('rgb(29, 185, 84)')
+        .atmosphereAltitude(0.25);
 
-      const points = [
-        { lat: 34.0522, lng: -118.2437 }, // LA
-        { lat: 40.7128, lng: -74.0060 },  // NYC
-        { lat: 51.5074, lng: -0.1278 },   // London
-        { lat: 35.6762, lng: 139.6503 },  // Tokyo
-        { lat: -33.8688, lng: 151.2093 }  // Sydney
+      globe(globeContainer);
+
+      // Sample tour data
+      const tourData = [
+        { lat: 40.7128, lng: -74.0060, city: 'New York', revenue: '$2.1M', market: 'Premium' },
+        { lat: 34.0522, lng: -118.2437, city: 'Los Angeles', revenue: '$1.8M', market: 'Premium' },
+        { lat: 51.5074, lng: -0.1278, city: 'London', revenue: '$2.5M', market: 'Premium' },
+        { lat: 35.6762, lng: 139.6503, city: 'Tokyo', revenue: '$3.0M', market: 'Premium' },
+        { lat: 25.2048, lng: 55.2708, city: 'Dubai', revenue: '$2.8M', market: 'Premium' },
+        { lat: -33.8688, lng: 151.2093, city: 'Sydney', revenue: '$2.2M', market: 'Premium' }
       ];
 
-      globeViz.pointsData(points)
+      // Add points to globe
+      globe.pointsData(tourData)
         .pointColor(() => '#1DB954')
         .pointAltitude(0.1)
-        .pointRadius(0.5);
+        .pointRadius(0.5)
+        .pointLabel(d => `
+          <div style="color: white; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 5px;">
+            <div style="font-weight: bold;">${d.city}</div>
+            <div>Market Value: ${d.revenue}</div>
+            <div>Market Type: ${d.market}</div>
+          </div>
+        `);
 
-      let frame = 0;
-      const animate = () => {
-        frame = requestAnimationFrame(animate);
-        globeViz.rotation({ lat: 0, lng: frame * 0.1 % 360 });
-      };
-      animate();
+      // Add arcs between points
+      const arcs = [];
+      for (let i = 0; i < tourData.length - 1; i++) {
+        arcs.push({
+          startLat: tourData[i].lat,
+          startLng: tourData[i].lng,
+          endLat: tourData[i + 1].lat,
+          endLng: tourData[i + 1].lng,
+        });
+      }
 
+      globe.arcsData(arcs)
+        .arcColor(() => '#1DB954')
+        .arcDashLength(0.5)
+        .arcDashGap(0.1)
+        .arcDashAnimateTime(2000);
+
+      // Auto-rotate
+      globe.controls().autoRotate = true;
+      globe.controls().autoRotateSpeed = 0.5;
+
+      // Handle window resize
       window.addEventListener('resize', () => {
-        globeViz
-          .width(window.innerWidth)
-          .height(window.innerHeight);
+        globe
+          .width(globeContainer.clientWidth)
+          .height(globeContainer.clientHeight);
       });
 
       document.querySelector('.loading').classList.add('hidden');
     }
 
-    // Feature card hover effect
-    document.querySelectorAll('.feature-card').forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-5px)';
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0)';
-      });
-    });
+    // Modal functions
+    function showContactModal() {
+      document.getElementById('contactModal').style.display = 'flex';
+    }
 
-    // Handle contact form submission
-    document.getElementById('contactForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      // Get form data
-      const formData = new FormData(e.target);
-      const data = Object.fromEntries(formData);
-      
-      // Show success message
-      const submitBtn = e.target.querySelector('.submit-btn');
-      const originalText = submitBtn.innerHTML;
-      submitBtn.innerHTML = 'Message Sent!';
-      submitBtn.style.background = '#1ed760';
-      
-      // Reset form
-      e.target.reset();
-      
-      // Reset button after 3 seconds
-      setTimeout(() => {
-        submitBtn.innerHTML = originalText;
-        submitBtn.style.background = '';
-      }, 3000);
-    });
+    function hideContactModal() {
+      document.getElementById('contactModal').style.display = 'none';
+    }
+
+    // Initialize globe on page load
+    document.addEventListener('DOMContentLoaded', initHeroGlobe);
   </script>
 </body>
 </html>
