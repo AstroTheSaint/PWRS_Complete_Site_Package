@@ -1131,18 +1131,94 @@
         }
 
         .show-card {
-            background: var(--surface-color, #1a1a1a);
-            border-radius: 16px;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            border-radius: 12px;
             padding: 1.5rem;
-            position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .show-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-            border-color: rgba(255, 255, 255, 0.2);
+        .show-card h3 {
+            color: #ffffff;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .show-meta span {
+            color: #a0aec0;
+            font-size: 0.875rem;
+        }
+
+        .show-meta .venue {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .event-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .detail-item .label {
+            color: #a0aec0;
+        }
+
+        .detail-item .value {
+            color: #ffffff;
+        }
+
+        .detail-item .value.highlight {
+            color: #10b981;
+        }
+
+        /* Message Threads */
+        .message-thread {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .thread-header h3 {
+            color: #ffffff;
+        }
+
+        .message-content {
+            color: #ffffff;
+        }
+
+        .message.received {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .message.sent {
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .attachment {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+        }
+
+        .attachment:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Filter Buttons */
+        .filter-button {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .filter-button:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .filter-button.active {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
         }
 
         .event-badge {
