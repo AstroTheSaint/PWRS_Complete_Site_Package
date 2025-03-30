@@ -344,7 +344,125 @@
       }
 
       #heroGlobe {
-        height: 400px;
+        height: 300px;
+        margin: 1rem 0;
+      }
+
+      .features {
+        padding: 4rem 1rem;
+        overflow: hidden;
+      }
+
+      .features-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 1rem;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -1rem;
+        padding: 0 1rem;
+      }
+
+      .feature-card {
+        min-width: calc(100% - 2rem);
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.5s ease;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: 0 1rem;
+      }
+
+      .feature-card.active {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .feature-card.prev {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
+
+      .feature-card.next {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+
+      .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 2rem;
+      }
+
+      .carousel-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .carousel-dot.active {
+        background: var(--primary-color);
+        transform: scale(1.2);
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .cta-button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Desktop Carousel Option */
+    @media (min-width: 769px) {
+      .features-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 2rem;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+      }
+
+      .feature-card {
+        min-width: calc(33.333% - 1.334rem);
+        opacity: 1;
+        transform: none;
+        transition: all 0.5s ease;
+      }
+
+      .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 3rem;
+      }
+
+      .carousel-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .carousel-dot.active {
+        background: var(--primary-color);
+        transform: scale(1.2);
       }
     }
 
@@ -415,9 +533,9 @@
   </section>
 
   <section class="features">
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">��</div>
+    <div class="features-grid" id="featuresCarousel">
+      <div class="feature-card active">
+        <div class="feature-icon">🌍</div>
         <h3>Global Market Insights</h3>
         <p>Access real-time data on venue capacities, ticket pricing, and market demand across different regions.</p>
       </div>
@@ -447,6 +565,7 @@
         <p>Manage all your show-related communications in a single, organized platform.</p>
       </div>
     </div>
+    <div class="carousel-indicators" id="carouselDots"></div>
   </section>
 
   <section class="stats">
@@ -831,6 +950,120 @@
 
     // Initialize globe on page load
     document.addEventListener('DOMContentLoaded', initHeroGlobe);
+
+    // Carousel functionality
+    function initCarousel() {
+      const carousel = document.getElementById('featuresCarousel');
+      const cards = Array.from(carousel.children);
+      const dotsContainer = document.getElementById('carouselDots');
+      let currentIndex = 0;
+      let interval;
+
+      // Create dots
+      cards.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.className = `carousel-dot${index === 0 ? ' active' : ''}`;
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+      });
+
+      function updateCards() {
+        cards.forEach((card, index) => {
+          card.className = 'feature-card';
+          if (index === currentIndex) {
+            card.classList.add('active');
+          } else if (index === getPrevIndex()) {
+            card.classList.add('prev');
+          } else if (index === getNextIndex()) {
+            card.classList.add('next');
+          }
+        });
+
+        // Update dots
+        Array.from(dotsContainer.children).forEach((dot, index) => {
+          dot.className = `carousel-dot${index === currentIndex ? ' active' : ''}`;
+        });
+      }
+
+      function getPrevIndex() {
+        return (currentIndex - 1 + cards.length) % cards.length;
+      }
+
+      function getNextIndex() {
+        return (currentIndex + 1) % cards.length;
+      }
+
+      function goToSlide(index) {
+        currentIndex = index;
+        updateCards();
+      }
+
+      function nextSlide() {
+        currentIndex = getNextIndex();
+        updateCards();
+      }
+
+      function startAutoPlay() {
+        interval = setInterval(nextSlide, 3300);
+      }
+
+      function stopAutoPlay() {
+        clearInterval(interval);
+      }
+
+      // Touch events for mobile
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      carousel.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoPlay();
+      }, { passive: true });
+
+      carousel.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        startAutoPlay();
+      }, { passive: true });
+
+      function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+          if (diff > 0) {
+            // Swipe left
+            currentIndex = getNextIndex();
+          } else {
+            // Swipe right
+            currentIndex = getPrevIndex();
+          }
+          updateCards();
+        }
+      }
+
+      // Start autoplay
+      startAutoPlay();
+
+      // Pause on hover
+      carousel.addEventListener('mouseenter', stopAutoPlay);
+      carousel.addEventListener('mouseleave', startAutoPlay);
+
+      // Initial update
+      updateCards();
+
+      // Handle visibility change
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          stopAutoPlay();
+        } else {
+          startAutoPlay();
+        }
+      });
+    }
+
+    // Initialize carousel after DOM is loaded
+    document.addEventListener('DOMContentLoaded', initCarousel);
   </script>
 </body>
 </html>
