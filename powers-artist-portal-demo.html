@@ -854,7 +854,7 @@
                         <option value="attendance">Attendance Only</option>
                     </select>
                 </div>
-                <div id="globeViz"></div>
+                <div id="globeViz" style="height: 500px; width: 100%;"></div>
                 <div class="git-stats">
                     <div class="stat-card">
                         <h3>Countries Toured</h3>
@@ -970,6 +970,12 @@
             const selectedContent = document.getElementById(tabName);
             if (selectedContent) {
                 selectedContent.classList.add('active');
+                // Initialize globe if GIT section
+                if (tabName === 'git') {
+                    setTimeout(() => {
+                        initGlobe('globeViz');
+                    }, 100);
+                }
             }
 
             // Add active class to selected nav link
@@ -986,6 +992,8 @@
         window.addEventListener('DOMContentLoaded', () => {
             const hash = window.location.hash.slice(1) || 'dashboard';
             showTab(hash);
+            // Initialize dashboard globe
+            initGlobe('dashboardGlobeViz');
         });
 
         // Handle hash changes
@@ -1030,7 +1038,9 @@
                 .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
                 .backgroundColor('rgba(0,0,0,0)')
                 .width(globeContainer.clientWidth)
-                .height(500);
+                .height(500)
+                .atmosphereColor('rgb(29, 185, 84)')
+                .atmosphereAltitude(0.25);
 
             globe(globeContainer);
 
