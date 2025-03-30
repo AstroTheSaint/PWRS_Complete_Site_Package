@@ -275,26 +275,32 @@
     @media (max-width: 768px) {
       .navbar {
         padding: 1rem;
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
+        flex-direction: row;
+        align-items: center;
         background: rgba(18, 18, 18, 0.98);
       }
 
       .nav-buttons {
-        width: 100%;
-        flex-direction: column;
-        gap: 0.75rem;
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
       }
 
       .nav-cta {
-        width: 100%;
-        padding: 0.875rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
       }
 
       .hero {
-        padding-top: 12rem;
-        min-height: auto;
+        padding-top: 6rem;
+        padding-bottom: 2rem;
+      }
+
+      #heroGlobe {
+        width: 100% !important;
+        height: 400px !important;
+        aspect-ratio: 1;
+        margin: 1rem auto;
       }
 
       .hero h1 {
@@ -309,24 +315,20 @@
         margin-bottom: 2rem;
       }
 
-      #heroGlobe {
-        height: 300px;
-        margin: 2rem 0;
-      }
-
       .features {
         padding: 4rem 1rem;
       }
 
       .features-grid {
+        display: flex;
         flex-direction: column;
         gap: 1rem;
       }
 
       .feature-card {
         width: 100%;
-        flex: none;
-        padding: 1.5rem;
+        min-width: unset;
+        margin: 0;
       }
 
       .stats {
