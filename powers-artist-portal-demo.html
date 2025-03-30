@@ -1954,13 +1954,13 @@
                     <h2 class="section-title">Global Tour Overview</h2>
                     <div class="git-container">
                         <div class="git-filters">
-                            <select id="dashboardYearFilter" onchange="updateGlobeData(this.value)">
+                            <select id="dashboardYearFilter" onchange="updateDashboardGlobeData(this.value)">
                                 <option value="all">All Time</option>
                                 <option value="2024">2024</option>
                                 <option value="2025">2025</option>
                             </select>
                         </div>
-                        <div id="dashboardGlobeViz"></div>
+                        <div id="dashboardGlobeViz" style="min-height: 500px; width: 100%;"></div>
                         <div class="git-stats">
                             <div class="stat-card">
                                 <h3>Past Shows</h3>
@@ -2738,7 +2738,7 @@
                         <option value="revenue">Revenue Only</option>
                     </select>
                 </div>
-                <div id="globeViz"></div>
+                <div id="globeViz" style="min-height: 500px; width: 100%;"></div>
                 <div class="git-stats">
                     <div class="stat-card">
                         <h3>Past Shows</h3>
@@ -2770,77 +2770,6 @@
 
     <script src="https://unpkg.com/globe.gl"></script>
     <script>
-        function showTab(tabName) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-
-            // Remove active class from all nav links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-
-            // Show selected tab content
-            const selectedContent = document.getElementById(tabName);
-            if (selectedContent) {
-                selectedContent.classList.add('active');
-                // Initialize globe if GIT section
-                if (tabName === 'globe') {
-                    setTimeout(() => {
-                        initGlobe('globeViz');
-                    }, 100);
-                }
-            }
-
-            // Add active class to selected nav link
-            const selectedLink = document.querySelector(`[href="#${tabName}"]`);
-            if (selectedLink) {
-                selectedLink.classList.add('active');
-            }
-
-            // Update URL hash
-            window.location.hash = tabName;
-        }
-
-        // Initialize tabs on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            const hash = window.location.hash.slice(1) || 'dashboard';
-            showTab(hash);
-            // Initialize dashboard globe
-            initGlobe('dashboardGlobeViz');
-        });
-
-        // Handle hash changes
-        window.addEventListener('hashchange', () => {
-            const hash = window.location.hash.slice(1);
-            showTab(hash);
-        });
-
-        // Mobile menu toggle
-        const menuButton = document.querySelector('.menu-button');
-        const sidebar = document.querySelector('.sidebar');
-
-        menuButton?.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    sidebar.classList.remove('active');
-                }
-            });
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                sidebar.classList.remove('active');
-            }
-        });
-
         // Initialize globe visualization
         function initGlobe(containerId = 'globeViz', year = 'all', dataType = 'all') {
             const globeContainer = document.getElementById(containerId);
@@ -2925,9 +2854,80 @@
             initGlobe('globeViz', year, dataType);
         }
 
-        // Initialize dashboard globe on load
+        // Function to update Dashboard globe data
+        function updateDashboardGlobeData(year) {
+            initGlobe('dashboardGlobeViz', year);
+        }
+
+        // Initialize both globes on page load
         document.addEventListener('DOMContentLoaded', () => {
             initGlobe('dashboardGlobeViz');
+            initGlobe('globeViz');
+        });
+
+        // Re-initialize globes when switching tabs
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Show selected tab content
+            const selectedContent = document.getElementById(tabName);
+            if (selectedContent) {
+                selectedContent.classList.add('active');
+                // Initialize globe if dashboard or globe section
+                if (tabName === 'dashboard') {
+                    setTimeout(() => {
+                        initGlobe('dashboardGlobeViz');
+                    }, 100);
+                } else if (tabName === 'globe') {
+                    setTimeout(() => {
+                        initGlobe('globeViz');
+                    }, 100);
+                }
+            }
+
+            // Update URL hash
+            window.location.hash = tabName;
+        }
+
+        // Initialize tabs on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.slice(1) || 'dashboard';
+            showTab(hash);
+            // Initialize dashboard globe
+            initGlobe('dashboardGlobeViz');
+        });
+
+        // Handle hash changes
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.slice(1);
+            showTab(hash);
+        });
+
+        // Mobile menu toggle
+        const menuButton = document.querySelector('.menu-button');
+        const sidebar = document.querySelector('.sidebar');
+
+        menuButton?.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('active');
+            }
         });
 
         function switchMessageTab(tabName) {
