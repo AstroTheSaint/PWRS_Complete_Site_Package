@@ -325,7 +325,7 @@
       <h1>Global Tour Intelligence Platform</h1>
       <p>Revolutionize your touring strategy with real-time market insights, revenue optimization, and seamless show management.</p>
     </div>
-    <div id="heroGlobe"></div>
+    <div id="heroGlobe" style="width: 100%; height: 600px; position: relative; z-index: 1;"></div>
   </section>
 
   <section class="features">
@@ -430,30 +430,24 @@
       document.querySelector('.loading').classList.add('hidden');
     }, 3000);
 
-    // Load heavy scripts after initial content
-    window.addEventListener('load', () => {
-      // Load Three.js and Globe.gl asynchronously
-      Promise.all([
-        loadScript('https://unpkg.com/three@0.144.0/build/three.min.js'),
-        loadScript('https://unpkg.com/globe.gl@4.3.0/dist/globe.gl.min.js')
-      ]).then(() => {
-        initHeroGlobe();
-      }).catch(() => {
-        console.log('Globe visualization failed to load');
-        document.querySelector('.loading').classList.add('hidden');
-      });
-    });
-
-    // Helper function to load scripts
+    // Load scripts in parallel
     function loadScript(src) {
       return new Promise((resolve, reject) => {
         const script = document.createElement('script');
         script.src = src;
         script.onload = resolve;
         script.onerror = reject;
-        document.body.appendChild(script);
+        document.head.appendChild(script);
       });
     }
+
+    Promise.all([
+      loadScript('https://unpkg.com/globe.gl@4.3.0/dist/globe.gl.min.js')
+    ]).then(() => {
+      initHeroGlobe();
+    }).catch(() => {
+      console.log('Globe visualization failed to load');
+    });
 
     // Initialize hero globe
     function initHeroGlobe() {
@@ -469,49 +463,66 @@
 
       globe(globeContainer);
 
-      // Sample tour data
+      // Sample tour data with more cities and routes
       const tourData = [
         { lat: 40.7128, lng: -74.0060, city: 'New York', revenue: '$2.1M', market: 'Premium' },
         { lat: 34.0522, lng: -118.2437, city: 'Los Angeles', revenue: '$1.8M', market: 'Premium' },
         { lat: 51.5074, lng: -0.1278, city: 'London', revenue: '$2.5M', market: 'Premium' },
         { lat: 35.6762, lng: 139.6503, city: 'Tokyo', revenue: '$3.0M', market: 'Premium' },
         { lat: 25.2048, lng: 55.2708, city: 'Dubai', revenue: '$2.8M', market: 'Premium' },
-        { lat: -33.8688, lng: 151.2093, city: 'Sydney', revenue: '$2.2M', market: 'Premium' }
+        { lat: -33.8688, lng: 151.2093, city: 'Sydney', revenue: '$2.2M', market: 'Premium' },
+        { lat: 48.8566, lng: 2.3522, city: 'Paris', revenue: '$2.3M', market: 'Premium' },
+        { lat: 52.5200, lng: 13.4050, city: 'Berlin', revenue: '$1.9M', market: 'Premium' },
+        { lat: 55.7558, lng: 37.6173, city: 'Moscow', revenue: '$2.0M', market: 'Premium' },
+        { lat: 22.3193, lng: 114.1694, city: 'Hong Kong', revenue: '$2.4M', market: 'Premium' }
       ];
 
-      // Add points to globe
+      // Add points to globe with enhanced styling
       globe.pointsData(tourData)
         .pointColor(() => '#1DB954')
         .pointAltitude(0.1)
         .pointRadius(0.5)
         .pointLabel(d => `
-          <div style="color: white; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 5px;">
-            <div style="font-weight: bold;">${d.city}</div>
-            <div>Market Value: ${d.revenue}</div>
-            <div>Market Type: ${d.market}</div>
+          <div style="color: white; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 5px; font-family: Inter, sans-serif;">
+            <div style="font-weight: bold; font-size: 14px;">${d.city}</div>
+            <div style="font-size: 12px; color: #1DB954;">Market Value: ${d.revenue}</div>
+            <div style="font-size: 12px;">Market Type: ${d.market}</div>
           </div>
         `);
 
-      // Add arcs between points
+      // Create a network of routes between cities
       const arcs = [];
-      for (let i = 0; i < tourData.length - 1; i++) {
-        arcs.push({
-          startLat: tourData[i].lat,
-          startLng: tourData[i].lng,
-          endLat: tourData[i + 1].lat,
-          endLng: tourData[i + 1].lng,
-        });
+      for (let i = 0; i < tourData.length; i++) {
+        for (let j = i + 1; j < tourData.length; j++) {
+          if (Math.random() > 0.5) { // Randomly connect cities
+            arcs.push({
+              startLat: tourData[i].lat,
+              startLng: tourData[i].lng,
+              endLat: tourData[j].lat,
+              endLng: tourData[j].lng,
+              color: `rgba(29, 185, 84, ${Math.random() * 0.5 + 0.2})` // Varying opacity
+            });
+          }
+        }
       }
 
+      // Add arcs with enhanced styling
       globe.arcsData(arcs)
-        .arcColor(() => '#1DB954')
+        .arcColor('color')
         .arcDashLength(0.5)
         .arcDashGap(0.1)
-        .arcDashAnimateTime(2000);
+        .arcDashAnimateTime(2000)
+        .arcAltitude(0.1);
 
-      // Auto-rotate
+      // Add atmosphere glow
+      globe.atmosphereColor('rgb(29, 185, 84)')
+        .atmosphereAltitude(0.25);
+
+      // Auto-rotate with smooth controls
       globe.controls().autoRotate = true;
       globe.controls().autoRotateSpeed = 0.5;
+      globe.controls().enableZoom = true;
+      globe.controls().enablePan = true;
 
       // Handle window resize
       window.addEventListener('resize', () => {
