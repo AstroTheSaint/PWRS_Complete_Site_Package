@@ -2600,6 +2600,164 @@
                 }
             });
         </script>
+
+        <!-- Revenue Section -->
+        <div id="revenue" class="tab-content">
+            <div class="revenue-battle-pass">
+                <div class="tier-header">
+                    <h2>Revenue Overview</h2>
+                    <div class="current-tier gold">Gold Artist</div>
+                </div>
+                <div class="tier-progress">
+                    <div class="tier-track">
+                        <div class="tier-milestone">
+                            <div class="milestone-marker">
+                                <div class="tier-icon">🥉</div>
+                                <div class="tier-value">$500K</div>
+                                <div class="tier-name">Bronze</div>
+                                <div class="milestone-tooltip">
+                                    <h4>Bronze Tier Benefits</h4>
+                                    <ul>
+                                        <li>Basic analytics dashboard</li>
+                                        <li>Standard support response time</li>
+                                        <li>Basic contract templates</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tier-milestone">
+                            <div class="milestone-marker">
+                                <div class="tier-icon">🥈</div>
+                                <div class="tier-value">$2M</div>
+                                <div class="tier-name">Silver</div>
+                                <div class="milestone-tooltip">
+                                    <h4>Silver Tier Benefits</h4>
+                                    <ul>
+                                        <li>Priority support</li>
+                                        <li>Advanced analytics</li>
+                                        <li>Customizable contracts</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tier-milestone">
+                            <div class="milestone-marker">
+                                <div class="tier-icon">🏆</div>
+                                <div class="tier-value">$5M</div>
+                                <div class="tier-name">Gold</div>
+                                <div class="milestone-tooltip">
+                                    <h4>Gold Tier Benefits</h4>
+                                    <ul>
+                                        <li>24/7 VIP support</li>
+                                        <li>Premium analytics suite</li>
+                                        <li>Custom contract creation</li>
+                                        <li>Priority booking</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tier-milestone">
+                            <div class="milestone-marker">
+                                <div class="tier-icon">💎</div>
+                                <div class="tier-value">$10M</div>
+                                <div class="tier-name">Platinum</div>
+                                <div class="milestone-tooltip">
+                                    <h4>Platinum Tier Benefits</h4>
+                                    <ul>
+                                        <li>Dedicated account manager</li>
+                                        <li>Full analytics access</li>
+                                        <li>Premium features</li>
+                                        <li>Exclusive events</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="milestone-line"></div>
+                        <div class="milestone-line completed" style="width: 75%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="revenue-overview">
+                <div class="revenue-charts">
+                    <div class="chart-container">
+                        <h3>Revenue Distribution</h3>
+                        <div class="pie-chart-wrapper">
+                            <div class="pie-chart">
+                                <div class="pie-segment shows" style="--color: #1DB954; --percentage: 80;">
+                                    <div class="segment-tooltip">
+                                        <strong>Shows</strong><br>
+                                        80% - $10M
+                                    </div>
+                                </div>
+                                <div class="pie-segment merch" style="--color: #4A90E2; --percentage: 15;">
+                                    <div class="segment-tooltip">
+                                        <strong>Merchandise</strong><br>
+                                        15% - $1.875M
+                                    </div>
+                                </div>
+                                <div class="pie-segment other" style="--color: #F5A623; --percentage: 5;">
+                                    <div class="segment-tooltip">
+                                        <strong>Other</strong><br>
+                                        5% - $625K
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chart-legend">
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: #1DB954;"></div>
+                                    <span>Shows (80%)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: #4A90E2;"></div>
+                                    <span>Merchandise (15%)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: #F5A623;"></div>
+                                    <span>Other (5%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Globe Section -->
+        <div id="globe" class="tab-content">
+            <div class="git-container">
+                <div class="git-filters">
+                    <select id="yearFilter" onchange="updateGitGlobeData(this.value)">
+                        <option value="all">All Time</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                    </select>
+                    <select id="dataTypeFilter" onchange="updateGitGlobeData(document.getElementById('yearFilter').value)">
+                        <option value="all">All Data</option>
+                        <option value="shows">Shows Only</option>
+                        <option value="revenue">Revenue Only</option>
+                    </select>
+                </div>
+                <div id="globeViz"></div>
+                <div class="git-stats">
+                    <div class="stat-card">
+                        <h3>Past Shows</h3>
+                        <h2>85</h2>
+                        <p class="stat-subtext">Revenue: $12.5M</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Upcoming Shows</h3>
+                        <h2>42</h2>
+                        <p class="stat-subtext">Projected: $8.2M</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Markets</h3>
+                        <h2>25</h2>
+                        <p class="stat-subtext">+8 New in 2024</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <button class="menu-button">
