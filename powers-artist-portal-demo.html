@@ -194,6 +194,9 @@
             background: var(--card-bg);
             border-radius: var(--border-radius);
             overflow: hidden;
+            height: 800px;
+            display: flex;
+            flex-direction: column;
         }
 
         .message-tabs {
@@ -216,7 +219,208 @@
         }
 
         .message-content {
+            flex: 1;
+            overflow-y: auto;
             padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .messages-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            overflow-y: auto;
+        }
+
+        .message-input-container {
+            position: sticky;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--card-bg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+        }
+
+        .message-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 20px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .message-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .send-button {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0;
+        }
+
+        .send-button:hover {
+            transform: scale(1.05);
+        }
+
+        .send-icon {
+            font-size: 1.2rem;
+        }
+
+        .message-item {
+            display: flex;
+            gap: 1rem;
+            max-width: 80%;
+            align-items: flex-start;
+        }
+
+        .message-item.received {
+            align-self: flex-start;
+        }
+
+        .message-item.sent {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #9733EE, #DA22FF);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .message-bubble {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 18px;
+            position: relative;
+        }
+
+        .message-item.received .message-bubble {
+            border-top-left-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .message-item.sent .message-bubble {
+            border-top-right-radius: 4px;
+            background: var(--primary-color);
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .sender-name {
+            font-weight: 500;
+            color: #9733EE;
+        }
+
+        .message-time {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+
+        .message-text {
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .message-attachment {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .message-attachment:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .attachment-icon {
+            font-size: 1.2rem;
+        }
+
+        .contract-preview {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .contract-preview h4 {
+            margin: 0;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .contract-details {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .contract-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .contract-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+
+        .contract-button.accept {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .contract-button.view {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .contract-button:hover {
+            transform: scale(1.05);
         }
 
         /* Mobile Styles */
@@ -696,250 +900,12 @@
             font-weight: 500;
         }
 
-        .messages-container {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            height: 800px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .message-tabs {
-            display: flex;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1rem;
-            gap: 1rem;
-        }
-
-        .message-tab {
-            padding: 0.75rem 1.5rem;
-            color: var(--text-secondary);
-            cursor: pointer;
-            border-radius: var(--border-radius);
-            transition: var(--transition);
-            font-weight: 500;
-        }
-
-        .message-tab.active {
-            color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .message-tab:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .message-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1.5rem;
-        }
-
         .message-tab-content {
             display: none;
         }
 
         .message-tab-content.active {
             display: block;
-        }
-
-        .message-input-container {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--border-radius);
-            margin-bottom: 1.5rem;
-            position: sticky;
-            top: 0;
-        }
-
-        .message-input {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            padding: 0.75rem 1rem;
-            border-radius: var(--border-radius);
-            color: var(--text-primary);
-        }
-
-        .message-input:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .send-button {
-            background: var(--primary-color);
-            border: none;
-            border-radius: var(--border-radius);
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .send-button:hover {
-            opacity: 0.9;
-        }
-
-        .messages-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .message-item {
-            display: flex;
-            gap: 1rem;
-            max-width: 80%;
-        }
-
-        .message-item.received {
-            align-self: flex-start;
-        }
-
-        .message-item.sent {
-            align-self: flex-end;
-            flex-direction: row-reverse;
-        }
-
-        .message-avatar {
-            width: 40px;
-            height: 40px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-        }
-
-        .message-content {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: var(--border-radius);
-        }
-
-        .message-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-size: 0.875rem;
-        }
-
-        .sender-name {
-            font-weight: 500;
-            color: var(--primary-color);
-        }
-
-        .message-time {
-            color: var(--text-secondary);
-        }
-
-        .message-text {
-            margin-bottom: 0.5rem;
-        }
-
-        .message-attachment {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--border-radius);
-            font-size: 0.875rem;
-        }
-
-        .documents-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .document-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--border-radius);
-        }
-
-        .document-icon {
-            font-size: 1.5rem;
-        }
-
-        .document-info {
-            flex: 1;
-        }
-
-        .document-info h4 {
-            margin: 0;
-            margin-bottom: 0.25rem;
-        }
-
-        .document-info p {
-            margin: 0;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-        }
-
-        .download-button {
-            background: var(--primary-color);
-            border: none;
-            border-radius: var(--border-radius);
-            padding: 0.5rem 1rem;
-            color: white;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .download-button:hover {
-            opacity: 0.9;
-        }
-
-        .request-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .action-button {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .action-button.approve {
-            background: var(--success-color);
-            color: white;
-        }
-
-        .action-button.reject {
-            background: var(--danger-color);
-            color: white;
-        }
-
-        .document-preview {
-            margin-top: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--border-radius);
-        }
-
-        .view-doc-button {
-            margin-left: auto;
-            background: var(--primary-color);
-            border: none;
-            border-radius: var(--border-radius);
-            padding: 0.5rem 1rem;
-            color: white;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -1332,41 +1298,66 @@
                     </div>
 
                     <div id="messages-tab" class="message-tab-content">
-                        <div class="message-input-container">
-                            <input type="text" class="message-input" placeholder="Type your message...">
-                            <button class="send-button">
-                                <span class="send-icon">📤</span>
-                            </button>
-                        </div>
                         <div class="messages-list">
                             <div class="message-thread">
                                 <div class="message-item received">
                                     <div class="message-avatar">JM</div>
-                                    <div class="message-content">
+                                    <div class="message-bubble">
                                         <div class="message-header">
                                             <span class="sender-name">John Manager</span>
-                                            <span class="message-time">Today, 10:30 AM</span>
                                         </div>
                                         <div class="message-text">
-                                            Hey Metro, the Dubai Arena contract has been updated with the new terms we discussed. Please review when you can.
+                                            Hey Metro, I've got the updated contract for Dubai Arena with the revised terms we discussed.
                                         </div>
-                                        <div class="message-attachment">
-                                            <span class="attachment-icon">📎</span>
-                                            <span>Updated_Contract_v2.pdf</span>
+                                        <div class="contract-preview">
+                                            <h4>Dubai Arena Contract</h4>
+                                            <div class="contract-details">
+                                                <p>Date: April 20, 2025</p>
+                                                <p>Venue Capacity: 16,000</p>
+                                                <p>Expected Revenue: $2.8M</p>
+                                            </div>
+                                            <div class="contract-actions">
+                                                <button class="contract-button view">View Contract</button>
+                                                <button class="contract-button accept">Accept Terms</button>
+                                            </div>
                                         </div>
+                                        <div class="message-time">Today, 10:30 AM</div>
                                     </div>
                                 </div>
+
                                 <div class="message-item sent">
-                                    <div class="message-content">
+                                    <div class="message-avatar">M</div>
+                                    <div class="message-bubble">
+                                        <div class="message-text">
+                                            Thanks, I'll review it now. The last revision looked good but I want to check the stage setup requirements.
+                                        </div>
+                                        <div class="message-time">Today, 11:15 AM</div>
+                                    </div>
+                                </div>
+
+                                <div class="message-item received">
+                                    <div class="message-avatar">JM</div>
+                                    <div class="message-bubble">
                                         <div class="message-header">
-                                            <span class="message-time">Today, 11:15 AM</span>
+                                            <span class="sender-name">John Manager</span>
                                         </div>
                                         <div class="message-text">
-                                            Thanks, I'll take a look at it this afternoon. Can we discuss the stage setup requirements?
+                                            Perfect. I've also attached the technical rider with detailed stage requirements.
                                         </div>
+                                        <div class="message-attachment">
+                                            <span class="attachment-icon">📄</span>
+                                            <span>Technical_Rider_Dubai_2025.pdf</span>
+                                        </div>
+                                        <div class="message-time">Today, 11:20 AM</div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="message-input-container">
+                            <input type="text" class="message-input" placeholder="Type your message...">
+                            <button class="send-button">
+                                <span class="send-icon">➤</span>
+                            </button>
                         </div>
                     </div>
 
