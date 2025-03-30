@@ -103,23 +103,36 @@
             border-radius: 16px;
             padding: 1.5rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 400px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .show-item {
             display: flex;
             align-items: center;
-            padding: 1rem 0;
+            padding: 1rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+        }
+
+        .show-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
         }
 
         .show-info {
             flex: 1;
+            padding-right: 1rem;
         }
 
         .show-venue {
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 0.25rem;
+            color: var(--text-primary);
         }
 
         .show-date {
@@ -132,6 +145,7 @@
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
+            white-space: nowrap;
         }
 
         .status-negotiating {
@@ -195,6 +209,42 @@
 
         .nav-icon {
             font-size: 1.5rem;
+        }
+
+        /* Menu button styles */
+        .menu-button {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1000;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .menu-button span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--primary-color);
+            margin: 4px 0;
+            transition: var(--transition);
+        }
+
+        .menu-button.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+            background: var(--primary-color);
+        }
+
+        .menu-button.active span:nth-child(2) {
+            opacity: 0;
+            background: var(--primary-color);
+        }
+
+        .menu-button.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+            background: var(--primary-color);
         }
     </style>
 </head>
@@ -274,5 +324,11 @@
             Settings
         </a>
     </nav>
+
+    <button class="menu-button">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 </body>
 </html> 

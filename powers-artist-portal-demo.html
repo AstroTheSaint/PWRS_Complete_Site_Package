@@ -1871,7 +1871,7 @@
             display: block;
             width: 24px;
             height: 2px;
-            background: var(--text-primary);
+            background: var(--primary-color);
             margin: 4px 0;
             transition: var(--transition);
         }
@@ -1883,197 +1883,83 @@
 
             .menu-button.active span:nth-child(1) {
                 transform: rotate(45deg) translate(5px, 5px);
+                background: var(--primary-color);
             }
 
             .menu-button.active span:nth-child(2) {
                 opacity: 0;
+                background: var(--primary-color);
             }
 
             .menu-button.active span:nth-child(3) {
                 transform: rotate(-45deg) translate(7px, -6px);
+                background: var(--primary-color);
             }
 
-            .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
-
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding-top: 4rem;
-            }
-
-            #dashboardGlobeViz,
-            #globeViz {
-                width: 100% !important;
-                height: 300px !important;
-                aspect-ratio: 16/9;
-                margin: 0.5rem auto;
-            }
-
-            .dashboard-globe-section,
-            .globe-section {
-                padding: 0.5rem;
-                margin: 0.5rem 0;
-                height: auto;
-            }
-
-            /* Shows section mobile improvements */
-            .shows-grid {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 1rem;
-                padding: 0.5rem;
-            }
-
-            .show-card {
-                padding: 1rem;
-                margin: 0;
-            }
-
-            /* Messages section mobile improvements */
-            .messages-container {
-                height: calc(100vh - 180px);
+            /* Shows section improvements */
+            .shows-container {
+                max-height: 400px;
                 overflow-y: auto;
-                padding: 0.5rem;
-            }
-
-            .message-list {
-                max-height: none;
-                overflow-y: visible;
-            }
-
-            .message-item {
-                padding: 0.75rem;
-                margin-bottom: 0.5rem;
-            }
-
-            .message-content {
-                max-width: 100%;
-                overflow-x: hidden;
-            }
-
-            .message-tabs {
-                display: flex;
-                overflow-x: auto;
-                padding: 0.5rem;
-                margin-bottom: 1rem;
+                padding-right: 0.5rem;
+                margin: 1rem 0;
                 -webkit-overflow-scrolling: touch;
             }
 
-            .message-tab {
-                flex: 0 0 auto;
-                padding: 0.5rem 1rem;
-                white-space: nowrap;
-            }
-
-            /* Dashboard improvements */
-            .dashboard-container {
-                padding: 0.5rem;
-            }
-
-            .dashboard-header {
-                padding: 1rem 0.5rem;
-                margin-bottom: 1rem;
-            }
-
-            .dashboard-stats {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
+            .shows-list {
+                display: flex;
+                flex-direction: column;
                 gap: 0.75rem;
-                padding: 0.5rem;
-                margin-top: 1rem;
             }
 
-            .stat-card {
+            .show-card {
+                background: var(--card-bg);
+                border-radius: 12px;
                 padding: 1rem;
-                text-align: center;
-                background: rgba(255, 255, 255, 0.05);
-                border-radius: 12px;
                 border: 1px solid rgba(255, 255, 255, 0.1);
             }
 
-            .stat-value {
-                font-size: 1.75rem;
-                font-weight: 700;
-                color: var(--primary-color);
-                margin-bottom: 0.25rem;
+            .show-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0.5rem;
             }
 
-            .stat-label {
-                font-size: 0.875rem;
-                color: var(--text-secondary);
-            }
-
-            #dashboardGlobeViz,
-            #globeViz {
-                width: 100% !important;
-                height: 250px !important;
-                margin: 0 auto;
-            }
-
-            .dashboard-globe-section,
-            .globe-section {
-                padding: 0.5rem;
-                margin: 0.5rem 0;
-                height: auto;
-                background: rgba(0, 0, 0, 0.2);
-                border-radius: 12px;
-            }
-
-            .dashboard-globe-section h2,
-            .globe-section h2 {
-                font-size: 1.25rem;
-                margin-bottom: 0.75rem;
-            }
-
-            /* Filter improvements */
-            .filter-dropdown {
-                width: 100%;
-                margin-bottom: 1rem;
-                padding: 0.5rem;
-                background: rgba(255, 255, 255, 0.05);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                border-radius: 8px;
+            .show-title {
+                font-size: 1.1rem;
+                font-weight: 600;
                 color: var(--text-primary);
             }
 
-            /* Stats grid layout */
-            .stats-overview {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.75rem;
-                margin-top: 1rem;
-                padding: 0.5rem;
+            .show-status {
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                font-size: 0.75rem;
+                font-weight: 600;
             }
 
-            .stat-block {
-                background: rgba(255, 255, 255, 0.05);
-                border-radius: 12px;
-                padding: 1rem;
-                text-align: center;
-            }
-
-            .stat-number {
-                font-size: 1.75rem;
-                font-weight: 700;
-                color: var(--primary-color);
-                margin-bottom: 0.25rem;
-            }
-
-            .stat-description {
+            .show-details {
                 font-size: 0.875rem;
                 color: var(--text-secondary);
             }
 
-            .revenue-info {
-                font-size: 0.875rem;
-                color: var(--text-secondary);
-                margin-top: 0.25rem;
+            .status-negotiating {
+                background: rgba(255, 193, 7, 0.1);
+                color: #FFC107;
+            }
+
+            .status-pending {
+                background: rgba(255, 152, 0, 0.1);
+                color: #FF9800;
+            }
+
+            /* Ensure proper spacing */
+            .main-content {
+                padding: 4rem 1rem 5rem;
+            }
+
+            .section-container {
+                margin-bottom: 1.5rem;
             }
         }
     </style>
