@@ -1117,6 +1117,175 @@
         .view-doc-button:hover {
             background: #0056b3;
         }
+
+        .show-requests-list {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .show-card {
+            background: var(--surface-color, #1a1a1a);
+            border-radius: 16px;
+            padding: 1.5rem;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .show-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .event-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .premium-event .event-badge {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+        }
+
+        .residency .event-badge {
+            background: linear-gradient(135deg, #00C9FF, #92FE9D);
+            color: #000;
+        }
+
+        .show-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary, #ffffff);
+            margin-bottom: 0.5rem;
+        }
+
+        .show-meta {
+            display: flex;
+            gap: 1rem;
+            color: var(--text-secondary, #a0a0a0);
+            font-size: 0.9rem;
+        }
+
+        .show-details {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .detail-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .label {
+            color: var(--text-secondary, #a0a0a0);
+            font-size: 0.875rem;
+        }
+
+        .value {
+            color: var(--text-primary, #ffffff);
+            font-weight: 500;
+        }
+
+        .value.highlight {
+            color: var(--accent-color, #00C9FF);
+            font-weight: 600;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status.pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .status.negotiating {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196f3;
+        }
+
+        .show-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .action-btn.accept {
+            background: var(--accent-color, #00C9FF);
+            color: #000;
+        }
+
+        .action-btn.decline {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary, #ffffff);
+        }
+
+        .action-btn.view {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-primary, #ffffff);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.1);
+        }
+
+        /* Bonnaroo Request */
+        .private-event .event-badge {
+            background: linear-gradient(135deg, #9733EE, #DA22FF);
+            color: #fff;
+        }
+
+        .package-details {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .premium-event .event-badge {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+        }
+
+        .status.negotiating {
+            background: rgba(156, 39, 176, 0.2);
+            color: #9c27b0;
+        }
     </style>
 </head>
 <body>
@@ -1477,45 +1646,379 @@
                 <div class="message-content">
                     <div id="requests-tab" class="message-tab-content active">
                         <div class="show-requests-list">
-                            <div class="show-request">
-                                <div class="show-card premium-request">
+                            <div class="show-request" onclick="showMessageThread('coachella-thread')">
+                                <div class="show-card premium-event">
+                                    <div class="event-badge">Premium Festival</div>
                                     <div class="show-header">
-                                        <div class="show-title">
-                                            <h3>Coachella Valley Music and Arts Festival</h3>
-                                            <span class="premium-badge">Premium Event</span>
-                                        </div>
+                                        <h3>Coachella Valley Music and Arts Festival</h3>
                                         <div class="show-meta">
-                                            <p>Empire Polo Club, Indio, CA</p>
-                                            <p>April 12, 2025</p>
-                                        </div>
-                                        <div class="request-actions">
-                                            <button class="action-button approve">Accept Offer</button>
-                                            <button class="action-button reject">Decline</button>
+                                            <span class="venue">Empire Polo Club, Indio, CA</span>
+                                            <span class="date">April 12, 2025</span>
                                         </div>
                                     </div>
                                     <div class="show-details">
-                                        <div class="detail-column">
-                                            <p><strong>Performance Type:</strong> Festival Main Stage</p>
-                                            <p><strong>Set Time:</strong> 10:30 PM - 12:00 AM</p>
-                                            <p><strong>Offered Fee:</strong> $200,000</p>
-                                        </div>
-                                        <div class="detail-column">
-                                            <p><strong>Stage:</strong> Main Stage</p>
-                                            <p><strong>Expected Audience:</strong> 125,000+</p>
-                                            <p><strong>Status:</strong> Pending Response</p>
-                                        </div>
-                                        <div class="document-previews">
-                                            <div class="preview-item">
-                                                <span class="document-icon">📄</span>
-                                                <span>Performance_Agreement.pdf</span>
-                                                <button class="view-doc-button">View</button>
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Offer From</span>
+                                                <span class="value">Goldenvoice</span>
                                             </div>
-                                            <div class="preview-item">
-                                                <span class="document-icon">📋</span>
-                                                <span>Technical_Requirements.pdf</span>
-                                                <button class="view-doc-button">View</button>
+                                            <div class="detail-item">
+                                                <span class="label">Performance Type</span>
+                                                <span class="value">Festival Main Stage</span>
                                             </div>
                                         </div>
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Estimated Fee</span>
+                                                <span class="value highlight">$150,000 - $200,000</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Status</span>
+                                                <span class="status pending">Pending Review</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="show-actions">
+                                        <button class="action-btn accept">Accept Offer</button>
+                                        <button class="action-btn decline">Decline</button>
+                                        <button class="action-btn view">View Details</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="show-request" onclick="showMessageThread('liv-thread')">
+                                <div class="show-card residency">
+                                    <div class="event-badge">Residency</div>
+                                    <div class="show-header">
+                                        <h3>LIV Nightclub Residency</h3>
+                                        <div class="show-meta">
+                                            <span class="venue">LIV Nightclub, Las Vegas, NV</span>
+                                            <span class="date">April - June 2025</span>
+                                        </div>
+                                    </div>
+                                    <div class="show-details">
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Offer From</span>
+                                                <span class="value">LIV Nightclub Management</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Performance Type</span>
+                                                <span class="value">Club Residency (12 Shows)</span>
+                                            </div>
+                                        </div>
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Fee per Show</span>
+                                                <span class="value highlight">$75,000 - $100,000</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Status</span>
+                                                <span class="status negotiating">Negotiating</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="show-actions">
+                                        <button class="action-btn accept">Accept Terms</button>
+                                        <button class="action-btn decline">Decline</button>
+                                        <button class="action-btn view">View Details</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bonnaroo Request -->
+                            <div class="show-request" onclick="showMessageThread('bonnaroo-thread')">
+                                <div class="show-card premium-event">
+                                    <div class="event-badge">Premium Festival</div>
+                                    <div class="show-header">
+                                        <h3>Bonnaroo Music and Arts Festival</h3>
+                                        <div class="show-meta">
+                                            <span class="venue">Great Stage Park, Manchester, TN</span>
+                                            <span class="date">June 14, 2025</span>
+                                        </div>
+                                    </div>
+                                    <div class="show-details">
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Offer From</span>
+                                                <span class="value">Superfly Presents & AC Entertainment</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Performance Type</span>
+                                                <span class="value">Festival Headliner</span>
+                                            </div>
+                                        </div>
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Estimated Fee</span>
+                                                <span class="value highlight">$150,000 - $200,000</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Status</span>
+                                                <span class="status pending">Pending Review</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="show-actions">
+                                        <button class="action-btn accept">Accept Offer</button>
+                                        <button class="action-btn decline">Decline</button>
+                                        <button class="action-btn view">View Details</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Private Corporate Event -->
+                            <div class="show-request" onclick="showMessageThread('corporate-thread')">
+                                <div class="show-card private-event">
+                                    <div class="event-badge">Private Event</div>
+                                    <div class="show-header">
+                                        <h3>Fortune 500 Corporate Event</h3>
+                                        <div class="show-meta">
+                                            <span class="venue">The Ritz-Carlton, New York, NY</span>
+                                            <span class="date">June 28, 2025</span>
+                                        </div>
+                                    </div>
+                                    <div class="show-details">
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Offer From</span>
+                                                <span class="value">Fortune 500 Company</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Performance Type</span>
+                                                <span class="value">Private Corporate Party</span>
+                                            </div>
+                                        </div>
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Estimated Fee</span>
+                                                <span class="value highlight">$200,000 - $250,000</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Status</span>
+                                                <span class="status pending">Under Review</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="show-actions">
+                                        <button class="action-btn accept">Accept Offer</button>
+                                        <button class="action-btn decline">Decline</button>
+                                        <button class="action-btn view">View Details</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Wireless Festival -->
+                            <div class="show-request" onclick="showMessageThread('wireless-thread')">
+                                <div class="show-card premium-event">
+                                    <div class="event-badge">International Festival</div>
+                                    <div class="show-header">
+                                        <h3>Wireless Festival</h3>
+                                        <div class="show-meta">
+                                            <span class="venue">Finsbury Park, London, UK</span>
+                                            <span class="date">July 5, 2025</span>
+                                        </div>
+                                    </div>
+                                    <div class="show-details">
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Offer From</span>
+                                                <span class="value">Live Nation UK</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Performance Type</span>
+                                                <span class="value">Festival Performance</span>
+                                            </div>
+                                        </div>
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Estimated Fee</span>
+                                                <span class="value highlight">$150,000 - $200,000</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Status</span>
+                                                <span class="status pending">Pending Review</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="show-actions">
+                                        <button class="action-btn accept">Accept Offer</button>
+                                        <button class="action-btn decline">Decline</button>
+                                        <button class="action-btn view">View Details</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Summerfest -->
+                            <div class="show-request" onclick="showMessageThread('summerfest-thread')">
+                                <div class="show-card premium-event">
+                                    <div class="event-badge">Premium Festival</div>
+                                    <div class="show-header">
+                                        <h3>Summerfest</h3>
+                                        <div class="show-meta">
+                                            <span class="venue">Henry Maier Festival Park, Milwaukee, WI</span>
+                                            <span class="date">July 12, 2025</span>
+                                        </div>
+                                    </div>
+                                    <div class="show-details">
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Offer From</span>
+                                                <span class="value">Milwaukee World Festival, Inc.</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Performance Type</span>
+                                                <span class="value">Festival Headliner</span>
+                                            </div>
+                                        </div>
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Estimated Fee</span>
+                                                <span class="value highlight">$150,000 - $200,000</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Status</span>
+                                                <span class="status pending">Under Review</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="show-actions">
+                                        <button class="action-btn accept">Accept Offer</button>
+                                        <button class="action-btn decline">Decline</button>
+                                        <button class="action-btn view">View Details</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Private Birthday Event -->
+                            <div class="show-request" onclick="showMessageThread('birthday-thread')">
+                                <div class="show-card private-event">
+                                    <div class="event-badge">VIP Private Event</div>
+                                    <div class="show-header">
+                                        <h3>Private Birthday Celebration</h3>
+                                        <div class="show-meta">
+                                            <span class="venue">Private Estate, Beverly Hills, CA</span>
+                                            <span class="date">August 2, 2025</span>
+                                        </div>
+                                    </div>
+                                    <div class="show-details">
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Offer From</span>
+                                                <span class="value">High-Net-Worth Individual</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Performance Type</span>
+                                                <span class="value">Exclusive Private Party</span>
+                                            </div>
+                                        </div>
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Estimated Fee</span>
+                                                <span class="value highlight">$250,000 - $300,000</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Status</span>
+                                                <span class="status pending">Pending Review</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="show-actions">
+                                        <button class="action-btn accept">Accept Offer</button>
+                                        <button class="action-btn decline">Decline</button>
+                                        <button class="action-btn view">View Details</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Lollapalooza Package -->
+                            <div class="show-request" onclick="showMessageThread('lolla-package-thread')">
+                                <div class="show-card premium-event">
+                                    <div class="event-badge">Festival + Club Package</div>
+                                    <div class="show-header">
+                                        <h3>Lollapalooza + TAO Chicago Package</h3>
+                                        <div class="show-meta">
+                                            <span class="venue">Grant Park & TAO Chicago, IL</span>
+                                            <span class="date">August 9, 2025</span>
+                                        </div>
+                                    </div>
+                                    <div class="show-details">
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Festival Offer</span>
+                                                <span class="value">C3 Presents</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Club Offer</span>
+                                                <span class="value">TAO Group Hospitality</span>
+                                            </div>
+                                        </div>
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Combined Fee</span>
+                                                <span class="value highlight">$250,000 - $325,000</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Status</span>
+                                                <span class="status negotiating">Package Deal</span>
+                                            </div>
+                                        </div>
+                                        <div class="package-details">
+                                            <div class="detail-item">
+                                                <span class="label">Festival Details</span>
+                                                <span class="value">Main Stage (9:30 PM - 11:00 PM)</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Club Details</span>
+                                                <span class="value">Late Night Set (1:00 AM - 2:30 AM)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="show-actions">
+                                        <button class="action-btn accept">Accept Package</button>
+                                        <button class="action-btn decline">Decline</button>
+                                        <button class="action-btn view">View Details</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Made In America Festival -->
+                            <div class="show-request" onclick="showMessageThread('mia-thread')">
+                                <div class="show-card premium-event">
+                                    <div class="event-badge">Premium Festival</div>
+                                    <div class="show-header">
+                                        <h3>Made In America Festival</h3>
+                                        <div class="show-meta">
+                                            <span class="venue">Benjamin Franklin Parkway, Philadelphia, PA</span>
+                                            <span class="date">September 6, 2025</span>
+                                        </div>
+                                    </div>
+                                    <div class="show-details">
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Offer From</span>
+                                                <span class="value">Roc Nation</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Performance Type</span>
+                                                <span class="value">Festival Performance</span>
+                                            </div>
+                                        </div>
+                                        <div class="detail-row">
+                                            <div class="detail-item">
+                                                <span class="label">Estimated Fee</span>
+                                                <span class="value highlight">$150,000 - $200,000</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="label">Status</span>
+                                                <span class="status pending">Pending Review</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="show-actions">
+                                        <button class="action-btn accept">Accept Offer</button>
+                                        <button class="action-btn decline">Decline</button>
+                                        <button class="action-btn view">View Details</button>
                                     </div>
                                 </div>
                             </div>
@@ -2020,6 +2523,12 @@
                 }
             });
         });
+
+        function showMessageThread(threadId) {
+            // Switch to messages tab and show corresponding thread
+            document.querySelector('[data-tab="messages"]').click();
+            // Additional logic to show specific message thread
+        }
     </script>
 </body>
 </html>
