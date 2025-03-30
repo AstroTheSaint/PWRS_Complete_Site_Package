@@ -442,11 +442,14 @@
     }
 
     Promise.all([
+      loadScript('https://unpkg.com/three@0.157.0/build/three.min.js'),
+      loadScript('https://unpkg.com/three@0.157.0/examples/jsm/controls/OrbitControls.js'),
       loadScript('https://unpkg.com/globe.gl@4.3.0/dist/globe.gl.min.js')
     ]).then(() => {
       initHeroGlobe();
-    }).catch(() => {
-      console.log('Globe visualization failed to load');
+    }).catch((error) => {
+      console.error('Globe visualization failed to load:', error);
+      document.querySelector('.loading').classList.add('hidden');
     });
 
     // Initialize hero globe
@@ -454,7 +457,7 @@
       const globeContainer = document.getElementById('heroGlobe');
       
       const globe = Globe()
-        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-dark.jpg')
         .backgroundColor('rgba(0,0,0,0)')
         .width(globeContainer.clientWidth)
         .height(globeContainer.clientHeight)
