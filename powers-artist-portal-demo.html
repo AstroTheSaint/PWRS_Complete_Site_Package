@@ -931,6 +931,192 @@
             width: 100%;
             margin-bottom: 1rem;
         }
+
+        /* Modern Document Styling */
+        .documents-grid {
+            display: grid;
+            gap: 2rem;
+            padding: 1.5rem;
+        }
+
+        .document-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .document-cards {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .document-card {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .document-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .doc-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .doc-info {
+            flex: 1;
+        }
+
+        .doc-info h4 {
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        .doc-info p {
+            margin: 0.25rem 0;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .doc-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        .doc-status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .doc-status.approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .doc-status.active {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .doc-status.draft {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .doc-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .doc-action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .doc-action-btn:hover {
+            background: #0056b3;
+        }
+
+        /* Show Request Styling Updates */
+        .show-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .show-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .premium-badge, .residency-badge, .vip-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .premium-badge {
+            background: #ffd700;
+            color: #000;
+        }
+
+        .residency-badge {
+            background: #e0f7fa;
+            color: #006064;
+        }
+
+        .vip-badge {
+            background: #f3e5f5;
+            color: #4a148c;
+        }
+
+        .show-meta {
+            margin: 0.5rem 0;
+            color: #6c757d;
+        }
+
+        .detail-column {
+            flex: 1;
+        }
+
+        .show-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .document-previews {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .preview-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .view-doc-button {
+            padding: 0.25rem 0.75rem;
+            border: none;
+            border-radius: 4px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .view-doc-button:hover {
+            background: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -1292,28 +1478,43 @@
                     <div id="requests-tab" class="message-tab-content active">
                         <div class="show-requests-list">
                             <div class="show-request">
-                                <div class="show-card">
+                                <div class="show-card premium-request">
                                     <div class="show-header">
-                                        <div>
-                                            <h3>Dubai Arena</h3>
-                                            <p>Dubai, UAE</p>
-                                            <p>April 20, 2025 - 9:00 PM</p>
+                                        <div class="show-title">
+                                            <h3>Coachella Valley Music and Arts Festival</h3>
+                                            <span class="premium-badge">Premium Event</span>
+                                        </div>
+                                        <div class="show-meta">
+                                            <p>Empire Polo Club, Indio, CA</p>
+                                            <p>April 12, 2025</p>
                                         </div>
                                         <div class="request-actions">
-                                            <button class="action-button approve">Accept</button>
+                                            <button class="action-button approve">Accept Offer</button>
                                             <button class="action-button reject">Decline</button>
                                         </div>
                                     </div>
                                     <div class="show-details">
-                                        <p>Capacity: 16,000</p>
-                                        <p>Ticket Range: $150 - $500</p>
-                                        <p>Expected Revenue: $2.8M</p>
-                                        <p>Setup Time: 3:00 PM</p>
-                                        <p>Duration: 2.5 hours</p>
-                                        <div class="document-preview">
-                                            <span class="document-icon">📄</span>
-                                            <span>Contract_Dubai_Arena_2025.pdf</span>
-                                            <button class="view-doc-button">View</button>
+                                        <div class="detail-column">
+                                            <p><strong>Performance Type:</strong> Festival Main Stage</p>
+                                            <p><strong>Set Time:</strong> 10:30 PM - 12:00 AM</p>
+                                            <p><strong>Offered Fee:</strong> $200,000</p>
+                                        </div>
+                                        <div class="detail-column">
+                                            <p><strong>Stage:</strong> Main Stage</p>
+                                            <p><strong>Expected Audience:</strong> 125,000+</p>
+                                            <p><strong>Status:</strong> Pending Response</p>
+                                        </div>
+                                        <div class="document-previews">
+                                            <div class="preview-item">
+                                                <span class="document-icon">📄</span>
+                                                <span>Performance_Agreement.pdf</span>
+                                                <button class="view-doc-button">View</button>
+                                            </div>
+                                            <div class="preview-item">
+                                                <span class="document-icon">📋</span>
+                                                <span>Technical_Requirements.pdf</span>
+                                                <button class="view-doc-button">View</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1487,30 +1688,110 @@
                     </div>
 
                     <div id="documents-tab" class="message-tab-content">
-                        <div class="documents-list">
-                            <div class="document-item">
-                                <div class="document-icon">📄</div>
-                                <div class="document-info">
-                                    <h4>Dubai Arena Contract</h4>
-                                    <p>Updated: March 25, 2024</p>
+                        <div class="documents-grid">
+                            <!-- Contracts Section -->
+                            <div class="document-section">
+                                <h3>Contracts</h3>
+                                <div class="document-cards">
+                                    <div class="document-card">
+                                        <div class="doc-icon contract">📄</div>
+                                        <div class="doc-info">
+                                            <h4>Coachella 2025 Contract</h4>
+                                            <p>Updated: March 15, 2024</p>
+                                            <div class="doc-status pending">Pending Review</div>
+                                        </div>
+                                        <div class="doc-actions">
+                                            <button class="doc-action-btn">View</button>
+                                            <button class="doc-action-btn">Download</button>
+                                        </div>
+                                    </div>
+                                    <div class="document-card">
+                                        <div class="doc-icon contract">📄</div>
+                                        <div class="doc-info">
+                                            <h4>LIV Residency Agreement</h4>
+                                            <p>Updated: March 18, 2024</p>
+                                            <div class="doc-status pending">Under Negotiation</div>
+                                        </div>
+                                        <div class="doc-actions">
+                                            <button class="doc-action-btn">View</button>
+                                            <button class="doc-action-btn">Download</button>
+                                        </div>
+                                    </div>
+                                    <div class="document-card">
+                                        <div class="doc-icon contract">📄</div>
+                                        <div class="doc-info">
+                                            <h4>Dubai Arena Contract</h4>
+                                            <p>Updated: March 25, 2024</p>
+                                            <div class="doc-status active">Active</div>
+                                        </div>
+                                        <div class="doc-actions">
+                                            <button class="doc-action-btn">View</button>
+                                            <button class="doc-action-btn">Download</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button class="download-button">Download</button>
                             </div>
-                            <div class="document-item">
-                                <div class="document-icon">📄</div>
-                                <div class="document-info">
-                                    <h4>Technical Rider</h4>
-                                    <p>Updated: March 23, 2024</p>
+
+                            <!-- Technical Riders Section -->
+                            <div class="document-section">
+                                <h3>Technical Riders</h3>
+                                <div class="document-cards">
+                                    <div class="document-card">
+                                        <div class="doc-icon rider">🎛️</div>
+                                        <div class="doc-info">
+                                            <h4>Standard Stage Setup</h4>
+                                            <p>Updated: March 20, 2024</p>
+                                            <div class="doc-status approved">Approved</div>
+                                        </div>
+                                        <div class="doc-actions">
+                                            <button class="doc-action-btn">View</button>
+                                            <button class="doc-action-btn">Download</button>
+                                        </div>
+                                    </div>
+                                    <div class="document-card">
+                                        <div class="doc-icon rider">🎛️</div>
+                                        <div class="doc-info">
+                                            <h4>Festival Equipment List</h4>
+                                            <p>Updated: March 22, 2024</p>
+                                            <div class="doc-status approved">Approved</div>
+                                        </div>
+                                        <div class="doc-actions">
+                                            <button class="doc-action-btn">View</button>
+                                            <button class="doc-action-btn">Download</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button class="download-button">Download</button>
                             </div>
-                            <div class="document-item">
-                                <div class="document-icon">📄</div>
-                                <div class="document-info">
-                                    <h4>Stage Layout</h4>
-                                    <p>Updated: March 20, 2024</p>
+
+                            <!-- Stage Layouts Section -->
+                            <div class="document-section">
+                                <h3>Stage Layouts</h3>
+                                <div class="document-cards">
+                                    <div class="document-card">
+                                        <div class="doc-icon layout">📐</div>
+                                        <div class="doc-info">
+                                            <h4>Arena Configuration</h4>
+                                            <p>Updated: March 23, 2024</p>
+                                            <div class="doc-status draft">Draft</div>
+                                        </div>
+                                        <div class="doc-actions">
+                                            <button class="doc-action-btn">View</button>
+                                            <button class="doc-action-btn">Download</button>
+                                        </div>
+                                    </div>
+                                    <div class="document-card">
+                                        <div class="doc-icon layout">📐</div>
+                                        <div class="doc-info">
+                                            <h4>Festival Main Stage</h4>
+                                            <p>Updated: March 24, 2024</p>
+                                            <div class="doc-status pending">Pending Review</div>
+                                        </div>
+                                        <div class="doc-actions">
+                                            <button class="doc-action-btn">View</button>
+                                            <button class="doc-action-btn">Download</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button class="download-button">Download</button>
                             </div>
                         </div>
                     </div>
