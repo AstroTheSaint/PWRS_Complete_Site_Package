@@ -387,6 +387,147 @@
             font-size: 0.875rem;
             margin-top: 0.5rem;
         }
+
+        .revenue-battle-pass {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .tier-progress {
+            position: relative;
+        }
+
+        .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .current-tier {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .current-tier.gold {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+        }
+
+        .tier-track {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .tier-milestone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            flex: 1;
+        }
+
+        .milestone-marker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tier-icon {
+            font-size: 2rem;
+        }
+
+        .tier-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .tier-name {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .milestone-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            width: 100%;
+            transform: translateY(-50%);
+        }
+
+        .milestone-line.completed {
+            background: linear-gradient(90deg, var(--primary-color), #FFD700);
+        }
+
+        .battle-pass-style {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, var(--card-bg), rgba(29, 185, 84, 0.1));
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .level-badge {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .progress-fill.animated {
+            background: linear-gradient(90deg, var(--primary-color), #FFD700);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .rewards-preview {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .reward-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+
+        .reward-item.locked {
+            opacity: 0.5;
+        }
+
+        .reward-icon {
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
@@ -569,32 +710,67 @@
 
         <!-- Revenue Section -->
         <div id="revenue" class="tab-content">
-            <div class="revenue-stats">
-                <div class="stat-card">
-                    <h3>Year-to-Date Revenue</h3>
-                    <h2>$1.75M</h2>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 35%;"></div>
+            <div class="revenue-battle-pass">
+                <div class="tier-progress">
+                    <div class="tier-header">
+                        <h2>Revenue Battle Pass</h2>
+                        <div class="current-tier gold">
+                            <span class="tier-icon">👑</span>
+                            <span>GOLD STATUS</span>
+                        </div>
                     </div>
-                    <p>35% of yearly goal ($5M)</p>
-                    <div class="achievement-badge">
-                        <span class="badge-icon">🏆</span>
-                        <span class="badge-text">Gold Tier</span>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <h3>Monthly Revenue</h3>
-                    <h2>$475K</h2>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 79%;"></div>
-                    </div>
-                    <p>79% of monthly goal ($600K)</p>
-                    <div class="achievement-badge">
-                        <span class="badge-icon">⭐</span>
-                        <span class="badge-text">On Track</span>
+                    <div class="tier-track">
+                        <div class="tier-milestone achieved">
+                            <div class="milestone-marker">
+                                <span class="tier-icon">🥇</span>
+                                <span class="tier-value">$1M</span>
+                                <span class="tier-name">GOLD</span>
+                            </div>
+                            <div class="milestone-line completed"></div>
+                        </div>
+                        <div class="tier-milestone in-progress">
+                            <div class="milestone-marker">
+                                <span class="tier-icon">💫</span>
+                                <span class="tier-value">$5M</span>
+                                <span class="tier-name">PLATINUM</span>
+                            </div>
+                            <div class="milestone-line" style="width: 35%;"></div>
+                        </div>
+                        <div class="tier-milestone">
+                            <div class="milestone-marker">
+                                <span class="tier-icon">💎</span>
+                                <span class="tier-value">$10M</span>
+                                <span class="tier-name">DIAMOND</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="revenue-stats">
+                <div class="stat-card battle-pass-style">
+                    <div class="stat-header">
+                        <h3>Current Progress</h3>
+                        <div class="level-badge">LVL 75</div>
+                    </div>
+                    <h2>$1.75M / $5M</h2>
+                    <div class="progress-bar">
+                        <div class="progress-fill animated" style="width: 35%;"></div>
+                    </div>
+                    <p>35% to Platinum Status</p>
+                    <div class="rewards-preview">
+                        <div class="reward-item">
+                            <span class="reward-icon">🎭</span>
+                            <span>VIP Show Access</span>
+                        </div>
+                        <div class="reward-item locked">
+                            <span class="reward-icon">🌟</span>
+                            <span>Platinum Benefits</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="revenue-breakdown">
                 <h3>Revenue Breakdown</h3>
                 <div class="stat-card">
