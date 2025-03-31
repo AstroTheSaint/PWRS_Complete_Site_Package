@@ -193,18 +193,36 @@
         }
 
         .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.25rem;
+            position: relative;
+            padding: 1rem;
+            border-radius: 8px;
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .nav-item.active {
             color: var(--primary-color);
+            background: rgba(29, 185, 84, 0.1);
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 24px;
+            background: var(--primary-color);
+            border-radius: 0 2px 2px 0;
         }
 
         .nav-icon {
@@ -378,10 +396,10 @@
         .revenue-item {
             display: flex;
             align-items: center;
-            padding: 1rem;
+            padding: 1.25rem;
             background: rgba(255, 255, 255, 0.02);
             border-radius: 12px;
-            transition: transform 0.2s ease, background-color 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         .revenue-indicator {
@@ -409,6 +427,22 @@
             font-size: 1.125rem;
             color: var(--text-secondary);
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .revenue-trend {
+            font-size: 0.875rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            background: rgba(29, 185, 84, 0.1);
+            color: var(--primary-color);
+        }
+
+        .revenue-trend.negative {
+            background: rgba(255, 82, 82, 0.1);
+            color: #FF5252;
         }
 
         /* Desktop Responsive Styles */
@@ -603,24 +637,33 @@
             </div>
             <div class="revenue-list">
                 <div class="revenue-item">
-                    <div class="revenue-indicator" style="background: var(--primary-color);"></div>
+                    <div class="revenue-indicator" style="background: #1DB954;"></div>
                     <div class="revenue-info">
-                        <div class="revenue-label">Deposits Received</div>
-                        <div class="revenue-value">45%</div>
+                        <div class="revenue-label">Paid in Full</div>
+                        <div class="revenue-value">
+                            40%
+                            <span class="revenue-trend">+5%</span>
+                        </div>
                     </div>
                 </div>
                 <div class="revenue-item">
                     <div class="revenue-indicator" style="background: #FF9800;"></div>
                     <div class="revenue-info">
-                        <div class="revenue-label">Pending Deposits</div>
-                        <div class="revenue-value">35%</div>
+                        <div class="revenue-label">Partial Payment</div>
+                        <div class="revenue-value">
+                            35%
+                            <span class="revenue-trend">+10%</span>
+                        </div>
                     </div>
                 </div>
                 <div class="revenue-item">
-                    <div class="revenue-indicator" style="background: #1DB954;"></div>
+                    <div class="revenue-indicator" style="background: #FF5252;"></div>
                     <div class="revenue-info">
-                        <div class="revenue-label">Final Payments</div>
-                        <div class="revenue-value">20%</div>
+                        <div class="revenue-label">Payment Due</div>
+                        <div class="revenue-value">
+                            25%
+                            <span class="revenue-trend negative">-15%</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -751,5 +794,24 @@
             Settings
         </a>
     </nav>
+
+    <script>
+        // Add navigation highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all items
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
 </body>
 </html> 
