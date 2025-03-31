@@ -365,36 +365,30 @@
             border-radius: 16px;
             padding: 1.5rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
         }
 
         .revenue-list {
-            margin-top: 1.5rem;
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
         }
 
         .revenue-item {
             display: flex;
             align-items: center;
             padding: 1rem;
-            margin-bottom: 0.75rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            transition: transform 0.2s ease, background-color 0.2s ease;
         }
 
         .revenue-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
+            width: 8px;
+            height: 40px;
+            border-radius: 4px;
             margin-right: 1rem;
-        }
-
-        .revenue-shows {
-            background: var(--primary-color);
-        }
-
-        .revenue-merch {
-            background: #4A90E2;
-        }
-
-        .revenue-other {
-            background: #F5A623;
         }
 
         .revenue-info {
@@ -402,16 +396,19 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1rem;
         }
 
         .revenue-label {
-            font-size: 1rem;
+            font-size: 0.9375rem;
             color: var(--text-primary);
+            font-weight: 500;
         }
 
         .revenue-value {
-            font-size: 1rem;
+            font-size: 1.125rem;
             color: var(--text-secondary);
+            font-weight: 600;
         }
 
         /* Desktop Responsive Styles */
@@ -540,12 +537,29 @@
 
             .revenue-distribution {
                 grid-column: span 6;
+                margin-bottom: 0;
+            }
+            
+            .revenue-item {
+                padding: 1.25rem;
             }
             
             .revenue-item:hover {
-                background: rgba(255, 255, 255, 0.02);
-                border-radius: 8px;
                 transform: translateX(5px);
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            .revenue-indicator {
+                width: 10px;
+                height: 48px;
+            }
+
+            .revenue-label {
+                font-size: 1rem;
+            }
+
+            .revenue-value {
+                font-size: 1.25rem;
             }
         }
 
@@ -589,21 +603,21 @@
             </div>
             <div class="revenue-list">
                 <div class="revenue-item">
-                    <div class="revenue-indicator revenue-shows"></div>
+                    <div class="revenue-indicator" style="background: var(--primary-color);"></div>
                     <div class="revenue-info">
                         <div class="revenue-label">Deposits Received</div>
                         <div class="revenue-value">45%</div>
                     </div>
                 </div>
                 <div class="revenue-item">
-                    <div class="revenue-indicator revenue-merch" style="background: #FF9800;"></div>
+                    <div class="revenue-indicator" style="background: #FF9800;"></div>
                     <div class="revenue-info">
                         <div class="revenue-label">Pending Deposits</div>
                         <div class="revenue-value">35%</div>
                     </div>
                 </div>
                 <div class="revenue-item">
-                    <div class="revenue-indicator revenue-other" style="background: #1DB954;"></div>
+                    <div class="revenue-indicator" style="background: #1DB954;"></div>
                     <div class="revenue-info">
                         <div class="revenue-label">Final Payments</div>
                         <div class="revenue-value">20%</div>
