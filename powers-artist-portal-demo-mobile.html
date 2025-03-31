@@ -359,6 +359,61 @@
             color: #FF9800;
         }
 
+        /* Revenue Distribution Styles */
+        .revenue-distribution {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .revenue-list {
+            margin-top: 1.5rem;
+        }
+
+        .revenue-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .revenue-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        .revenue-shows {
+            background: var(--primary-color);
+        }
+
+        .revenue-merch {
+            background: #4A90E2;
+        }
+
+        .revenue-other {
+            background: #F5A623;
+        }
+
+        .revenue-info {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .revenue-label {
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .revenue-value {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
         /* Desktop Responsive Styles */
         @media screen and (min-width: 1024px) {
             .main-content {
@@ -482,6 +537,16 @@
                 padding: 0.75rem 1.5rem;
                 font-size: 1rem;
             }
+
+            .revenue-distribution {
+                grid-column: span 6;
+            }
+            
+            .revenue-item:hover {
+                background: rgba(255, 255, 255, 0.02);
+                border-radius: 8px;
+                transform: translateX(5px);
+            }
         }
 
         /* Add smooth transitions for all interactive elements */
@@ -516,6 +581,35 @@
             </div>
             <div class="stat-value">12</div>
             <div class="stat-description">4 upcoming shows</div>
+        </div>
+
+        <div class="revenue-distribution">
+            <div class="stat-header">
+                <div class="stat-title">Revenue Distribution</div>
+            </div>
+            <div class="revenue-list">
+                <div class="revenue-item">
+                    <div class="revenue-indicator revenue-shows"></div>
+                    <div class="revenue-info">
+                        <div class="revenue-label">Shows</div>
+                        <div class="revenue-value">80%</div>
+                    </div>
+                </div>
+                <div class="revenue-item">
+                    <div class="revenue-indicator revenue-merch"></div>
+                    <div class="revenue-info">
+                        <div class="revenue-label">Merchandise</div>
+                        <div class="revenue-value">15%</div>
+                    </div>
+                </div>
+                <div class="revenue-item">
+                    <div class="revenue-indicator revenue-other"></div>
+                    <div class="revenue-info">
+                        <div class="revenue-label">Other</div>
+                        <div class="revenue-value">5%</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="performance-card">
