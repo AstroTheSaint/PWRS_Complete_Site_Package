@@ -1,3 +1,13 @@
+<script>
+  /*
+  <meta property="og:title" content="PWRS - Global Tour Intelligence Platform">
+  <meta property="og:description" content="Powering the future of live music across 25+ global markets">
+  <meta property="og:image" content="https://your-vercel-domain.com/pwrs-preview-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  */
+  
 // Globe Configuration
 const GLOBE_CONFIG = {
     dark: {
@@ -109,4 +119,30 @@ window.PWRS = {
     TOUR_DATA,
     yearFilter,
     formatRevenue
-}; 
+};
+
+// Tab functionality
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        const tab = link.getAttribute('data-tab');
+        
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+
+        document.querySelectorAll('.tab-content').forEach(section => {
+            section.classList.remove('active');
+            section.style.display = 'none';
+        });
+
+        const activeSection = document.getElementById(tab);
+        if (activeSection) {
+            activeSection.classList.add('active');
+            activeSection.style.display = 'block';
+        }
+    });
+});
+</script>
+<div id="dashboard" class="tab-content active">Dashboard Content</div>
+<div id="music" class="tab-content">Music Content</div>
+<div id="shows" class="tab-content">Shows Content</div>

@@ -246,6 +246,118 @@
             transform: rotate(-45deg) translate(7px, -6px);
             background: var(--primary-color);
         }
+
+        /* Add after the stats-card styles */
+        .performance-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .venue-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .venue-type {
+            background: rgba(29, 185, 84, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .venue-type::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-color);
+            transform-origin: left;
+            animation: progress 1s ease-out forwards;
+        }
+
+        @keyframes progress {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        .venue-count {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .venue-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .requirements-list {
+            margin-top: 1.5rem;
+        }
+
+        .requirement-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+        }
+
+        .requirement-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(29, 185, 84, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .requirement-info {
+            flex: 1;
+        }
+
+        .requirement-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .requirement-details {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .requirement-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status-completed {
+            background: rgba(29, 185, 84, 0.1);
+            color: var(--primary-color);
+        }
+
+        .status-pending {
+            background: rgba(255, 152, 0, 0.1);
+            color: #FF9800;
+        }
     </style>
 </head>
 <body>
@@ -269,6 +381,52 @@
             </div>
             <div class="stat-value">12</div>
             <div class="stat-description">4 upcoming shows</div>
+        </div>
+
+        <div class="performance-card">
+            <div class="stat-header">
+                <div class="stat-title">Performance Overview</div>
+            </div>
+            <div class="venue-stats">
+                <div class="venue-type">
+                    <div class="venue-count">12</div>
+                    <div class="venue-label">Festivals</div>
+                </div>
+                <div class="venue-type">
+                    <div class="venue-count">28</div>
+                    <div class="venue-label">Arenas</div>
+                </div>
+                <div class="venue-type">
+                    <div class="venue-count">45</div>
+                    <div class="venue-label">Clubs</div>
+                </div>
+            </div>
+            <div class="requirements-list">
+                <div class="requirement-item">
+                    <div class="requirement-icon">💰</div>
+                    <div class="requirement-info">
+                        <div class="requirement-title">Coachella Deposit</div>
+                        <div class="requirement-details">50% deposit received</div>
+                    </div>
+                    <div class="requirement-status status-completed">Completed</div>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-icon">📱</div>
+                    <div class="requirement-info">
+                        <div class="requirement-title">Social Media Post</div>
+                        <div class="requirement-details">Instagram Story Required</div>
+                    </div>
+                    <div class="requirement-status status-pending">Due Apr 12</div>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-icon">📸</div>
+                    <div class="requirement-info">
+                        <div class="requirement-title">LIV Promo Content</div>
+                        <div class="requirement-details">Feed Post + Story</div>
+                    </div>
+                    <div class="requirement-status status-pending">Due Apr 15</div>
+                </div>
+            </div>
         </div>
 
         <div class="upcoming-shows">
