@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PWRS Mobile Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Artist Portal - Mobile Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         /* Mobile-First Base Styles */
         :root {
@@ -1157,7 +1159,7 @@
             <div class="globe-header">
                 <div class="stat-title">Global Tour Overview</div>
             </div>
-            <div class="globe-container" id="globeViz"></div>
+            <div class="globe-container" id="globe-container"></div>
         </div>
 
         <div class="card-base upcoming-shows">
@@ -1567,6 +1569,66 @@
 
         menuButton?.addEventListener('click', () => {
             desktopNav?.classList.toggle('active');
+        });
+
+        // Globe Visualization
+        function initGlobe() {
+            const container = document.getElementById('globe-container');
+            if (!container) return;
+
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            
+            renderer.setSize(width, height);
+            container.appendChild(renderer.domElement);
+
+            // Create Earth
+            const geometry = new THREE.SphereGeometry(5, 32, 32);
+            const texture = new THREE.TextureLoader().load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg');
+            const material = new THREE.MeshPhongMaterial({
+                map: texture,
+                specular: new THREE.Color(0x333333),
+                shininess: 5
+            });
+            const earth = new THREE.Mesh(geometry, material);
+            scene.add(earth);
+
+            // Add ambient light
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+
+            // Add directional light
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(5, 3, 5);
+            scene.add(directionalLight);
+
+            camera.position.z = 15;
+
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                earth.rotation.y += 0.005;
+                renderer.render(scene, camera);
+            }
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                renderer.setSize(width, height);
+            });
+
+            animate();
+        }
+
+        // Initialize globe when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initGlobe();
         });
     </script>
 </body>
