@@ -256,15 +256,15 @@
             background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
             padding: 16px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .show-title {
-            font-size: 1.125rem;
+            font-size: 1.25rem;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .show-details {
@@ -278,7 +278,13 @@
             justify-content: space-between;
             align-items: center;
             font-size: 0.875rem;
-            color: var(--text-secondary);
+        }
+
+        .show-info-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 12px;
         }
 
         .show-info-label {
@@ -286,25 +292,16 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 4px;
         }
 
         .show-info-value {
             color: var(--text-primary);
             font-size: 0.875rem;
+            line-height: 1.4;
         }
 
-        .show-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .show-meta-item {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
+        .show-date {
+            color: var(--text-secondary);
         }
 
         .show-status {
@@ -312,22 +309,6 @@
             border-radius: 12px;
             font-size: 0.75rem;
             font-weight: 500;
-            align-self: flex-start;
-        }
-
-        .status-negotiating {
-            background: rgba(255, 193, 7, 0.1);
-            color: #FFC107;
-        }
-
-        .status-confirmed {
-            background: rgba(29, 185, 84, 0.1);
-            color: #1DB954;
-        }
-
-        .status-pending {
-            background: rgba(255, 87, 34, 0.1);
-            color: #FF5722;
         }
 
         .show-actions {
@@ -337,7 +318,8 @@
         }
 
         .show-button {
-            padding: 8px 16px;
+            flex: 1;
+            padding: 10px 16px;
             border-radius: 8px;
             font-size: 0.875rem;
             font-weight: 500;
@@ -346,10 +328,7 @@
             border: none;
             cursor: pointer;
             transition: all 0.2s ease;
-        }
-
-        .show-button:active {
-            transform: scale(0.98);
+            text-align: center;
         }
 
         .show-button.primary {
@@ -1070,97 +1049,109 @@
             <div class="show-list">
                 <div class="show-item">
                     <div class="show-title">Summerfest</div>
-                    <div class="show-meta">
-                        <div class="show-meta-item">
-                            <div class="show-info-label">Performance Type</div>
-                            <div class="show-info-value">Festival Performance</div>
-                        </div>
-                        <div class="show-meta-item">
-                            <div class="show-info-label">Location</div>
-                            <div class="show-info-value">Milwaukee, Wisconsin</div>
-                        </div>
-                        <div class="show-meta-item">
-                            <div class="show-info-label">Venue</div>
-                            <div class="show-info-value">Henry Maier Festival Park</div>
-                        </div>
+                    <div class="show-info-row">
+                        <div class="show-info-label">Performance Type</div>
+                        <div class="show-info-value">Festival Headliner at Henry Maier Festival Park, Milwaukee, WI</div>
                     </div>
                     <div class="show-details">
                         <div class="show-info">
-                            <span class="show-date">July 15, 2024</span>
-                            <span class="show-status status-negotiating">Negotiating</span>
+                            <span class="show-date">July 12, 2025</span>
+                            <span class="show-status status-confirmed">Confirmed</span>
                         </div>
                         <div class="show-info">
                             <span>Offer From</span>
                             <span>Milwaukee World Festival, Inc.</span>
                         </div>
+                        <div class="show-info">
+                            <span>Confirmed Fee</span>
+                            <span>$175,000 - $225,000</span>
+                        </div>
                     </div>
                     <div class="show-actions">
-                        <button class="show-button primary">View Details</button>
-                        <button class="show-button">Message</button>
+                        <button class="show-button">View Contract</button>
+                        <button class="show-button">View Rider</button>
+                        <button class="show-button primary">Messages</button>
                     </div>
                 </div>
 
                 <div class="show-item">
-                    <div class="show-title">LIV Nightclub Residency</div>
-                    <div class="show-meta">
-                        <div class="show-meta-item">
-                            <div class="show-info-label">Performance Type</div>
-                            <div class="show-info-value">Club Residency</div>
-                        </div>
-                        <div class="show-meta-item">
-                            <div class="show-info-label">Location</div>
-                            <div class="show-info-value">Miami, Florida</div>
-                        </div>
-                        <div class="show-meta-item">
-                            <div class="show-info-label">Venue</div>
-                            <div class="show-info-value">LIV Miami</div>
-                        </div>
+                    <div class="show-title">Dubai Arena International Music Festival</div>
+                    <div class="show-info-row">
+                        <div class="show-info-label">Performance Type</div>
+                        <div class="show-info-value">International Festival at Coca-Cola Arena, Dubai, UAE</div>
                     </div>
                     <div class="show-details">
                         <div class="show-info">
-                            <span class="show-date">August 1-3, 2024</span>
+                            <span class="show-date">April 20, 2025</span>
                             <span class="show-status status-confirmed">Confirmed</span>
                         </div>
                         <div class="show-info">
-                            <span>Venue Contact</span>
-                            <span>LIV Entertainment Group</span>
+                            <span>Offer From</span>
+                            <span>Live Nation Middle East</span>
+                        </div>
+                        <div class="show-info">
+                            <span>Confirmed Fee</span>
+                            <span>$250,000</span>
                         </div>
                     </div>
                     <div class="show-actions">
-                        <button class="show-button primary">View Details</button>
-                        <button class="show-button">Message</button>
+                        <button class="show-button">View Contract</button>
+                        <button class="show-button">View Rider</button>
+                        <button class="show-button primary">Messages</button>
                     </div>
                 </div>
 
                 <div class="show-item">
-                    <div class="show-title">Corporate Event</div>
-                    <div class="show-meta">
-                        <div class="show-meta-item">
-                            <div class="show-info-label">Performance Type</div>
-                            <div class="show-info-value">Private Event</div>
-                        </div>
-                        <div class="show-meta-item">
-                            <div class="show-info-label">Location</div>
-                            <div class="show-info-value">New York, NY</div>
-                        </div>
-                        <div class="show-meta-item">
-                            <div class="show-info-label">Venue</div>
-                            <div class="show-info-value">Fortune 500 Company HQ</div>
-                        </div>
+                    <div class="show-title">XS Nightclub Residency</div>
+                    <div class="show-info-row">
+                        <div class="show-info-label">Performance Type</div>
+                        <div class="show-info-value">Club Residency (6 Shows) at XS Nightclub, Las Vegas, NV</div>
                     </div>
                     <div class="show-details">
                         <div class="show-info">
-                            <span class="show-date">September 5, 2024</span>
-                            <span class="show-status status-pending">Pending</span>
+                            <span class="show-date">May 15-30, 2025</span>
+                            <span class="show-status status-confirmed">Confirmed</span>
                         </div>
                         <div class="show-info">
-                            <span>Client</span>
-                            <span>Fortune 500 Company</span>
+                            <span>Offer From</span>
+                            <span>Wynn Nightlife</span>
+                        </div>
+                        <div class="show-info">
+                            <span>Confirmed Fee</span>
+                            <span>$900,000 Total</span>
                         </div>
                     </div>
                     <div class="show-actions">
-                        <button class="show-button primary">View Details</button>
-                        <button class="show-button">Message</button>
+                        <button class="show-button">View Contract</button>
+                        <button class="show-button">View Rider</button>
+                        <button class="show-button primary">Messages</button>
+                    </div>
+                </div>
+
+                <div class="show-item">
+                    <div class="show-title">Sydney Opera House Special Performance</div>
+                    <div class="show-info-row">
+                        <div class="show-info-label">Performance Type</div>
+                        <div class="show-info-value">Special Performance at Sydney Opera House, Sydney, Australia</div>
+                    </div>
+                    <div class="show-details">
+                        <div class="show-info">
+                            <span class="show-date">January 10, 2025</span>
+                            <span class="show-status status-confirmed">Confirmed</span>
+                        </div>
+                        <div class="show-info">
+                            <span>Offer From</span>
+                            <span>Sydney Opera House Trust</span>
+                        </div>
+                        <div class="show-info">
+                            <span>Confirmed Fee</span>
+                            <span>$200,000</span>
+                        </div>
+                    </div>
+                    <div class="show-actions">
+                        <button class="show-button">View Contract</button>
+                        <button class="show-button">View Rider</button>
+                        <button class="show-button primary">Messages</button>
                     </div>
                 </div>
             </div>
