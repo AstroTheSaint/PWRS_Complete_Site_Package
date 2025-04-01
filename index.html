@@ -691,6 +691,74 @@
     .map-dot:hover + .market-label {
       opacity: 1;
     }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+      .features {
+        padding: 4rem 1rem;
+      }
+
+      .features-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin: 0;
+        padding: 0 1rem;
+      }
+
+      .feature-card {
+        width: 100%;
+        min-width: unset;
+        margin: 0;
+        padding: 1.5rem;
+      }
+
+      .stats {
+        padding: 4rem 1rem;
+        margin-top: 2rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 0 1rem;
+      }
+
+      .stat-card {
+        padding: 1.5rem;
+      }
+
+      .stat-value {
+        font-size: 2rem;
+      }
+
+      .stat-label {
+        font-size: 1rem;
+      }
+
+      #heroGlobe {
+        height: 400px !important;
+        margin: 1rem 0;
+      }
+
+      .hero {
+        padding: 6rem 1rem 2rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .carousel-indicators {
+        margin-top: 2rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -834,130 +902,75 @@
   <script src="https://unpkg.com/three@0.157.0/build/three.min.js"></script>
   <script src="https://unpkg.com/globe.gl@2.32.1/dist/globe.gl.min.js"></script>
   <script>
-    // Initialize globe
-    function initGlobe() {
-      const globeContainer = document.getElementById('heroGlobe');
+    // Globe Visualization
+    function initGlobe(containerId = 'heroGlobe') {
+      const globeContainer = document.getElementById(containerId);
       if (!globeContainer) return;
 
-      // Clear any existing content
+      // Clear existing globe
       globeContainer.innerHTML = '';
 
       const globe = Globe()
-        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
-        .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+        .backgroundColor('rgba(0,0,0,0)')
         .width(globeContainer.clientWidth)
-        .height(globeContainer.clientHeight)
-        .atmosphereColor('#1DB954')
-        .atmosphereAltitude(0.1)
-        .pointColor('#1DB954')
-        .pointAltitude(0.1)
-        .pointRadius(0.5)
-        .arcColor('#1DB954')
-        .arcAltitude(0.1)
-        .arcDashLength(0.4)
-        .arcDashGap(0.2)
-        .arcDashAnimateTime(2000)
-        .arcsTransitionDuration(1000)
-        .pointLabel(d => `
-          <div style="
-            background: rgba(18, 18, 18, 0.9);
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(29, 185, 84, 0.3);
-            color: white;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-          ">
-            <div style="font-weight: 600; margin-bottom: 4px;">${d.name}</div>
-            <div style="color: #1DB954; font-size: 12px;">${d.type}</div>
-          </div>
-        `)
-        .onPointClick(d => {
-          // Handle point click
-          console.log('Clicked:', d);
-        })
-        .onPointHover(d => {
-          // Handle point hover
-          globeContainer.style.cursor = d ? 'pointer' : 'default';
-        });
+        .height(globeContainer.clientHeight || 500)
+        .atmosphereColor('rgb(29, 185, 84)')
+        .atmosphereAltitude(0.25);
 
-      // Sample data for major concert markets
-      const markets = [
-        { name: 'Los Angeles', lat: 34.0522, lng: -118.2437, type: 'Major Market' },
-        { name: 'New York', lat: 40.7128, lng: -74.0060, type: 'Major Market' },
-        { name: 'London', lat: 51.5074, lng: -0.1278, type: 'Major Market' },
-        { name: 'Tokyo', lat: 35.6762, lng: 139.6503, type: 'Major Market' },
-        { name: 'Sydney', lat: -33.8688, lng: 151.2093, type: 'Major Market' },
-        { name: 'Berlin', lat: 52.5200, lng: 13.4050, type: 'Major Market' },
-        { name: 'Miami', lat: 25.7617, lng: -80.1918, type: 'Major Market' },
-        { name: 'Dubai', lat: 25.2048, lng: 55.2708, type: 'Major Market' }
+      globe(globeContainer);
+
+      // Sample tour data
+      const tourData = [
+        { lat: 40.7128, lng: -74.0060, city: 'New York', date: '2024-01-15', revenue: '$2.1M', status: 'completed' },
+        { lat: 34.0522, lng: -118.2437, city: 'Los Angeles', date: '2024-02-20', revenue: '$1.8M', status: 'completed' },
+        { lat: 51.5074, lng: -0.1278, city: 'London', date: '2024-03-10', revenue: '$2.5M', status: 'completed' },
+        { lat: 48.8566, lng: 2.3522, city: 'Paris', date: '2024-05-15', revenue: '$2.3M', status: 'upcoming' },
+        { lat: 35.6762, lng: 139.6503, city: 'Tokyo', date: '2024-06-20', revenue: '$2.8M', status: 'upcoming' },
+        { lat: -33.8688, lng: 151.2093, city: 'Sydney', date: '2024-07-10', revenue: '$1.9M', status: 'upcoming' }
       ];
 
-      // Generate arcs between markets
-      const arcs = [];
-      for (let i = 0; i < markets.length; i++) {
-        for (let j = i + 1; j < markets.length; j++) {
-          arcs.push({
-            startLat: markets[i].lat,
-            startLng: markets[i].lng,
-            endLat: markets[j].lat,
-            endLng: markets[j].lng,
-            color: ['#1DB954', '#159442']
-          });
-        }
-      }
+      globe.pointsData(tourData)
+        .pointColor(d => d.status === 'completed' ? '#1DB954' : '#FFB900')
+        .pointAltitude(0.1)
+        .pointRadius(0.5)
+        .pointLabel(d => `
+          <div style="color: white; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 5px;">
+            <div style="font-weight: bold;">${d.city}</div>
+            <div>${d.date}</div>
+            <div>Revenue: ${d.revenue}</div>
+            <div style="color: ${d.status === 'completed' ? '#1DB954' : '#FFB900'}">${d.status}</div>
+          </div>
+        `);
 
-      // Add data to globe
-      globe
-        .pointsData(markets)
-        .arcsData(arcs);
+      // Add arcs for tour routes
+      globe.arcsData(tourData.slice(0, -1).map((d, i) => ({
+        startLat: d.lat,
+        startLng: d.lng,
+        endLat: tourData[i + 1].lat,
+        endLng: tourData[i + 1].lng,
+        color: d.status === 'completed' ? '#1DB954' : '#FFB900'
+      })))
+      .arcColor('color')
+      .arcDashLength(0.5)
+      .arcDashGap(0.1)
+      .arcDashAnimateTime(2000);
 
       // Auto-rotate
       globe.controls().autoRotate = true;
       globe.controls().autoRotateSpeed = 0.5;
 
-      // Add zoom controls
-      globe.controls().enableZoom = true;
-      globe.controls().minDistance = 200;
-      globe.controls().maxDistance = 400;
-      globe.controls().enablePan = true;
-
-      // Initialize the globe
-      globe(globeContainer);
-
-      // Handle window resize
-      window.addEventListener('resize', () => {
-        const width = globeContainer.clientWidth;
-        const height = globeContainer.clientHeight;
-        globe
-          .width(width)
-          .height(height);
-      });
+      return globe;
     }
 
-    // Initialize globe when DOM is loaded and after a short delay
+    // Initialize globe on page load
     document.addEventListener('DOMContentLoaded', () => {
-      // Hide loading screen after resources are loaded
-      setTimeout(() => {
-        const loadingScreen = document.querySelector('.loading');
-        if (loadingScreen) {
-          loadingScreen.classList.add('hidden');
-          setTimeout(() => {
-            loadingScreen.style.display = 'none';
-          }, 500);
-        }
-      }, 1500);
-
-      // Initialize globe after a short delay to ensure container is ready
-      setTimeout(initGlobe, 100);
+      initGlobe('heroGlobe');
     });
 
-    // Re-initialize globe when window is resized
-    let resizeTimeout;
+    // Handle window resize
     window.addEventListener('resize', () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(initGlobe, 250);
+      initGlobe('heroGlobe');
     });
 
     // Modal functions
