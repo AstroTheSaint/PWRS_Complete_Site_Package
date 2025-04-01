@@ -3354,6 +3354,12 @@
             initGlobe('globeViz');
         });
 
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            initGlobe('dashboardGlobeViz');
+            initGlobe('globeViz');
+        });
+
         // Re-initialize globes when switching tabs
         function showTab(tabName) {
             // Hide all tab contents
@@ -3420,13 +3426,6 @@
                     sidebar.classList.remove('active');
                 }
             });
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                sidebar.classList.remove('active');
-            }
         });
 
         function switchMessageTab(tabName) {

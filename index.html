@@ -1265,6 +1265,77 @@
       loading.style.padding = '2rem';
       document.querySelector('.loading-text').style.fontSize = '1rem';
     }
+
+    // Globe Visualization
+    function initGlobe(containerId = 'globeViz') {
+      const globeContainer = document.getElementById(containerId);
+      if (!globeContainer) return;
+
+      // Clear existing globe
+      globeContainer.innerHTML = '';
+
+      const globe = Globe()
+        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+        .backgroundColor('rgba(0,0,0,0)')
+        .width(globeContainer.clientWidth)
+        .height(globeContainer.clientHeight || 500)
+        .atmosphereColor('rgb(29, 185, 84)')
+        .atmosphereAltitude(0.25);
+
+      globe(globeContainer);
+
+      // Sample tour data
+      const tourData = [
+        { lat: 40.7128, lng: -74.0060, city: 'New York', date: '2024-01-15', revenue: '$2.1M', status: 'completed' },
+        { lat: 34.0522, lng: -118.2437, city: 'Los Angeles', date: '2024-02-20', revenue: '$1.8M', status: 'completed' },
+        { lat: 51.5074, lng: -0.1278, city: 'London', date: '2024-03-10', revenue: '$2.5M', status: 'completed' },
+        { lat: 48.8566, lng: 2.3522, city: 'Paris', date: '2024-05-15', revenue: '$2.3M', status: 'upcoming' },
+        { lat: 35.6762, lng: 139.6503, city: 'Tokyo', date: '2024-06-20', revenue: '$2.8M', status: 'upcoming' },
+        { lat: -33.8688, lng: 151.2093, city: 'Sydney', date: '2024-07-10', revenue: '$1.9M', status: 'upcoming' }
+      ];
+
+      globe.pointsData(tourData)
+        .pointColor(d => d.status === 'completed' ? '#1DB954' : '#FFB900')
+        .pointAltitude(0.1)
+        .pointRadius(0.5)
+        .pointLabel(d => `
+          <div style="color: white; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 5px;">
+            <div style="font-weight: bold;">${d.city}</div>
+            <div>${d.date}</div>
+            <div>Revenue: ${d.revenue}</div>
+            <div style="color: ${d.status === 'completed' ? '#1DB954' : '#FFB900'}">${d.status}</div>
+          </div>
+        `);
+
+      // Add arcs for tour routes
+      globe.arcsData(tourData.slice(0, -1).map((d, i) => ({
+        startLat: d.lat,
+        startLng: d.lng,
+        endLat: tourData[i + 1].lat,
+        endLng: tourData[i + 1].lng,
+        color: d.status === 'completed' ? '#1DB954' : '#FFB900'
+      })))
+      .arcColor('color')
+      .arcDashLength(0.5)
+      .arcDashGap(0.1)
+      .arcDashAnimateTime(2000);
+
+      // Auto-rotate
+      globe.controls().autoRotate = true;
+      globe.controls().autoRotateSpeed = 0.5;
+
+      return globe;
+    }
+
+    // Initialize globe on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      initGlobe('globeViz');
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      initGlobe('globeViz');
+    });
   </script>
 </body>
 </html>
