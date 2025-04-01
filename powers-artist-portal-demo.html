@@ -3275,6 +3275,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://unpkg.com/globe.gl"></script>
     <script>
+        // Load scripts in parallel
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = resolve;
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+        }
+
+        Promise.all([
+            loadScript('https://unpkg.com/three@0.157.0/build/three.min.js'),
+            loadScript('https://unpkg.com/globe.gl@2.32.1/dist/globe.gl.min.js')
+        ]).then(() => {
+            // Initialize both globes
+            initGlobe('dashboardGlobeViz');
+            initGlobe('globeViz');
+
+            // Hide loading screen
+            document.querySelector('.loading').classList.add('hidden');
+        }).catch(error => {
+            console.error('Failed to initialize globe:', error);
+            document.querySelector('.loading').classList.add('hidden');
+        });
+
         // Globe Visualization
         function initGlobe(containerId = 'globeViz', year = 'all', dataType = 'all') {
             const globeContainer = document.getElementById(containerId);
@@ -3286,12 +3312,13 @@
             // Clear existing globe
             globeContainer.innerHTML = '';
 
+            const Globe = window.Globe;
             const globe = Globe()
-                .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+                .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
                 .backgroundColor('rgba(0,0,0,0)')
                 .width(globeContainer.clientWidth)
                 .height(globeContainer.clientHeight || 500)
-                .atmosphereColor('rgb(29, 185, 84)')
+                .atmosphereColor('#1DB954')
                 .atmosphereAltitude(0.25);
 
             globe(globeContainer);
@@ -3333,12 +3360,42 @@
                 .pointAltitude(0.1)
                 .pointRadius(0.5)
                 .pointLabel(d => `
-                    <div style="color: white; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 5px;">
-                        <div style="font-weight: bold;">${d.city}</div>
-                        <div>${d.date}</div>
-                        <div>Revenue: ${d.revenue}</div>
-                        <div>Attendance: ${d.attendance}</div>
-                        <div style="color: ${d.status === 'completed' ? '#1DB954' : '#FFB900'}">${d.status}</div>
+                    <div style="
+                        color: white;
+                        background: rgba(0,0,0,0.95);
+                        padding: 1rem;
+                        border-radius: 8px;
+                        border: 1px solid #1DB954;
+                        font-family: Inter, sans-serif;
+                        max-width: 300px;
+                        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                    ">
+                        <h3 style="
+                            color: #1DB954;
+                            margin: 0 0 0.5rem 0;
+                            font-size: 1.2rem;
+                        ">${d.city}</h3>
+                        <p style="
+                            margin: 0.5rem 0;
+                            color: #B3B3B3;
+                            font-size: 0.9rem;
+                        ">Date: ${d.date}</p>
+                        <p style="
+                            margin: 0.5rem 0;
+                            color: #1DB954;
+                            font-size: 0.9rem;
+                        ">Revenue: ${d.revenue}</p>
+                        <p style="
+                            margin: 0.5rem 0;
+                            color: #B3B3B3;
+                            font-size: 0.9rem;
+                        ">Attendance: ${d.attendance}</p>
+                        <p style="
+                            margin: 0.5rem 0;
+                            color: ${d.status === 'completed' ? '#1DB954' : '#FFB900'};
+                            font-size: 0.9rem;
+                            font-weight: 600;
+                        ">${d.status}</p>
                     </div>
                 `);
 
@@ -3358,6 +3415,17 @@
             // Auto-rotate
             globe.controls().autoRotate = true;
             globe.controls().autoRotateSpeed = 0.5;
+            globe.controls().enableZoom = true;
+            globe.controls().enablePan = true;
+            globe.controls().minDistance = 200;
+            globe.controls().maxDistance = 400;
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                globe
+                    .width(globeContainer.clientWidth)
+                    .height(globeContainer.clientHeight || 500);
+            });
 
             return globe;
         }
