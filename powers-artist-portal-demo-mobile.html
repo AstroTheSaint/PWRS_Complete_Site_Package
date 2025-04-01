@@ -1028,6 +1028,233 @@
                 gap: 2rem;
             }
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: relative;
+            background: var(--card-bg);
+            margin: 5% auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            border-radius: 16px;
+            overflow-y: auto;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .close-button {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.2s ease;
+        }
+
+        .close-button:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            color: var(--text-primary);
+        }
+
+        /* Document Preview Styles */
+        .document-preview {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .document-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .document-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .document-info {
+            flex: 1;
+        }
+
+        .document-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .document-meta {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .document-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .document-button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background: var(--primary-color);
+            color: #000;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .document-button:hover {
+            opacity: 0.9;
+        }
+
+        /* Message Thread Styles */
+        .message-thread {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .message {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .message.sent {
+            background: rgba(29, 185, 84, 0.1);
+            margin-left: 20%;
+        }
+
+        .message.received {
+            background: rgba(255, 255, 255, 0.05);
+            margin-right: 20%;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .message-sender {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .message-time {
+            color: var(--text-secondary);
+        }
+
+        .message-text {
+            line-height: 1.5;
+        }
+
+        .message-attachment {
+            margin-top: 8px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .attachment-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .attachment-info {
+            flex: 1;
+        }
+
+        .attachment-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .attachment-size {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .attachment-download {
+            padding: 6px 12px;
+            background: var(--primary-color);
+            border-radius: 4px;
+            color: #000;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -1188,9 +1415,9 @@
                         </div>
                     </div>
                     <div class="show-actions">
-                        <button class="show-button">View Contract</button>
-                        <button class="show-button">View Rider</button>
-                        <button class="show-button primary">Messages</button>
+                        <button class="show-button" onclick="showContract('Summerfest')">View Contract</button>
+                        <button class="show-button" onclick="showRider('Summerfest')">View Rider</button>
+                        <button class="show-button primary" onclick="showMessages('Summerfest')">Messages</button>
                     </div>
                 </div>
 
@@ -1215,9 +1442,9 @@
                         </div>
                     </div>
                     <div class="show-actions">
-                        <button class="show-button">View Contract</button>
-                        <button class="show-button">View Rider</button>
-                        <button class="show-button primary">Messages</button>
+                        <button class="show-button" onclick="showContract('Dubai')">View Contract</button>
+                        <button class="show-button" onclick="showRider('Dubai')">View Rider</button>
+                        <button class="show-button primary" onclick="showMessages('Dubai')">Messages</button>
                     </div>
                 </div>
 
@@ -1242,9 +1469,9 @@
                         </div>
                     </div>
                     <div class="show-actions">
-                        <button class="show-button">View Contract</button>
-                        <button class="show-button">View Rider</button>
-                        <button class="show-button primary">Messages</button>
+                        <button class="show-button" onclick="showContract('XS')">View Contract</button>
+                        <button class="show-button" onclick="showRider('XS')">View Rider</button>
+                        <button class="show-button primary" onclick="showMessages('XS')">Messages</button>
                     </div>
                 </div>
 
@@ -1269,9 +1496,9 @@
                         </div>
                     </div>
                     <div class="show-actions">
-                        <button class="show-button">View Contract</button>
-                        <button class="show-button">View Rider</button>
-                        <button class="show-button primary">Messages</button>
+                        <button class="show-button" onclick="showContract('Sydney')">View Contract</button>
+                        <button class="show-button" onclick="showRider('Sydney')">View Rider</button>
+                        <button class="show-button primary" onclick="showMessages('Sydney')">Messages</button>
                     </div>
                 </div>
             </div>
@@ -1375,6 +1602,19 @@
             <span>Messages</span>
         </a>
     </nav>
+
+    <!-- Modal for Contract/Rider/Messages -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <button class="close-button" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -1663,6 +1903,168 @@
                 }, 100);
             }
         });
+
+        // Modal Functions
+        function showModal(title) {
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modal-title');
+            modalTitle.textContent = title;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Contract View
+        function showContract(show) {
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <div class="document-preview">
+                    <div class="document-header">
+                        <div class="document-icon">📄</div>
+                        <div class="document-info">
+                            <div class="document-title">Performance Contract - ${show}</div>
+                            <div class="document-meta">Last updated: March 15, 2024</div>
+                        </div>
+                    </div>
+                    <div class="document-actions">
+                        <button class="document-button" onclick="downloadDocument('contract')">Download PDF</button>
+                        <button class="document-button" onclick="previewDocument('contract')">Preview</button>
+                    </div>
+                </div>
+                <div class="document-preview">
+                    <div class="document-header">
+                        <div class="document-icon">📋</div>
+                        <div class="document-info">
+                            <div class="document-title">Insurance Certificate</div>
+                            <div class="document-meta">Valid until: December 31, 2024</div>
+                        </div>
+                    </div>
+                    <div class="document-actions">
+                        <button class="document-button" onclick="downloadDocument('insurance')">Download PDF</button>
+                        <button class="document-button" onclick="previewDocument('insurance')">Preview</button>
+                    </div>
+                </div>
+            `;
+            showModal('Contract Documents');
+        }
+
+        // Rider View
+        function showRider(show) {
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <div class="document-preview">
+                    <div class="document-header">
+                        <div class="document-icon">🎵</div>
+                        <div class="document-info">
+                            <div class="document-title">Technical Rider - ${show}</div>
+                            <div class="document-meta">Version 2.1 - Last updated: March 10, 2024</div>
+                        </div>
+                    </div>
+                    <div class="document-actions">
+                        <button class="document-button" onclick="downloadDocument('rider')">Download PDF</button>
+                        <button class="document-button" onclick="previewDocument('rider')">Preview</button>
+                    </div>
+                </div>
+                <div class="document-preview">
+                    <div class="document-header">
+                        <div class="document-icon">🎨</div>
+                        <div class="document-info">
+                            <div class="document-title">Production Requirements</div>
+                            <div class="document-meta">Stage Plot & Technical Specs</div>
+                        </div>
+                    </div>
+                    <div class="document-actions">
+                        <button class="document-button" onclick="downloadDocument('production')">Download PDF</button>
+                        <button class="document-button" onclick="previewDocument('production')">Preview</button>
+                    </div>
+                </div>
+            `;
+            showModal('Technical Rider');
+        }
+
+        // Messages View
+        function showMessages(show) {
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <div class="message-thread">
+                    <div class="message received">
+                        <div class="message-avatar">VM</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-sender">Venue Manager</span>
+                                <span class="message-time">2 hours ago</span>
+                            </div>
+                            <div class="message-text">Hi! We're excited to have you perform at ${show}. I've attached the latest contract for your review.</div>
+                            <div class="message-attachment">
+                                <div class="attachment-icon">📄</div>
+                                <div class="attachment-info">
+                                    <div class="attachment-name">${show}_Contract_v2.pdf</div>
+                                    <div class="attachment-size">2.4 MB</div>
+                                </div>
+                                <button class="attachment-download" onclick="downloadDocument('contract')">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="message sent">
+                        <div class="message-avatar">MB</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-sender">You</span>
+                                <span class="message-time">1 hour ago</span>
+                            </div>
+                            <div class="message-text">Thanks! I'll review the contract and get back to you by tomorrow.</div>
+                        </div>
+                    </div>
+                    <div class="message received">
+                        <div class="message-avatar">VM</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-sender">Venue Manager</span>
+                                <span class="message-time">30 minutes ago</span>
+                            </div>
+                            <div class="message-text">Great! I've also attached the technical rider for your review.</div>
+                            <div class="message-attachment">
+                                <div class="attachment-icon">📋</div>
+                                <div class="attachment-info">
+                                    <div class="attachment-name">${show}_Technical_Rider.pdf</div>
+                                    <div class="attachment-size">1.8 MB</div>
+                                </div>
+                                <button class="attachment-download" onclick="downloadDocument('rider')">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="message-input">
+                    <input type="text" placeholder="Type your message..." class="message-field">
+                    <button class="send-button">Send</button>
+                </div>
+            `;
+            showModal('Messages');
+        }
+
+        // Document Functions
+        function downloadDocument(type) {
+            // Simulate document download
+            alert('Downloading document...');
+        }
+
+        function previewDocument(type) {
+            // Simulate document preview
+            alert('Opening document preview...');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
     </script>
 </body>
 </html> 
