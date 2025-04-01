@@ -606,6 +606,97 @@
         .performance-card {
             transition: all 0.2s ease;
         }
+
+        /* Navigation Highlight Improvements */
+        .nav-link {
+            position: relative;
+            border-left: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+        }
+
+        .nav-link.active {
+            background: rgba(29, 185, 84, 0.1);
+            border-left-color: var(--primary-color);
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+            border-left-color: rgba(29, 185, 84, 0.5);
+        }
+
+        /* Messages Section Improvements */
+        .messages-container {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 180px);
+            overflow: hidden;
+        }
+
+        .messages-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .message-threads {
+            height: calc(100vh - 200px);
+            overflow-y: auto;
+            padding: 1rem;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .message-thread {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .message-thread.active {
+            display: flex;
+            flex-direction: column;
+            opacity: 1;
+        }
+
+        /* Loading Indicator */
+        .messages-loading {
+            text-align: center;
+            padding: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .messages-loading.visible {
+            display: block;
+        }
+
+        /* Scrollbar Styling */
+        .messages-list::-webkit-scrollbar,
+        .message-threads::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .messages-list::-webkit-scrollbar-track,
+        .message-threads::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .messages-list::-webkit-scrollbar-thumb,
+        .message-threads::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body>
@@ -812,6 +903,106 @@
                 });
             });
         });
+
+        // Add message loading function
+        function loadMoreMessages(container) {
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.className = 'messages-loading visible';
+            loadingIndicator.textContent = 'Loading more messages...';
+            container.appendChild(loadingIndicator);
+
+            setTimeout(() => {
+                loadingIndicator.remove();
+                
+                for (let i = 0; i < 5; i++) {
+                    const messageItem = document.createElement('div');
+                    messageItem.className = `message-item ${i % 2 === 0 ? 'received' : 'sent'}`;
+                    messageItem.innerHTML = `
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="sender-name">${i % 2 === 0 ? 'Venue Manager' : 'You'}</span>
+                                <span class="message-time">${new Date().toLocaleTimeString()}</span>
+                            </div>
+                            <div class="message-text">Previous message #${i + 1}</div>
+                        </div>
+                    `;
+                    container.insertBefore(messageItem, container.firstChild);
+                }
+            }, 1000);
+        }
+
+        // Update navigation and scroll handling
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation handling
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    link.classList.add('active');
+                    
+                    const tabName = link.getAttribute('href').substring(1);
+                    showTab(tabName);
+                });
+            });
+
+            // Infinite scroll for messages
+            document.querySelectorAll('.messages-list, .message-threads').forEach(container => {
+                let isLoading = false;
+                let scrollTimeout;
+
+                container.addEventListener('scroll', () => {
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        if (isLoading) return;
+
+                        const scrollTop = container.scrollTop;
+                        
+                        if (scrollTop < 100) {
+                            isLoading = true;
+                            loadMoreMessages(container);
+                            
+                            const currentHeight = container.scrollHeight;
+                            setTimeout(() => {
+                                container.scrollTop = container.scrollHeight - currentHeight + 100;
+                                isLoading = false;
+                            }, 1100);
+                        }
+                    }, 150);
+                });
+            });
+
+            // Show initial tab
+            const hash = window.location.hash.slice(1) || 'dashboard';
+            showTab(hash);
+        });
+
+        // Update showTab function
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Show selected tab
+            const selectedTab = document.getElementById(tabName);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+                
+                // Update navigation
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    const linkTab = link.getAttribute('href').substring(1);
+                    if (linkTab === tabName) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+        }
     </script>
 </body>
 </html> 

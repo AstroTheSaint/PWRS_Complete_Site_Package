@@ -65,13 +65,20 @@
             font-weight: 500;
             letter-spacing: 0.02em;
             font-size: 1.1rem;
+            position: relative;
+            border-left: 3px solid transparent;
         }
 
         .nav-link:hover,
         .nav-link.active {
             color: var(--text-primary);
-            background: rgba(29, 185, 84, 0.05);
-            border-left: 3px solid var(--primary-color);
+            background: rgba(29, 185, 84, 0.1);
+            border-left-color: var(--primary-color);
+        }
+
+        .nav-link:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+            border-left-color: rgba(29, 185, 84, 0.5);
         }
 
         /* Main Content Styles */
@@ -212,12 +219,10 @@
 
         /* Messages Section */
         .messages-container {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            height: 800px;
             display: flex;
             flex-direction: column;
+            height: calc(100vh - 200px);
+            overflow: hidden;
         }
 
         .message-tabs {
@@ -250,11 +255,10 @@
 
         .messages-list {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            padding-bottom: 1rem;
             overflow-y: auto;
+            padding: 1rem;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
         }
 
         .message-input-container {
@@ -2030,6 +2034,76 @@
             background: rgba(255, 82, 82, 0.1);
             color: #FF5252;
         }
+
+        /* Navigation Highlight Improvements */
+        .nav-link {
+            position: relative;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link.active {
+            background: rgba(29, 185, 84, 0.1);
+            border-left-color: var(--primary-color);
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+            border-left-color: rgba(29, 185, 84, 0.5);
+        }
+
+        /* Messages Scroll Improvements */
+        .message-threads {
+            height: calc(100vh - 250px);
+            overflow-y: auto;
+            padding: 1rem;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .message-thread {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .message-thread.active {
+            display: flex;
+            flex-direction: column;
+            opacity: 1;
+        }
+
+        /* Loading Indicator for Messages */
+        .messages-loading {
+            text-align: center;
+            padding: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .messages-loading.visible {
+            display: block;
+        }
+
+        /* Smooth Scroll Behavior */
+        .messages-list, .message-threads {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+        }
+
+        .messages-list::-webkit-scrollbar, .message-threads::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .messages-list::-webkit-scrollbar-track, .message-threads::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .messages-list::-webkit-scrollbar-thumb, .message-threads::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body>
@@ -3088,10 +3162,22 @@
                 content.classList.remove('active');
             });
 
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
             // Show selected tab content
             const selectedContent = document.getElementById(tabName);
             if (selectedContent) {
                 selectedContent.classList.add('active');
+                
+                // Add active class to corresponding nav link
+                const activeNavLink = document.querySelector(`[href="#${tabName}"]`);
+                if (activeNavLink) {
+                    activeNavLink.classList.add('active');
+                }
+
                 // Initialize globe if dashboard or globe section
                 if (tabName === 'dashboard') {
                     setTimeout(() => {
@@ -3110,10 +3196,51 @@
 
         // Initialize tabs on page load
         window.addEventListener('DOMContentLoaded', () => {
+            // Set up navigation click handlers
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tabName = link.getAttribute('href').substring(1);
+                    showTab(tabName);
+                    
+                    // Update URL hash without scrolling
+                    history.pushState(null, null, `#${tabName}`);
+                    
+                    // Handle mobile menu
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.sidebar').classList.remove('active');
+                    }
+                });
+            });
+
+            // Handle initial load
             const hash = window.location.hash.slice(1) || 'dashboard';
             showTab(hash);
-            // Initialize dashboard globe
-            initGlobe('dashboardGlobeViz');
+
+            // Set up infinite scroll for messages
+            const messagesContainer = document.querySelector('.messages-list');
+            if (messagesContainer) {
+                let isLoading = false;
+                
+                messagesContainer.addEventListener('scroll', () => {
+                    if (isLoading) return;
+                    
+                    const scrollHeight = messagesContainer.scrollHeight;
+                    const scrollTop = messagesContainer.scrollTop;
+                    const clientHeight = messagesContainer.clientHeight;
+                    
+                    // If we're near the bottom, load more messages
+                    if (scrollHeight - scrollTop - clientHeight < 100) {
+                        isLoading = true;
+                        
+                        // Simulate loading more messages
+                        setTimeout(() => {
+                            // Add more message items here
+                            isLoading = false;
+                        }, 500);
+                    }
+                });
+            }
         });
 
         // Handle hash changes
@@ -3343,6 +3470,68 @@
                 if (currentSection) {
                     updateActiveState(currentSection);
                 }
+            });
+        });
+
+        // Add this function for loading more messages
+        function loadMoreMessages(container) {
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.className = 'messages-loading visible';
+            loadingIndicator.textContent = 'Loading more messages...';
+            container.appendChild(loadingIndicator);
+
+            // Simulate loading more messages
+            setTimeout(() => {
+                loadingIndicator.remove();
+                
+                // Add new message items
+                for (let i = 0; i < 5; i++) {
+                    const messageItem = document.createElement('div');
+                    messageItem.className = `message-item ${i % 2 === 0 ? 'received' : 'sent'}`;
+                    messageItem.innerHTML = `
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="sender-name">${i % 2 === 0 ? 'Venue Manager' : 'You'}</span>
+                                <span class="message-time">${new Date().toLocaleTimeString()}</span>
+                            </div>
+                            <div class="message-text">Previous message #${i + 1}</div>
+                        </div>
+                    `;
+                    container.insertBefore(messageItem, container.firstChild);
+                }
+            }, 1000);
+        }
+
+        // Update the scroll handler in the DOMContentLoaded event
+        document.addEventListener('DOMContentLoaded', () => {
+            // ... existing initialization code ...
+
+            // Set up infinite scroll for all message containers
+            document.querySelectorAll('.messages-list, .message-threads').forEach(container => {
+                let isLoading = false;
+                let scrollTimeout;
+
+                container.addEventListener('scroll', () => {
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        if (isLoading) return;
+
+                        const scrollTop = container.scrollTop;
+                        
+                        // Load more when scrolling near the top (for chat-like behavior)
+                        if (scrollTop < 100) {
+                            isLoading = true;
+                            loadMoreMessages(container);
+                            
+                            // Maintain scroll position after loading
+                            const currentHeight = container.scrollHeight;
+                            setTimeout(() => {
+                                container.scrollTop = container.scrollHeight - currentHeight + 100;
+                                isLoading = false;
+                            }, 1100);
+                        }
+                    }, 150);
+                });
             });
         });
     </script>
