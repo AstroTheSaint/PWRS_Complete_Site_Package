@@ -1255,6 +1255,62 @@
             font-weight: 500;
             cursor: pointer;
         }
+
+        .rider-section {
+            margin-bottom: 24px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .rider-section h3 {
+            color: #1DB954;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        .rider-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rider-section li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .rider-section li:before {
+            content: "•";
+            color: #1DB954;
+            position: absolute;
+            left: 0;
+        }
+
+        .stage-plot {
+            margin: 16px 0;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .stage-plot img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            .rider-section {
+                padding: 24px;
+            }
+
+            .stage-plot {
+                padding: 24px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1965,6 +2021,53 @@
                             <div class="document-meta">Version 2.1 - Last updated: March 10, 2024</div>
                         </div>
                     </div>
+                    <div class="document-content">
+                        <div class="rider-section">
+                            <h3>Stage Requirements</h3>
+                            <ul>
+                                <li>Minimum stage size: 40' x 40'</li>
+                                <li>Stage height: 4' - 6'</li>
+                                <li>Load-in access: 8' wide minimum</li>
+                                <li>Stage weight capacity: 1000 lbs/sq ft</li>
+                            </ul>
+                        </div>
+                        <div class="rider-section">
+                            <h3>Audio Requirements</h3>
+                            <ul>
+                                <li>Front of House console: DiGiCo SD12 or equivalent</li>
+                                <li>Monitor console: DiGiCo SD12 or equivalent</li>
+                                <li>PA System: L-Acoustics K2 or equivalent</li>
+                                <li>Stage monitors: 8 x L-Acoustics X15 HiQ</li>
+                            </ul>
+                        </div>
+                        <div class="rider-section">
+                            <h3>Lighting Requirements</h3>
+                            <ul>
+                                <li>Minimum 4 x moving head fixtures</li>
+                                <li>LED wash fixtures for stage coverage</li>
+                                <li>DMX control system</li>
+                                <li>Fog/haze system</li>
+                            </ul>
+                        </div>
+                        <div class="rider-section">
+                            <h3>Backline Requirements</h3>
+                            <ul>
+                                <li>2 x Pioneer CDJ-3000</li>
+                                <li>1 x Pioneer DJM-900NXS2</li>
+                                <li>2 x Technics SL-1200MK7</li>
+                                <li>Backup equipment on standby</li>
+                            </ul>
+                        </div>
+                        <div class="rider-section">
+                            <h3>Hospitality Requirements</h3>
+                            <ul>
+                                <li>Private dressing room with bathroom</li>
+                                <li>Security personnel: 2 minimum</li>
+                                <li>Refreshments and snacks</li>
+                                <li>WiFi access</li>
+                            </ul>
+                        </div>
+                    </div>
                     <div class="document-actions">
                         <button class="document-button" onclick="downloadDocument('rider')">Download PDF</button>
                         <button class="document-button" onclick="previewDocument('rider')">Preview</button>
@@ -1974,13 +2077,18 @@
                     <div class="document-header">
                         <div class="document-icon">🎨</div>
                         <div class="document-info">
-                            <div class="document-title">Production Requirements</div>
-                            <div class="document-meta">Stage Plot & Technical Specs</div>
+                            <div class="document-title">Stage Plot</div>
+                            <div class="document-meta">Technical Layout & Specifications</div>
+                        </div>
+                    </div>
+                    <div class="document-content">
+                        <div class="stage-plot">
+                            <img src="https://via.placeholder.com/600x400/1DB954/FFFFFF?text=Stage+Plot" alt="Stage Plot" style="width: 100%; border-radius: 8px;">
                         </div>
                     </div>
                     <div class="document-actions">
-                        <button class="document-button" onclick="downloadDocument('production')">Download PDF</button>
-                        <button class="document-button" onclick="previewDocument('production')">Preview</button>
+                        <button class="document-button" onclick="downloadDocument('stage-plot')">Download PDF</button>
+                        <button class="document-button" onclick="previewDocument('stage-plot')">Preview</button>
                     </div>
                 </div>
             `;
