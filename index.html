@@ -960,17 +960,38 @@
       globe.controls().autoRotate = true;
       globe.controls().autoRotateSpeed = 0.5;
 
+      // Hide loading screen after globe is initialized
+      const loadingScreen = document.querySelector('.loading');
+      if (loadingScreen) {
+        loadingScreen.classList.add('hidden');
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+        }, 500);
+      }
+
       return globe;
     }
 
-    // Initialize globe on page load
+    // Initialize globe and other components when DOM is loaded
     document.addEventListener('DOMContentLoaded', () => {
-      initGlobe('heroGlobe');
+      // Initialize globe with a slight delay to ensure proper loading
+      setTimeout(() => {
+        initGlobe('heroGlobe');
+      }, 100);
+
+      // Initialize other components
+      initCarousel();
+      detectDeviceAndRedirect();
+      initWorldMap();
     });
 
     // Handle window resize
+    let resizeTimeout;
     window.addEventListener('resize', () => {
-      initGlobe('heroGlobe');
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        initGlobe('heroGlobe');
+      }, 250);
     });
 
     // Modal functions
@@ -1109,9 +1130,6 @@
       updateCards();
     }
 
-    // Initialize carousel after DOM is loaded
-    document.addEventListener('DOMContentLoaded', initCarousel);
-
     // Add device detection and redirection
     function detectDeviceAndRedirect() {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -1127,19 +1145,6 @@
           }
         });
       });
-    }
-
-    // Initialize device detection
-    document.addEventListener('DOMContentLoaded', () => {
-      detectDeviceAndRedirect();
-      initCarousel();
-    });
-
-    // Update loading screen for better mobile experience
-    const loading = document.querySelector('.loading');
-    if (window.innerWidth <= 768) {
-      loading.style.padding = '2rem';
-      document.querySelector('.loading-text').style.fontSize = '1rem';
     }
 
     // World Map Visualization
@@ -1211,11 +1216,6 @@
       const midY = Math.min(start.y, end.y) - 50;
       return `M ${start.x} ${start.y} Q ${midX} ${midY} ${end.x} ${end.y}`;
     }
-
-    // Initialize map on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      initWorldMap();
-    });
   </script>
 </body>
 </html>
