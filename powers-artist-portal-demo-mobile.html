@@ -1576,28 +1576,44 @@
             const container = document.getElementById('globe-container');
             if (!container) return;
 
+            // Clear any existing content
+            container.innerHTML = '';
+
             const width = container.clientWidth;
             const height = container.clientHeight;
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            const renderer = new THREE.WebGLRenderer({ 
+                antialias: true, 
+                alpha: true,
+                powerPreference: "high-performance"
+            });
             
             renderer.setSize(width, height);
+            renderer.setPixelRatio(window.devicePixelRatio);
             container.appendChild(renderer.domElement);
 
             // Create Earth
-            const geometry = new THREE.SphereGeometry(5, 32, 32);
-            const texture = new THREE.TextureLoader().load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg');
+            const geometry = new THREE.SphereGeometry(5, 64, 64);
+            const textureLoader = new THREE.TextureLoader();
+            const earthTexture = textureLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg');
+            const bumpTexture = textureLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_normal_2048.jpg');
+            const specularTexture = textureLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_specular_2048.jpg');
+            
             const material = new THREE.MeshPhongMaterial({
-                map: texture,
+                map: earthTexture,
+                bumpMap: bumpTexture,
+                bumpScale: 0.3,
+                specularMap: specularTexture,
                 specular: new THREE.Color(0x333333),
                 shininess: 5
             });
+            
             const earth = new THREE.Mesh(geometry, material);
             scene.add(earth);
 
             // Add ambient light
-            const ambientLight = new THREE.AmbientLight(0x404040);
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
             scene.add(ambientLight);
 
             // Add directional light
@@ -1615,20 +1631,37 @@
             }
 
             // Handle window resize
+            let resizeTimeout;
             window.addEventListener('resize', () => {
-                const width = container.clientWidth;
-                const height = container.clientHeight;
-                camera.aspect = width / height;
-                camera.updateProjectionMatrix();
-                renderer.setSize(width, height);
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    const width = container.clientWidth;
+                    const height = container.clientHeight;
+                    camera.aspect = width / height;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(width, height);
+                    renderer.setPixelRatio(window.devicePixelRatio);
+                }, 250);
             });
 
+            // Start animation
             animate();
         }
 
         // Initialize globe when the page loads
         document.addEventListener('DOMContentLoaded', () => {
-            initGlobe();
+            // Wait for Three.js to be fully loaded
+            if (typeof THREE !== 'undefined') {
+                initGlobe();
+            } else {
+                // If Three.js isn't loaded yet, wait for it
+                const checkThree = setInterval(() => {
+                    if (typeof THREE !== 'undefined') {
+                        clearInterval(checkThree);
+                        initGlobe();
+                    }
+                }, 100);
+            }
         });
     </script>
 </body>
