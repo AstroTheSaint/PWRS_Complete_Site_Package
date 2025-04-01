@@ -251,58 +251,77 @@
             color: var(--text-secondary);
         }
 
-        /* Shows Section */
+        /* Shows Section Improvements */
         .upcoming-shows {
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 20px;
-            margin: 8px 0;
+            padding: 16px;
+            margin-bottom: 16px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            max-height: none;
-            overflow: visible;
-            width: 100%;
-            box-sizing: border-box;
+            max-height: 500px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
-        .show-item {
-            padding: 16px;
+        .shows-header {
+            position: sticky;
+            top: 0;
+            background: var(--card-bg);
+            padding-bottom: 12px;
+            margin-bottom: 12px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 2;
+        }
+
+        .show-list {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .show-item {
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
-            margin-bottom: 12px;
+            padding: 16px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .show-item:last-child {
-            margin-bottom: 0;
-            border-bottom: none;
-        }
-
-        .show-info {
-            flex: 1;
-            padding-right: 1rem;
+        .show-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
         }
 
         .show-venue {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            color: var(--text-primary);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .show-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .show-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
         }
 
         .show-date {
-            font-size: 0.875rem;
             color: var(--text-secondary);
         }
 
         .show-status {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            padding: 4px 12px;
+            border-radius: 12px;
             font-size: 0.75rem;
-            font-weight: 600;
-            white-space: nowrap;
+            font-weight: 500;
         }
 
         .status-negotiating {
@@ -310,9 +329,56 @@
             color: #FFC107;
         }
 
+        .status-confirmed {
+            background: rgba(29, 185, 84, 0.1);
+            color: #1DB954;
+        }
+
         .status-pending {
-            background: rgba(255, 152, 0, 0.1);
-            color: #FF9800;
+            background: rgba(255, 87, 34, 0.1);
+            color: #FF5722;
+        }
+
+        .show-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .show-button {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .show-button:active {
+            transform: scale(0.98);
+        }
+
+        .show-button.primary {
+            background: var(--primary-color);
+            color: #000;
+        }
+
+        /* Ensure proper scrolling on iOS */
+        .upcoming-shows::-webkit-scrollbar {
+            width: 8px;
+            background-color: transparent;
+        }
+
+        .upcoming-shows::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .upcoming-shows::-webkit-scrollbar-track {
+            background-color: transparent;
         }
 
         /* Globe Section */
@@ -1007,29 +1073,66 @@
         </div>
 
         <div class="card-base upcoming-shows">
-            <div class="stat-header">
-                <div class="stat-title">Upcoming Shows</div>
+            <div class="shows-header">
+                <h2 class="section-title">Upcoming Shows</h2>
             </div>
-            <div class="show-item">
-                <div class="show-info">
-                    <div class="show-venue">Coachella Valley Music Festival</div>
-                    <div class="show-date">Last updated March 15</div>
+            <div class="show-list">
+                <div class="show-item">
+                    <div class="show-title">Summerfest</div>
+                    <div class="show-venue">Henry Maier Festival Park, Milwaukee</div>
+                    <div class="show-details">
+                        <div class="show-info">
+                            <span class="show-date">July 15, 2024</span>
+                            <span class="show-status status-negotiating">Negotiating</span>
+                        </div>
+                        <div class="show-info">
+                            <span>Offer From</span>
+                            <span>Milwaukee World Festival, Inc.</span>
+                        </div>
+                    </div>
+                    <div class="show-actions">
+                        <button class="show-button primary">View Details</button>
+                        <button class="show-button">Message</button>
+                    </div>
                 </div>
-                <div class="show-status status-negotiating">Negotiating</div>
-            </div>
-            <div class="show-item">
-                <div class="show-info">
-                    <div class="show-venue">LIV Nightclub Residency</div>
-                    <div class="show-date">Last updated March 18</div>
+
+                <div class="show-item">
+                    <div class="show-title">LIV Nightclub Residency</div>
+                    <div class="show-venue">LIV Miami, Florida</div>
+                    <div class="show-details">
+                        <div class="show-info">
+                            <span class="show-date">August 1-3, 2024</span>
+                            <span class="show-status status-confirmed">Confirmed</span>
+                        </div>
+                        <div class="show-info">
+                            <span>Venue Contact</span>
+                            <span>LIV Entertainment Group</span>
+                        </div>
+                    </div>
+                    <div class="show-actions">
+                        <button class="show-button primary">View Details</button>
+                        <button class="show-button">Message</button>
+                    </div>
                 </div>
-                <div class="show-status status-negotiating">Negotiating</div>
-            </div>
-            <div class="show-item">
-                <div class="show-info">
-                    <div class="show-venue">Fortune 500 Corporate Event</div>
-                    <div class="show-date">Last updated March 20</div>
+
+                <div class="show-item">
+                    <div class="show-title">Corporate Event</div>
+                    <div class="show-venue">Fortune 500 Company HQ</div>
+                    <div class="show-details">
+                        <div class="show-info">
+                            <span class="show-date">September 5, 2024</span>
+                            <span class="show-status status-pending">Pending</span>
+                        </div>
+                        <div class="show-info">
+                            <span>Client</span>
+                            <span>Fortune 500 Company</span>
+                        </div>
+                    </div>
+                    <div class="show-actions">
+                        <button class="show-button primary">View Details</button>
+                        <button class="show-button">Message</button>
+                    </div>
                 </div>
-                <div class="show-status status-pending">Pending</div>
             </div>
         </div>
 
