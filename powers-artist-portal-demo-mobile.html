@@ -9,17 +9,22 @@
         :root {
             --safe-area-inset-top: env(safe-area-inset-top, 0px);
             --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
-            --header-height: 60px;
-            --bottom-nav-height: 64px;
-            --content-padding: 16px;
+            --header-height: clamp(48px, 8vw, 60px);
+            --bottom-nav-height: clamp(56px, 10vw, 64px);
+            --content-padding: clamp(12px, 3vw, 16px);
             --primary-color: #1DB954;
             --bg-color: #121212;
             --card-bg: #181818;
             --text-primary: #FFFFFF;
             --text-secondary: #B3B3B3;
             --gradient-dark: linear-gradient(180deg, rgba(18, 18, 18, 0.8) 0%, var(--bg-color) 100%);
+            --card-border-radius: clamp(12px, 2vw, 16px);
+            --font-size-base: clamp(14px, 2vw, 16px);
+            --font-size-large: clamp(16px, 2.5vw, 18px);
+            --font-size-small: clamp(12px, 1.5vw, 14px);
         }
 
+        /* Base Styles */
         body {
             margin: 0;
             padding: 0;
@@ -29,6 +34,10 @@
             background: var(--bg-color);
             color: var(--text-primary);
             line-height: 1.5;
+            font-size: var(--font-size-base);
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Layout Container */
@@ -47,7 +56,7 @@
             left: 0;
             right: 0;
             height: var(--header-height);
-            padding: calc(var(--safe-area-inset-top) + 12px) var(--content-padding) 12px;
+            padding: calc(var(--safe-area-inset-top) + 8px) var(--content-padding) 8px;
             background: var(--gradient-dark);
             z-index: 1000;
             backdrop-filter: blur(10px);
@@ -58,31 +67,31 @@
             justify-content: space-between;
         }
 
-        .header-content {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .header-title {
+            font-size: clamp(18px, 4vw, 24px);
+            font-weight: 700;
         }
 
         .profile-info {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: clamp(8px, 2vw, 12px);
         }
 
         .profile-image {
-            width: 32px;
-            height: 32px;
+            width: clamp(28px, 6vw, 32px);
+            height: clamp(28px, 6vw, 32px);
             border-radius: 50%;
             background: var(--primary-color);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
+            font-size: clamp(14px, 3vw, 16px);
         }
 
         .profile-name {
-            font-size: 0.875rem;
+            font-size: clamp(14px, 3vw, 16px);
             font-weight: 600;
             color: var(--text-primary);
         }
@@ -90,17 +99,26 @@
         /* Welcome Section */
         .welcome-section {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 16px;
+            border-radius: var(--card-border-radius);
+            padding: clamp(16px, 4vw, 24px);
+            margin-bottom: clamp(12px, 3vw, 16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .welcome-header {
-            font-size: 1.5rem;
+            font-size: clamp(20px, 5vw, 28px);
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: clamp(8px, 2vw, 12px);
             color: var(--text-primary);
+        }
+
+        .user-status {
+            font-size: clamp(14px, 3vw, 16px);
+            padding: clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 16px);
+            background: rgba(29, 185, 84, 0.1);
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: clamp(12px, 3vw, 16px);
         }
 
         .progress-info {
@@ -137,27 +155,47 @@
         /* Stats Cards */
         .stats-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
+            gap: clamp(8px, 2vw, 12px);
+            margin-bottom: clamp(12px, 3vw, 16px);
         }
 
         .stat-card {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 16px;
+            border-radius: var(--card-border-radius);
+            padding: clamp(12px, 3vw, 16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .stat-icon {
-            width: 32px;
-            height: 32px;
+            width: clamp(28px, 6vw, 32px);
+            height: clamp(28px, 6vw, 32px);
             border-radius: 8px;
             background: rgba(29, 185, 84, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 12px;
+            margin-bottom: clamp(8px, 2vw, 12px);
+            font-size: clamp(16px, 3vw, 20px);
+        }
+
+        .stat-title {
+            font-size: clamp(14px, 3vw, 16px);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: clamp(4px, 1vw, 8px);
+        }
+
+        .stat-value {
+            font-size: clamp(20px, 4vw, 24px);
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: clamp(4px, 1vw, 8px);
+        }
+
+        .stat-description {
+            font-size: clamp(12px, 2vw, 14px);
+            color: var(--text-secondary);
         }
 
         /* Main Content Area */
@@ -168,12 +206,12 @@
             padding-right: var(--content-padding);
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: clamp(12px, 3vw, 16px);
         }
 
         /* Section Heights */
         .globe-container {
-            height: 300px;
+            height: clamp(300px, 60vw, 400px);
         }
 
         .upcoming-shows {
@@ -257,14 +295,14 @@
         /* Shows Section Improvements */
         .show-item {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: clamp(16px, 3vw, 24px);
-            margin-bottom: clamp(12px, 2vw, 16px);
+            border-radius: var(--card-border-radius);
+            padding: clamp(12px, 3vw, 16px);
+            margin-bottom: clamp(8px, 2vw, 12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .show-title {
-            font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+            font-size: clamp(16px, 3.5vw, 20px);
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: clamp(8px, 2vw, 12px);
@@ -290,22 +328,17 @@
         }
 
         .show-info-row {
-            display: flex;
-            flex-direction: column;
-            gap: clamp(4px, 1vw, 8px);
-            margin-bottom: clamp(12px, 2vw, 16px);
+            margin-bottom: clamp(8px, 2vw, 12px);
         }
 
         .show-info-label {
+            font-size: clamp(12px, 2vw, 14px);
             color: var(--text-secondary);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            margin-bottom: clamp(4px, 1vw, 8px);
         }
 
         .show-info-value {
-            color: var(--text-primary);
-            font-size: clamp(0.875rem, 2vw, 1rem);
+            font-size: clamp(14px, 2.5vw, 16px);
             line-height: 1.5;
             overflow-wrap: break-word;
             word-wrap: break-word;
@@ -325,15 +358,15 @@
 
         .show-actions {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr));
             gap: clamp(8px, 2vw, 12px);
-            margin-top: clamp(12px, 3vw, 20px);
+            margin-top: clamp(12px, 3vw, 16px);
         }
 
         .show-button {
-            padding: clamp(8px, 2vw, 12px) clamp(12px, 3vw, 20px);
+            padding: clamp(8px, 2vw, 12px) clamp(12px, 3vw, 16px);
             border-radius: 8px;
-            font-size: clamp(0.875rem, 1.8vw, 1rem);
+            font-size: clamp(14px, 2.5vw, 16px);
             font-weight: 500;
             background: rgba(255, 255, 255, 0.1);
             color: var(--text-primary);
@@ -369,9 +402,9 @@
         /* Globe Section */
         .globe-section {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            margin: 8px 0;
+            border-radius: var(--card-border-radius);
+            padding: clamp(16px, 4vw, 24px);
+            margin: clamp(8px, 2vw, 12px) 0;
             border: 1px solid rgba(255, 255, 255, 0.1);
             width: 100%;
             box-sizing: border-box;
@@ -379,11 +412,11 @@
 
         .globe-container {
             width: 100%;
-            height: 400px;
-            margin: 16px 0 0;
+            height: clamp(300px, 60vw, 400px);
+            margin: clamp(12px, 3vw, 16px) 0 0;
             position: relative;
             overflow: hidden;
-            border-radius: 12px;
+            border-radius: var(--card-border-radius);
             background: rgba(255, 255, 255, 0.02);
         }
 
@@ -449,14 +482,15 @@
 
         .nav-item {
             position: relative;
-            padding: 1rem;
+            padding: clamp(8px, 2vw, 12px);
             border-radius: 8px;
             color: var(--text-secondary);
             text-decoration: none;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: clamp(8px, 2vw, 12px);
+            font-size: clamp(12px, 2vw, 14px);
         }
 
         .nav-item:hover {
@@ -481,7 +515,7 @@
         }
 
         .nav-icon {
-            font-size: 1.5rem;
+            font-size: clamp(20px, 4vw, 24px);
         }
 
         /* Touch Feedback */
@@ -531,11 +565,11 @@
             }
 
             .bottom-nav {
-                padding-bottom: max(0px, env(safe-area-inset-bottom));
+                padding-bottom: max(8px, env(safe-area-inset-bottom));
             }
 
             .main-content {
-                padding-bottom: calc(var(--bottom-nav-height) + max(0px, env(safe-area-inset-bottom)));
+                padding-bottom: calc(var(--bottom-nav-height) + max(8px, env(safe-area-inset-bottom)));
             }
 
             .card-base {
@@ -845,9 +879,9 @@
         /* Performance Card */
         .performance-card {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            margin: 8px 0;
+            border-radius: var(--card-border-radius);
+            padding: clamp(16px, 4vw, 24px);
+            margin: clamp(8px, 2vw, 12px) 0;
             border: 1px solid rgba(255, 255, 255, 0.1);
             width: 100%;
             box-sizing: border-box;
@@ -855,15 +889,15 @@
 
         .venue-stats {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin: 16px 0;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr));
+            gap: clamp(8px, 2vw, 12px);
+            margin: clamp(12px, 3vw, 16px) 0;
         }
 
         .venue-type {
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            padding: 16px;
+            border-radius: var(--card-border-radius);
+            padding: clamp(12px, 3vw, 16px);
             text-align: center;
         }
 
@@ -888,6 +922,29 @@
 
             .show-status {
                 align-self: flex-start;
+            }
+        }
+
+        /* Small screen optimizations */
+        @media screen and (max-width: 360px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .show-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .venue-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Large screen optimizations */
+        @media screen and (min-width: 768px) {
+            .main-content {
+                max-width: 600px;
+                margin: 0 auto;
             }
         }
     </style>
