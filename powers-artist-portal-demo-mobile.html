@@ -1311,20 +1311,83 @@
                 padding: 24px;
             }
         }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            padding: 0 1rem;
+            background: var(--sidebar-bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .view-demo-btn {
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .main-content {
+            padding-top: calc(60px + 1rem);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0 0.75rem;
+            }
+
+            .header-title {
+                font-size: 1rem;
+            }
+
+            .view-demo-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: calc(60px + 0.5rem) 1rem 1rem;
+            }
+
+            .nav-toggle {
+                margin-right: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <header class="mobile-header">
-        <button class="menu-button">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <h1 class="header-title">Artist Portal</h1>
-        <div class="profile-info">
-            <div class="profile-image">MB</div>
-            <span class="profile-name">Metro Boomin</span>
+    <header class="header">
+        <div class="header-left">
+            <button class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <span class="header-title">Powers Artist Portal</span>
         </div>
+        <button class="view-demo-btn">View Demo</button>
     </header>
 
     <main class="main-content">
