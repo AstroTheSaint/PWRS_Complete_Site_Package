@@ -418,11 +418,13 @@
       align-items: center;
       justify-content: center;
       z-index: 9999;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+      visibility: visible;
     }
 
     .loading.hidden {
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
     }
 
@@ -439,6 +441,12 @@
     .loading-text {
       color: var(--text-secondary);
       font-size: 1.1rem;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .loading.hidden .loading-text {
+      opacity: 0;
     }
 
     @keyframes spin {
@@ -903,6 +911,21 @@
   <script src="https://unpkg.com/three@0.157.0/build/three.min.js"></script>
   <script src="https://unpkg.com/globe.gl@2.32.1/dist/globe.gl.min.js"></script>
   <script>
+    // Add this at the start of the script
+    document.addEventListener('DOMContentLoaded', () => {
+      // Hide loading screen after a short delay to ensure resources are loaded
+      setTimeout(() => {
+        const loadingScreen = document.querySelector('.loading');
+        if (loadingScreen) {
+          loadingScreen.classList.add('hidden');
+          // Remove the loading screen from DOM after animation
+          setTimeout(() => {
+            loadingScreen.style.display = 'none';
+          }, 500);
+        }
+      }, 1500);
+    });
+
     // Initialize globe
     const globeContainer = document.getElementById('heroGlobe');
     if (globeContainer) {
@@ -994,9 +1017,6 @@
 
       // Initialize the globe
       globe(globeContainer);
-
-      // Hide loading screen
-      document.querySelector('.loading').classList.add('hidden');
     }
 
     // Modal functions
