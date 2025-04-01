@@ -3249,6 +3249,8 @@
         </svg>
     </button>
 
+    <!-- Add Three.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://unpkg.com/globe.gl"></script>
     <script>
         // Initialize globe visualization
@@ -3279,22 +3281,28 @@
 
             // Future shows (2024-2025)
             const futureShows = [
-                { lat: 35.6762, lng: 139.6503, city: 'Tokyo', date: '2024-09-15', revenue: '$3.0M', status: 'upcoming', attendance: '20,000' },
-                { lat: 1.3521, lng: 103.8198, city: 'Singapore', date: '2024-10-20', revenue: '$1.5M', status: 'upcoming', attendance: '10,000' },
-                { lat: -33.8688, lng: 151.2093, city: 'Sydney', date: '2025-01-10', revenue: '$2.2M', status: 'upcoming', attendance: '15,000' },
-                { lat: 55.7558, lng: 37.6173, city: 'Moscow', date: '2025-03-15', revenue: '$1.8M', status: 'upcoming', attendance: '12,000' },
-                { lat: 25.2048, lng: 55.2708, city: 'Dubai', date: '2025-04-20', revenue: '$2.8M', status: 'upcoming', attendance: '16,000' },
-                { lat: 25.7617, lng: -80.1918, city: 'Miami', date: '2025-05-05', revenue: '$1.5M', status: 'upcoming', attendance: '9,000' },
-                { lat: 36.1147, lng: -115.1728, city: 'Las Vegas', date: '2025-05-15', revenue: '$1.8M', status: 'upcoming', attendance: '10,000' }
+                { lat: 48.8566, lng: 2.3522, city: 'Paris', date: '2024-05-15', revenue: '$2.3M', status: 'upcoming', attendance: '16,000' },
+                { lat: 35.6762, lng: 139.6503, city: 'Tokyo', date: '2024-06-20', revenue: '$2.8M', status: 'upcoming', attendance: '20,000' },
+                { lat: -33.8688, lng: 151.2093, city: 'Sydney', date: '2024-07-10', revenue: '$1.9M', status: 'upcoming', attendance: '14,000' }
             ];
 
             // Filter data based on year and type
-            let filteredData = [...pastShows, ...futureShows];
-            if (year !== 'all') {
-                filteredData = filteredData.filter(d => d.date.startsWith(year));
+            let filteredData = [];
+            if (year === 'all') {
+                filteredData = [...pastShows, ...futureShows];
+            } else {
+                filteredData = year === '2024' ? pastShows : futureShows;
             }
 
-            // Add points to globe
+            if (dataType === 'shows') {
+                filteredData = filteredData.filter(d => d.status === 'completed');
+            } else if (dataType === 'revenue') {
+                filteredData = filteredData.map(d => ({
+                    ...d,
+                    revenue: parseFloat(d.revenue.replace('$', '').replace('M', '')) * 1000000
+                }));
+            }
+
             globe.pointsData(filteredData)
                 .pointColor(d => d.status === 'completed' ? '#1DB954' : '#FFB900')
                 .pointAltitude(0.1)
@@ -3386,52 +3394,9 @@
         }
 
         // Initialize tabs on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            // Set up navigation click handlers
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const tabName = link.getAttribute('href').substring(1);
-                    showTab(tabName);
-                    
-                    // Update URL hash without scrolling
-                    history.pushState(null, null, `#${tabName}`);
-                    
-                    // Handle mobile menu
-                    if (window.innerWidth <= 768) {
-                        document.querySelector('.sidebar').classList.remove('active');
-                    }
-                });
-            });
-
-            // Handle initial load
+        document.addEventListener('DOMContentLoaded', () => {
             const hash = window.location.hash.slice(1) || 'dashboard';
             showTab(hash);
-
-            // Set up infinite scroll for messages
-            const messagesContainer = document.querySelector('.messages-list');
-            if (messagesContainer) {
-                let isLoading = false;
-                
-                messagesContainer.addEventListener('scroll', () => {
-                    if (isLoading) return;
-                    
-                    const scrollHeight = messagesContainer.scrollHeight;
-                    const scrollTop = messagesContainer.scrollTop;
-                    const clientHeight = messagesContainer.clientHeight;
-                    
-                    // If we're near the bottom, load more messages
-                    if (scrollHeight - scrollTop - clientHeight < 100) {
-                        isLoading = true;
-                        
-                        // Simulate loading more messages
-                        setTimeout(() => {
-                            // Add more message items here
-                            isLoading = false;
-                        }, 500);
-                    }
-                });
-            }
         });
 
         // Handle hash changes
