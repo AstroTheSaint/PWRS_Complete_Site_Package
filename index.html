@@ -123,9 +123,36 @@
     }
 
     #heroGlobe {
-      width: 100%;
-      height: 600px;
-      margin: 2rem 0;
+      width: 100% !important;
+      height: 600px !important;
+      margin: 2rem auto;
+      position: relative;
+      z-index: 1;
+      background: transparent;
+    }
+
+    @media (max-width: 768px) {
+      #heroGlobe {
+        height: 400px !important;
+      }
+    }
+
+    /* Add globe container styles */
+    #heroGlobe canvas {
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    #heroGlobe::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      border-radius: 12px;
+      box-shadow: inset 0 0 100px rgba(29, 185, 84, 0.1);
     }
 
     .features {
@@ -270,110 +297,6 @@
 
     .carousel-dot.active::after {
       border-color: rgba(29, 185, 84, 0.3);
-    }
-
-    @media (max-width: 768px) {
-      .navbar {
-        padding: 1rem;
-        flex-direction: row;
-        align-items: center;
-        background: rgba(18, 18, 18, 0.98);
-      }
-
-      .nav-buttons {
-        display: flex;
-        flex-direction: row;
-        gap: 0.5rem;
-      }
-
-      .nav-cta {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-      }
-
-      .hero {
-        padding-top: 6rem;
-        padding-bottom: 2rem;
-      }
-
-      #heroGlobe {
-        width: 100% !important;
-        height: 400px !important;
-        aspect-ratio: 1;
-        margin: 1rem auto;
-      }
-
-      .hero h1 {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-        padding: 0 1rem;
-      }
-
-      .hero p {
-        font-size: 1rem;
-        padding: 0 1rem;
-        margin-bottom: 2rem;
-      }
-
-      .features {
-        padding: 4rem 1rem;
-      }
-
-      .features-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .feature-card {
-        width: 100%;
-        min-width: unset;
-        margin: 0;
-      }
-
-      .stats {
-        padding: 4rem 1rem;
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-
-      .cta-section {
-        padding: 4rem 1rem;
-      }
-
-      .cta-content h2 {
-        font-size: 1.75rem;
-        margin-bottom: 1rem;
-      }
-
-      .cta-content p {
-        font-size: 0.95rem;
-        margin-bottom: 2rem;
-      }
-
-      .cta-buttons {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .cta-button {
-        width: 100%;
-        padding: 0.875rem;
-        font-size: 1rem;
-      }
-
-      .modal-content {
-        padding: 1.5rem;
-        margin: 1rem;
-      }
-
-      .form-group input,
-      .form-group textarea {
-        font-size: 16px; /* Prevents iOS zoom on focus */
-      }
     }
 
     @media (min-width: 769px) and (max-width: 1024px) {
@@ -911,29 +834,19 @@
   <script src="https://unpkg.com/three@0.157.0/build/three.min.js"></script>
   <script src="https://unpkg.com/globe.gl@2.32.1/dist/globe.gl.min.js"></script>
   <script>
-    // Add this at the start of the script
-    document.addEventListener('DOMContentLoaded', () => {
-      // Hide loading screen after a short delay to ensure resources are loaded
-      setTimeout(() => {
-        const loadingScreen = document.querySelector('.loading');
-        if (loadingScreen) {
-          loadingScreen.classList.add('hidden');
-          // Remove the loading screen from DOM after animation
-          setTimeout(() => {
-            loadingScreen.style.display = 'none';
-          }, 500);
-        }
-      }, 1500);
-    });
-
     // Initialize globe
-    const globeContainer = document.getElementById('heroGlobe');
-    if (globeContainer) {
+    function initGlobe() {
+      const globeContainer = document.getElementById('heroGlobe');
+      if (!globeContainer) return;
+
+      // Clear any existing content
+      globeContainer.innerHTML = '';
+
       const globe = Globe()
         .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
         .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
-        .width(window.innerWidth)
-        .height(600)
+        .width(globeContainer.clientWidth)
+        .height(globeContainer.clientHeight)
         .atmosphereColor('#1DB954')
         .atmosphereAltitude(0.1)
         .pointColor('#1DB954')
@@ -966,7 +879,7 @@
         })
         .onPointHover(d => {
           // Handle point hover
-          document.getElementById('heroGlobe').style.cursor = d ? 'pointer' : 'default';
+          globeContainer.style.cursor = d ? 'pointer' : 'default';
         });
 
       // Sample data for major concert markets
@@ -1004,11 +917,6 @@
       globe.controls().autoRotate = true;
       globe.controls().autoRotateSpeed = 0.5;
 
-      // Handle window resize
-      window.addEventListener('resize', () => {
-        globe.width(window.innerWidth);
-      });
-
       // Add zoom controls
       globe.controls().enableZoom = true;
       globe.controls().minDistance = 200;
@@ -1017,7 +925,40 @@
 
       // Initialize the globe
       globe(globeContainer);
+
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        const width = globeContainer.clientWidth;
+        const height = globeContainer.clientHeight;
+        globe
+          .width(width)
+          .height(height);
+      });
     }
+
+    // Initialize globe when DOM is loaded and after a short delay
+    document.addEventListener('DOMContentLoaded', () => {
+      // Hide loading screen after resources are loaded
+      setTimeout(() => {
+        const loadingScreen = document.querySelector('.loading');
+        if (loadingScreen) {
+          loadingScreen.classList.add('hidden');
+          setTimeout(() => {
+            loadingScreen.style.display = 'none';
+          }, 500);
+        }
+      }, 1500);
+
+      // Initialize globe after a short delay to ensure container is ready
+      setTimeout(initGlobe, 100);
+    });
+
+    // Re-initialize globe when window is resized
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(initGlobe, 250);
+    });
 
     // Modal functions
     function showContactModal() {
