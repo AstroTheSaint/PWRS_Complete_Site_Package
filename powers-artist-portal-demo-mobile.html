@@ -252,33 +252,6 @@
         }
 
         /* Shows Section Improvements */
-        .upcoming-shows {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-height: 500px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .shows-header {
-            position: sticky;
-            top: 0;
-            background: var(--card-bg);
-            padding-bottom: 12px;
-            margin-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 2;
-        }
-
-        .show-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
         .show-item {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
@@ -291,19 +264,13 @@
             font-size: 1.125rem;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .show-venue {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
         .show-details {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 12px;
         }
 
         .show-info {
@@ -311,10 +278,33 @@
             justify-content: space-between;
             align-items: center;
             font-size: 0.875rem;
+            color: var(--text-secondary);
         }
 
-        .show-date {
+        .show-info-label {
             color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .show-info-value {
+            color: var(--text-primary);
+            font-size: 0.875rem;
+        }
+
+        .show-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .show-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
         .show-status {
@@ -322,6 +312,7 @@
             border-radius: 12px;
             font-size: 0.75rem;
             font-weight: 500;
+            align-self: flex-start;
         }
 
         .status-negotiating {
@@ -1079,7 +1070,20 @@
             <div class="show-list">
                 <div class="show-item">
                     <div class="show-title">Summerfest</div>
-                    <div class="show-venue">Henry Maier Festival Park, Milwaukee</div>
+                    <div class="show-meta">
+                        <div class="show-meta-item">
+                            <div class="show-info-label">Performance Type</div>
+                            <div class="show-info-value">Festival Performance</div>
+                        </div>
+                        <div class="show-meta-item">
+                            <div class="show-info-label">Location</div>
+                            <div class="show-info-value">Milwaukee, Wisconsin</div>
+                        </div>
+                        <div class="show-meta-item">
+                            <div class="show-info-label">Venue</div>
+                            <div class="show-info-value">Henry Maier Festival Park</div>
+                        </div>
+                    </div>
                     <div class="show-details">
                         <div class="show-info">
                             <span class="show-date">July 15, 2024</span>
@@ -1098,7 +1102,20 @@
 
                 <div class="show-item">
                     <div class="show-title">LIV Nightclub Residency</div>
-                    <div class="show-venue">LIV Miami, Florida</div>
+                    <div class="show-meta">
+                        <div class="show-meta-item">
+                            <div class="show-info-label">Performance Type</div>
+                            <div class="show-info-value">Club Residency</div>
+                        </div>
+                        <div class="show-meta-item">
+                            <div class="show-info-label">Location</div>
+                            <div class="show-info-value">Miami, Florida</div>
+                        </div>
+                        <div class="show-meta-item">
+                            <div class="show-info-label">Venue</div>
+                            <div class="show-info-value">LIV Miami</div>
+                        </div>
+                    </div>
                     <div class="show-details">
                         <div class="show-info">
                             <span class="show-date">August 1-3, 2024</span>
@@ -1117,7 +1134,20 @@
 
                 <div class="show-item">
                     <div class="show-title">Corporate Event</div>
-                    <div class="show-venue">Fortune 500 Company HQ</div>
+                    <div class="show-meta">
+                        <div class="show-meta-item">
+                            <div class="show-info-label">Performance Type</div>
+                            <div class="show-info-value">Private Event</div>
+                        </div>
+                        <div class="show-meta-item">
+                            <div class="show-info-label">Location</div>
+                            <div class="show-info-value">New York, NY</div>
+                        </div>
+                        <div class="show-meta-item">
+                            <div class="show-info-label">Venue</div>
+                            <div class="show-info-value">Fortune 500 Company HQ</div>
+                        </div>
+                    </div>
                     <div class="show-details">
                         <div class="show-info">
                             <span class="show-date">September 5, 2024</span>
