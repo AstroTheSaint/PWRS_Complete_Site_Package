@@ -659,6 +659,107 @@
         font-size: 1rem;
       }
     }
+
+    .world-map-section {
+      padding: 4rem 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.95));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .world-map-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 0 2rem;
+    }
+
+    .world-map-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .world-map-subtitle {
+      font-size: 1.1rem;
+      color: #a0aec0;
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      line-height: 1.6;
+    }
+
+    .world-map {
+      width: 100%;
+      aspect-ratio: 2/1;
+      background: rgba(0,0,0,0.3);
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .map-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #1DB954;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse 2s infinite;
+    }
+
+    .map-dot::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #1DB954;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: ripple 2s infinite;
+    }
+
+    .map-path {
+      fill: none;
+      stroke: #1DB954;
+      stroke-width: 2;
+      stroke-dasharray: 5,5;
+      animation: dash 20s linear infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.5); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    @keyframes ripple {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(3); opacity: 0; }
+    }
+
+    @keyframes dash {
+      to { stroke-dashoffset: 1000; }
+    }
+
+    .market-label {
+      position: absolute;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      pointer-events: none;
+      transform: translateY(-20px);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .map-dot:hover + .market-label {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -1335,6 +1436,81 @@
     // Handle window resize
     window.addEventListener('resize', () => {
       initGlobe('globeViz');
+    });
+
+    // World Map Visualization
+    function initWorldMap() {
+      const mapContainer = document.querySelector('.world-map');
+      if (!mapContainer) return;
+
+      // Major concert markets
+      const markets = [
+        { lat: 40.7128, lng: -74.0060, name: 'New York', type: 'arena' },
+        { lat: 34.0522, lng: -118.2437, name: 'Los Angeles', type: 'arena' },
+        { lat: 51.5074, lng: -0.1278, name: 'London', type: 'arena' },
+        { lat: 48.8566, lng: 2.3522, name: 'Paris', type: 'arena' },
+        { lat: 35.6762, lng: 139.6503, name: 'Tokyo', type: 'arena' },
+        { lat: -33.8688, lng: 151.2093, name: 'Sydney', type: 'arena' },
+        { lat: 25.7617, lng: -80.1918, name: 'Miami', type: 'club' },
+        { lat: 36.1147, lng: -115.1728, name: 'Las Vegas', type: 'residency' },
+        { lat: 41.8781, lng: -87.6298, name: 'Chicago', type: 'arena' },
+        { lat: 31.2304, lng: 121.4737, name: 'Shanghai', type: 'arena' }
+      ];
+
+      // Create SVG map
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 800 400');
+      svg.style.width = '100%';
+      svg.style.height = '100%';
+
+      // Add paths between major markets
+      markets.forEach((market, i) => {
+        for (let j = i + 1; j < markets.length; j++) {
+          const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          const start = projectPoint(market.lat, market.lng);
+          const end = projectPoint(markets[j].lat, markets[j].lng);
+          path.setAttribute('d', createCurvedPath(start, end));
+          path.classList.add('map-path');
+          svg.appendChild(path);
+        }
+      });
+
+      // Add market dots
+      markets.forEach(market => {
+        const point = projectPoint(market.lat, market.lng);
+        const dot = document.createElement('div');
+        dot.classList.add('map-dot');
+        dot.style.left = `${point.x}px`;
+        dot.style.top = `${point.y}px`;
+
+        const label = document.createElement('div');
+        label.classList.add('market-label');
+        label.textContent = market.name;
+        label.style.left = `${point.x}px`;
+        label.style.top = `${point.y - 30}px`;
+
+        mapContainer.appendChild(dot);
+        mapContainer.appendChild(label);
+      });
+
+      mapContainer.appendChild(svg);
+    }
+
+    function projectPoint(lat, lng) {
+      const x = (lng + 180) * (800 / 360);
+      const y = (90 - lat) * (400 / 180);
+      return { x, y };
+    }
+
+    function createCurvedPath(start, end) {
+      const midX = (start.x + end.x) / 2;
+      const midY = Math.min(start.y, end.y) - 50;
+      return `M ${start.x} ${start.y} Q ${midX} ${midY} ${end.x} ${end.y}`;
+    }
+
+    // Initialize map on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      initWorldMap();
     });
   </script>
 </body>
