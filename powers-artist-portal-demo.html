@@ -456,13 +456,12 @@
         }
 
         .message {
-            max-width: 65%;
-            padding: 8px 12px;
+            max-width: 85%;
+            padding: 12px;
             border-radius: 12px;
             position: relative;
             animation: messageAppear 0.2s ease;
             font-size: 0.95rem;
-            line-height: 1.4;
         }
 
         .message.sent {
@@ -472,6 +471,11 @@
             border-bottom-right-radius: 4px;
         }
 
+        .message.sent .message-header .sender,
+        .message.sent .message-header .role {
+            color: #000;
+        }
+
         .message.received {
             align-self: flex-start;
             background: #1a1a1a;
@@ -479,9 +483,9 @@
         }
 
         .message-time {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             opacity: 0.7;
-            margin-top: 4px;
+            margin-top: 8px;
             text-align: right;
         }
 
@@ -489,9 +493,67 @@
             background: #1a1a1a;
             border-radius: 12px;
             padding: 16px;
-            margin-top: 8px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 400px;
+            margin: 8px 0;
+        }
+
+        .deal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .deal-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .deal-terms {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .deal-term {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .term-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .term-value {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .deal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .deal-button {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .deal-button:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .chat-input {
@@ -2334,7 +2396,7 @@
             border-radius: 12px;
             padding: 16px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 8px;
+            margin: 8px 0;
         }
 
         .deal-header {
@@ -2354,7 +2416,6 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 16px;
         }
 
         .deal-term {
@@ -2395,6 +2456,59 @@
 
         .deal-button:hover {
             background: rgba(255, 255, 255, 0.15);
+        }
+
+        .message-header {
+            margin-bottom: 8px;
+        }
+
+        .message-header .sender {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .message-header .role {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-left: 8px;
+        }
+
+        .attachment {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-top: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .attachment:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .attachment i {
+            color: var(--primary-color);
+        }
+
+        .attachment span {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .attachments {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .message-text {
+            line-height: 1.5;
+            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -4194,37 +4308,36 @@
             <div class="messages-container">
                 <div class="chat-list">
                     <div class="chat-search">
-                        <input type="text" class="search-input" placeholder="Search conversations...">
+                        <input type="text" class="search-input" placeholder="Search opportunities...">
                     </div>
-                    <div class="chat-item active">
+                    <div class="chat-item ${show === 'Coachella' ? 'active' : ''}">
                         <div class="chat-avatar cf">CF</div>
                         <div class="chat-info">
                             <div class="chat-name">Coachella Festival</div>
-                            <div class="chat-preview">Thanks! I'll review the contract and get back to you by tomorrow.</div>
+                            <div class="chat-preview">$1.35M - Main Stage - April 20, 2025</div>
                         </div>
                         <div class="chat-meta">
-                            <span>2:30 PM</span>
+                            <span class="deal-status confirmed">Confirmed</span>
                         </div>
                     </div>
-                    <div class="chat-item unread">
+                    <div class="chat-item ${show === 'XS' ? 'active' : ''}">
                         <div class="chat-avatar xs">XS</div>
                         <div class="chat-info">
-                            <div class="chat-name">XS Las Vegas</div>
-                            <div class="chat-preview">Here's the updated residency contract for XS.</div>
+                            <div class="chat-name">XS Las Vegas Residency</div>
+                            <div class="chat-preview">$900,000 - 6 Shows - May 15-30, 2025</div>
                         </div>
                         <div class="chat-meta">
-                            <span>2:30 PM</span>
-                            <div class="unread-indicator"></div>
+                            <span class="deal-status pending">Pending</span>
                         </div>
                     </div>
-                    <div class="chat-item">
+                    <div class="chat-item ${show === 'Ultra' ? 'active' : ''}">
                         <div class="chat-avatar um">UM</div>
                         <div class="chat-info">
                             <div class="chat-name">Ultra Music Festival</div>
-                            <div class="chat-preview">Metro, we'd love to have you headline Ultra 2025! Check out our offer below.</div>
+                            <div class="chat-preview">$175,000 - Main Stage - March 28, 2025</div>
                         </div>
                         <div class="chat-meta">
-                            <span>3:45 PM</span>
+                            <span class="deal-status new">New Offer</span>
                         </div>
                     </div>
                 </div>
@@ -4234,44 +4347,133 @@
                         <div class="chat-avatar cf">CF</div>
                         <div class="chat-info">
                             <div class="chat-name">Coachella Festival</div>
-                            <div class="chat-preview">Online</div>
+                            <div class="chat-preview">Main Stage Headline Slot</div>
                         </div>
                     </div>
                     <div class="messages-list">
                         <div class="message received">
-                            <div class="message-text">Hi! We're excited to have you perform at Coachella. I've attached the latest contract for your review.</div>
-                            <div class="message-time">2:15 PM</div>
-                        </div>
-                        <div class="message received">
                             <div class="deal-card">
-                                <strong>Performance Contract</strong><br>
-                                Coachella Valley Music and Arts Festival 2025<br>
-                                Fee: $200,000<br>
-                                Date: April 20, 2025<br>
-                                <button class="show-button" onclick="downloadDocument('contract')">Download Contract</button>
+                                <div class="deal-header">
+                                    <h3>Final Deal Terms</h3>
+                                    <span class="deal-status confirmed">Confirmed</span>
+                                </div>
+                                <div class="deal-terms">
+                                    <div class="deal-term">
+                                        <span class="term-label">Performance Fee:</span>
+                                        <span class="term-value">$1,350,000</span>
+                                    </div>
+                                    <div class="deal-term">
+                                        <span class="term-label">Date:</span>
+                                        <span class="term-value">April 20, 2025</span>
+                                    </div>
+                                    <div class="deal-term">
+                                        <span class="term-label">Set Time:</span>
+                                        <span class="term-value">10:00 PM - 11:30 PM</span>
+                                    </div>
+                                    <div class="deal-term">
+                                        <span class="term-label">Location:</span>
+                                        <span class="term-value">Main Stage</span>
+                                    </div>
+                                    <div class="deal-term">
+                                        <span class="term-label">Payment Schedule:</span>
+                                        <span class="term-value">50/50 Split</span>
+                                    </div>
+                                </div>
+                                <div class="deal-actions">
+                                    <button class="deal-button" onclick="downloadDocument('contract')">View Contract</button>
+                                    <button class="deal-button" onclick="downloadDocument('rider')">View Rider</button>
+                                </div>
                             </div>
-                            <div class="message-time">2:16 PM</div>
                         </div>
+                        
+                        <div class="message received">
+                            <div class="message-header">
+                                <span class="sender">Samantha Greene</span>
+                                <span class="role">Talent Booker, Coachella</span>
+                            </div>
+                            <div class="message-text">
+                                Hi Lex,<br><br>
+                                We'd love to propose NOVA for a headlining slot on Weekend 2 of Coachella 2025 – Main Stage. Here's the initial offer:<br>
+                                • Date: Sunday, April 20, 2025<br>
+                                • Offer: $1,200,000 USD<br>
+                                • Set Length: 90 minutes (10:00 PM – 11:30 PM)<br>
+                                • Capacity: ~125,000<br>
+                                • Performance Type: Festival Main Stage Headliner<br><br>
+                                Let us know your thoughts — happy to send over a full deal memo draft.
+                            </div>
+                            <div class="message-time">March 1, 10:15 AM</div>
+                        </div>
+
                         <div class="message sent">
-                            <div class="message-text">Thanks! I'll review the contract and get back to you by tomorrow.</div>
-                            <div class="message-time">2:30 PM</div>
-                        </div>
-                        <div class="message received">
-                            <div class="message-text">Great! I've also attached the technical rider for your review. Please let me know if you need any adjustments.</div>
-                            <div class="message-time">2:31 PM</div>
-                        </div>
-                        <div class="message received">
-                            <div class="deal-card">
-                                <strong>Technical Rider</strong><br>
-                                Stage Requirements & Equipment List<br>
-                                Last Updated: March 10, 2024<br>
-                                <button class="show-button" onclick="downloadDocument('rider')">Download Rider</button>
+                            <div class="message-text">
+                                Hi Samantha,<br><br>
+                                Thanks for the offer. We're excited about the opportunity. We'd like to counter at $1.5M due to production scale, international routing logistics, and the proposed set design.<br><br>
+                                Would also love to loop in our production lead and begin discussing tech specs.
                             </div>
-                            <div class="message-time">2:31 PM</div>
+                            <div class="message-time">March 2, 2:03 PM</div>
+                        </div>
+
+                        <div class="message received">
+                            <div class="message-text">
+                                Understood. After internal review, we can increase the offer to $1.35M final. Let us know if that works.<br><br>
+                                Copying in our Technical Director, Jared Mahoney, to begin production dialogue.
+                            </div>
+                            <div class="message-time">March 3, 11:47 AM</div>
+                        </div>
+
+                        <div class="message received">
+                            <div class="message-header">
+                                <span class="sender">Jared Mahoney</span>
+                                <span class="role">Tech Director, Coachella</span>
+                            </div>
+                            <div class="message-text">
+                                Hi Mika & Lex,<br><br>
+                                Please see attached stage specs and technical information:<br>
+                                • Stage dimensions (Main Stage 80'W x 60'D x 50'H)<br>
+                                • Sound system: L-Acoustics K1/K2 array<br>
+                                • Lighting: Full intelligent rig (Robe BMFLs, Clay Paky Mythos)<br>
+                                • Power: 400A 3-phase per side + 200A house
+                            </div>
+                            <div class="attachment">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>Coachella_MainStage_Specs_2025.pdf</span>
+                            </div>
+                            <div class="message-time">March 4, 9:25 AM</div>
+                        </div>
+
+                        <div class="message sent">
+                            <div class="message-header">
+                                <span class="sender">Mika Ellis</span>
+                                <span class="role">Tour PM, NOVA</span>
+                            </div>
+                            <div class="message-text">
+                                Thanks Jared – attached are our latest technical requirements. Let's schedule a Zoom next week to run through lighting pre-programming and special FX (CO2, pyro).
+                            </div>
+                            <div class="attachments">
+                                <div class="attachment">
+                                    <i class="fas fa-file-pdf"></i>
+                                    <span>NOVA_TechRider2025.pdf</span>
+                                </div>
+                                <div class="attachment">
+                                    <i class="fas fa-file-pdf"></i>
+                                    <span>NOVA_StagePlot_April.pdf</span>
+                                </div>
+                            </div>
+                            <div class="message-time">March 4, 5:40 PM</div>
+                        </div>
+
+                        <div class="message received">
+                            <div class="message-text">
+                                Contract fully executed ✅<br>
+                                $675K deposit released 🏦<br><br>
+                                We're all set! Excited to welcome NOVA as our Sunday headliner on Weekend 2.<br><br>
+                                Talk soon for site walk-thru coordination.
+                            </div>
+                            <div class="message-time">March 19, 9:10 AM</div>
                         </div>
                     </div>
                     <div class="chat-input">
-                        <textarea class="message-input" placeholder="Type a message..." rows="1"></textarea>
+                        <textarea class="message-input" placeholder="Type your message..." rows="1"></textarea>
                         <button class="send-button">
                             <i class="fas fa-paper-plane"></i>
                         </button>
