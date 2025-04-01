@@ -40,14 +40,14 @@
             overflow-x: hidden;
         }
 
-        /* Header Styles */
-        .header {
+        /* Header Improvements */
+        .mobile-header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             height: var(--header-height);
-            padding: calc(var(--safe-area-inset-top) + 8px) var(--content-padding) 8px;
+            padding: calc(var(--safe-area-inset-top) + 12px) var(--content-padding) 12px;
             background: var(--gradient-dark);
             z-index: 1000;
             backdrop-filter: blur(10px);
@@ -58,32 +58,143 @@
             justify-content: space-between;
         }
 
-        .header-title {
-            font-size: 1.5rem;
-            font-weight: 700;
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .profile-image {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .profile-name {
+            font-size: 0.875rem;
+            font-weight: 600;
             color: var(--text-primary);
         }
 
-        .user-status {
-            background: rgba(29, 185, 84, 0.1);
-            border: 1px solid rgba(29, 185, 84, 0.2);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            color: var(--primary-color);
+        /* Welcome Section */
+        .welcome-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .welcome-header {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .progress-info {
+            margin-top: 12px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 75%;
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
             font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .progress-percentage {
+            color: var(--primary-color);
             font-weight: 600;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(29, 185, 84, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
         }
 
         /* Main Content Area */
         .main-content {
-            padding: calc(var(--header-height) + var(--safe-area-inset-top)) var(--content-padding) calc(var(--bottom-nav-height) + var(--safe-area-inset-bottom));
-            min-height: 100vh;
-            box-sizing: border-box;
+            padding-top: calc(var(--header-height) + var(--safe-area-inset-top));
+            padding-bottom: calc(var(--bottom-nav-height) + var(--safe-area-inset-bottom));
+            padding-left: var(--content-padding);
+            padding-right: var(--content-padding);
             display: flex;
             flex-direction: column;
-            gap: 24px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+            gap: 16px;
+        }
+
+        /* Section Heights */
+        .globe-container {
+            height: 300px;
+        }
+
+        .upcoming-shows {
+            max-height: 300px;
+        }
+
+        .performance-card {
+            padding: 16px;
+        }
+
+        .venue-stats {
+            margin: 12px 0;
+        }
+
+        /* Card Base Style */
+        .card-base {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 16px;
         }
 
         /* Card Styles */
@@ -771,29 +882,43 @@
 <body>
     <header class="mobile-header">
         <div class="header-title">Dashboard</div>
-        <div class="user-status">🏆 Gold Artist</div>
+        <div class="profile-info">
+            <div class="profile-image">M</div>
+            <div class="profile-name">Metro Boomin</div>
+        </div>
     </header>
 
     <main class="main-content">
-        <div class="stats-section">
-            <div class="stats-card">
-                <div class="stat-header">
-                    <div class="stat-title">Monthly Revenue</div>
+        <div class="welcome-section">
+            <div class="welcome-header">Welcome Back!</div>
+            <div class="user-status">🏆 Gold Artist</div>
+            <div class="progress-info">
+                <div class="progress-text">Progress to Platinum</div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
                 </div>
+                <div class="progress-text">
+                    <span class="progress-percentage">75%</span> Complete
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📈</div>
+                <div class="stat-title">Monthly Revenue</div>
                 <div class="stat-value">$156,000</div>
                 <div class="stat-description">+24% from last month</div>
             </div>
-
-            <div class="stats-card">
-                <div class="stat-header">
-                    <div class="stat-title">Shows This Month</div>
-                </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎵</div>
+                <div class="stat-title">Shows This Month</div>
                 <div class="stat-value">12</div>
                 <div class="stat-description">4 upcoming shows</div>
             </div>
         </div>
 
-        <div class="section revenue-distribution">
+        <div class="card-base revenue-distribution">
             <div class="stat-header">
                 <div class="stat-title">Show Payment Status</div>
             </div>
@@ -874,14 +999,14 @@
             </div>
         </div>
 
-        <div class="section globe-section">
+        <div class="card-base globe-section">
             <div class="globe-header">
                 <div class="stat-title">Global Tour Overview</div>
             </div>
             <div class="globe-container" id="globeViz"></div>
         </div>
 
-        <div class="section upcoming-shows">
+        <div class="card-base upcoming-shows">
             <div class="stat-header">
                 <div class="stat-title">Upcoming Shows</div>
             </div>
@@ -908,7 +1033,7 @@
             </div>
         </div>
 
-        <div class="section performance-card">
+        <div class="card-base performance-card">
             <div class="stat-header">
                 <div class="stat-title">Performance Overview</div>
             </div>
@@ -1001,6 +1126,48 @@
     </nav>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for iOS
+            document.documentElement.style.scrollBehavior = 'smooth';
+            
+            // Prevent rubber-banding on iOS
+            document.body.addEventListener('touchmove', function(e) {
+                if (this.scrollHeight === this.clientHeight) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+
+            // Add touch feedback to interactive elements
+            const touchElements = document.querySelectorAll('.stat-card, .revenue-item, .show-item, .nav-item');
+            touchElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                    this.style.transition = 'transform 0.2s ease';
+                });
+
+                element.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Optimize scrolling performance
+            const scrollableElements = document.querySelectorAll('.upcoming-shows, .messages-list');
+            let scrollTimeout;
+            
+            scrollableElements.forEach(element => {
+                element.addEventListener('scroll', () => {
+                    if (!element.style.willChange) {
+                        element.style.willChange = 'scroll-position';
+                    }
+                    
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        element.style.willChange = 'auto';
+                    }, 150);
+                }, { passive: true });
+            });
+        });
+
         // Add navigation highlighting
         document.addEventListener('DOMContentLoaded', function() {
             const navItems = document.querySelectorAll('.nav-item');
@@ -1144,34 +1311,6 @@
                 clickedItem.classList.add('active');
             }
         }
-
-        // Add touch feedback
-        document.addEventListener('DOMContentLoaded', () => {
-            const touchElements = document.querySelectorAll('.revenue-item, .nav-link, .show-item');
-            touchElements.forEach(element => {
-                element.classList.add('touch-feedback');
-            });
-
-            // Prevent rubber-banding/bouncing effect on iOS
-            document.body.addEventListener('touchmove', function(e) {
-                if (this.scrollHeight === this.clientHeight) {
-                    e.preventDefault();
-                }
-            }, { passive: false });
-
-            // Optimize scroll performance
-            let scrollTimeout;
-            const scrollableElements = document.querySelectorAll('.upcoming-shows, .messages-list');
-            scrollableElements.forEach(element => {
-                element.addEventListener('scroll', () => {
-                    element.style.willChange = 'scroll-position';
-                    clearTimeout(scrollTimeout);
-                    scrollTimeout = setTimeout(() => {
-                        element.style.willChange = 'auto';
-                    }, 150);
-                });
-            });
-        });
     </script>
 </body>
 </html> 
