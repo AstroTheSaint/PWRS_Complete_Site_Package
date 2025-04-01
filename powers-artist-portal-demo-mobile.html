@@ -697,6 +697,73 @@
             background-color: rgba(255, 255, 255, 0.2);
             border-radius: 3px;
         }
+
+        /* Payment Details Styles */
+        .payment-details {
+            display: none;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .payment-details.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .payment-show-item {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .payment-show-item:last-child {
+            border-bottom: none;
+        }
+
+        .payment-show-header {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .payment-amount {
+            font-size: 1.125rem;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .payment-date {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .revenue-item {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .revenue-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
+        }
+
+        .revenue-item.active {
+            background: rgba(255, 255, 255, 0.05);
+        }
     </style>
 </head>
 <body>
@@ -727,7 +794,7 @@
                 <div class="stat-title">Show Payment Status</div>
             </div>
             <div class="revenue-list">
-                <div class="revenue-item">
+                <div class="revenue-item" onclick="togglePaymentDetails('paid')">
                     <div class="revenue-indicator" style="background: #1DB954;"></div>
                     <div class="revenue-info">
                         <div class="revenue-label">Paid in Full</div>
@@ -737,7 +804,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="revenue-item">
+                <div id="paid-details" class="payment-details">
+                    <div class="payment-show-item">
+                        <div class="payment-show-header">Ultra Music Festival</div>
+                        <div class="payment-amount">$85,000</div>
+                        <div class="payment-date">Paid on March 15, 2024</div>
+                    </div>
+                    <div class="payment-show-item">
+                        <div class="payment-show-header">EDC Las Vegas</div>
+                        <div class="payment-amount">$120,000</div>
+                        <div class="payment-date">Paid on March 10, 2024</div>
+                    </div>
+                    <div class="payment-show-item">
+                        <div class="payment-show-header">XS Las Vegas</div>
+                        <div class="payment-amount">$65,000</div>
+                        <div class="payment-date">Paid on March 5, 2024</div>
+                    </div>
+                </div>
+
+                <div class="revenue-item" onclick="togglePaymentDetails('partial')">
                     <div class="revenue-indicator" style="background: #FF9800;"></div>
                     <div class="revenue-info">
                         <div class="revenue-label">Partial Payment</div>
@@ -747,7 +832,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="revenue-item">
+                <div id="partial-details" class="payment-details">
+                    <div class="payment-show-item">
+                        <div class="payment-show-header">Tomorrowland</div>
+                        <div class="payment-amount">$75,000 / $150,000</div>
+                        <div class="payment-date">50% Deposit Received - Balance Due April 30</div>
+                    </div>
+                    <div class="payment-show-item">
+                        <div class="payment-show-header">Story Miami</div>
+                        <div class="payment-amount">$25,000 / $50,000</div>
+                        <div class="payment-date">50% Deposit Received - Balance Due April 15</div>
+                    </div>
+                </div>
+
+                <div class="revenue-item" onclick="togglePaymentDetails('due')">
                     <div class="revenue-indicator" style="background: #FF5252;"></div>
                     <div class="revenue-info">
                         <div class="revenue-label">Payment Due</div>
@@ -755,6 +853,18 @@
                             25%
                             <span class="revenue-trend negative">-15%</span>
                         </div>
+                    </div>
+                </div>
+                <div id="due-details" class="payment-details">
+                    <div class="payment-show-item">
+                        <div class="payment-show-header">Coachella</div>
+                        <div class="payment-amount">$200,000</div>
+                        <div class="payment-date">Due April 20, 2024</div>
+                    </div>
+                    <div class="payment-show-item">
+                        <div class="payment-show-header">LIV Miami</div>
+                        <div class="payment-amount">$80,000</div>
+                        <div class="payment-date">Due April 25, 2024</div>
                     </div>
                 </div>
             </div>
@@ -1001,6 +1111,34 @@
                         link.classList.remove('active');
                     }
                 });
+            }
+        }
+
+        // Add this after your existing script
+        function togglePaymentDetails(type) {
+            const detailsElement = document.getElementById(`${type}-details`);
+            const allDetails = document.querySelectorAll('.payment-details');
+            const allItems = document.querySelectorAll('.revenue-item');
+            
+            // Close all other details
+            allDetails.forEach(detail => {
+                if (detail !== detailsElement) {
+                    detail.classList.remove('active');
+                }
+            });
+
+            // Remove active state from all items
+            allItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Toggle clicked details
+            detailsElement.classList.toggle('active');
+            
+            // Add active state to clicked item
+            const clickedItem = detailsElement.previousElementSibling;
+            if (detailsElement.classList.contains('active')) {
+                clickedItem.classList.add('active');
             }
         }
     </script>
