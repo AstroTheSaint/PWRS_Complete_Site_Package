@@ -2304,6 +2304,98 @@
             width: 100%;
             height: 100%;
         }
+
+        /* Find the style section and add these new styles */
+        .deal-status {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .deal-status.new {
+            background: rgba(29, 185, 84, 0.2);
+            color: var(--primary-color);
+        }
+
+        .deal-status.confirmed {
+            background: rgba(88, 101, 242, 0.2);
+            color: #5865F2;
+        }
+
+        .deal-status.pending {
+            background: rgba(255, 152, 0, 0.2);
+            color: #FF9800;
+        }
+
+        .deal-card {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 8px;
+        }
+
+        .deal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .deal-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .deal-terms {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .deal-term {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .term-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .term-value {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .deal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .deal-button {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .deal-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
     </style>
 </head>
 <body>
