@@ -2,10 +2,95 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#121212">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>PWRS Artist Portal - Metro Boomin</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Mobile-First Base Styles */
+        :root {
+            --safe-area-inset-top: env(safe-area-inset-top, 0px);
+            --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+            --header-height: 60px;
+            --bottom-nav-height: 64px;
+            --content-padding: 16px;
+        }
+
+        @media (min-width: 768px) {
+            :root {
+                --content-padding: 24px;
+            }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Responsive Layout */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--content-padding);
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 767px) {
+            .container {
+                padding: 0;
+            }
+
+            .main-content {
+                padding: calc(var(--header-height) + var(--safe-area-inset-top)) var(--content-padding) calc(var(--bottom-nav-height) + var(--safe-area-inset-bottom));
+            }
+        }
+
+        /* Touch Feedback */
+        .touch-feedback {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .touch-feedback::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .touch-feedback:active::after {
+            transform: translate(-50%, -50%) scale(2);
+            opacity: 1;
+        }
+
+        /* Safe Area Support */
+        @supports(padding: max(0px)) {
+            .header {
+                padding-top: max(8px, env(safe-area-inset-top));
+            }
+
+            .bottom-nav {
+                padding-bottom: max(0px, env(safe-area-inset-bottom));
+            }
+
+            .main-content {
+                padding-bottom: calc(var(--bottom-nav-height) + max(0px, env(safe-area-inset-bottom)));
+            }
+        }
+
         :root {
             --primary-color: #1DB954;
             --bg-color: #121212;
