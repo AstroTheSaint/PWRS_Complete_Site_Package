@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   
   <!-- Link Preview Meta Tags -->
-  <meta property="og:title" content="PWRS | Global Tour Intelligence">
-  <meta property="og:description" content="Powering the future of live music across 25+ global markets">
+  <meta property="og:title" content="PWRS | The Future of Tour Intelligence">
+  <meta property="og:description" content="Unlock unprecedented tour revenue with AI-powered market insights and real-time analytics">
   <meta property="og:image" content="https://pwrs.app/preview-card.png">
   <meta property="og:url" content="https://pwrs.app">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#1DB954">
   
   <link rel="icon" type="image/png" href="favicon.png">
-  <title>PWRS - Global Tour Intelligence Platform</title>
+  <title>PWRS | The Future of Tour Intelligence</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>
@@ -857,6 +857,44 @@
         display: flex;
       }
     }
+
+    /* Loading Indicator */
+    .globe-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .globe-loading::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 40px;
+      margin: 20px auto;
+      border: 3px solid var(--primary-color);
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .globe-error {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #FF4444;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
@@ -872,17 +910,19 @@
   <nav class="navbar">
     <a href="#" class="logo">PWRS</a>
     <div class="nav-buttons">
-      <a href="powers-artist-portal-demo.html" class="nav-cta secondary">View Demo</a>
-      <button class="nav-cta" onclick="showContactModal()">Get Started</button>
+      <a href="powers-artist-portal-demo.html" class="nav-cta secondary">Experience PWRS</a>
+      <button class="nav-cta" onclick="showContactModal()">Join the Future</button>
     </div>
   </nav>
 
   <section class="hero">
     <div class="hero-content">
-      <h1>Global Tour Intelligence Platform</h1>
-      <p>Revolutionize your touring strategy with real-time market insights, revenue optimization, and seamless show management.</p>
+      <h1>Your Tour's Missing Piece</h1>
+      <p>Stop leaving money on the table. PWRS combines real-time market data, AI-driven insights, and predictive analytics to maximize your tour revenue across every market.</p>
     </div>
-    <div id="heroGlobe" style="width: 100%; height: 600px; position: relative; z-index: 1;"></div>
+    <div id="heroGlobe" style="width: 100%; height: 600px; position: relative; z-index: 1;">
+      <div class="globe-loading">Loading Globe...</div>
+    </div>
   </section>
 
   <section class="features">
@@ -892,21 +932,21 @@
           <div class="icon-market-intelligence"></div>
         </div>
         <h3 class="feature-title">Market Intelligence</h3>
-        <p class="feature-description">Real-time venue data and market demand insights across regions.</p>
+        <p class="feature-description">Predict market demand before you book. Get real-time venue data and competitor insights across 25+ global markets.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">
           <div class="icon-revenue-tools"></div>
         </div>
-        <h3 class="feature-title">Revenue Tools</h3>
-        <p class="feature-description">Dynamic pricing and comprehensive revenue analytics.</p>
+        <h3 class="feature-title">Revenue Optimization</h3>
+        <p class="feature-description">Dynamic pricing powered by AI. Maximize revenue with data-driven pricing strategies and real-time market adjustments.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">
           <div class="icon-tour-planning"></div>
         </div>
-        <h3 class="feature-title">Tour Planning</h3>
-        <p class="feature-description">Integrated travel and accommodation management.</p>
+        <h3 class="feature-title">Smart Tour Planning</h3>
+        <p class="feature-description">Optimize routing and scheduling with AI. Reduce costs and maximize efficiency across your entire tour.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">💼</div>
@@ -950,18 +990,18 @@
 
   <section class="cta-section">
     <div class="cta-content">
-      <h2>Ready to Transform Your Touring Strategy?</h2>
-      <p>Join the platform that's revolutionizing how artists manage their global tours. Experience the future of tour management today.</p>
+      <h2>Ready to Transform Your Tour Revenue?</h2>
+      <p>Join the platform that's helping artists increase tour revenue by an average of 32%. Experience the future of tour management today.</p>
       <div class="cta-buttons">
         <button class="cta-button" onclick="showContactModal()">
-          Get Started Today
+          Start Maximizing Revenue
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
         </button>
         <a href="powers-artist-portal-demo.html" class="cta-button secondary">
-          View Demo
+          See It In Action
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
             <path d="M21 3v5h-5"></path>
@@ -974,8 +1014,8 @@
   <div class="contact-modal" id="contactModal">
     <div class="modal-content">
       <button class="close-modal" onclick="hideContactModal()">&times;</button>
-      <h2>Get Started with PWRS</h2>
-      <p style="margin: 1rem 0; color: var(--text-secondary);">Fill out the form below and we'll get back to you shortly.</p>
+      <h2>Join the Future of Tour Management</h2>
+      <p style="margin: 1rem 0; color: var(--text-secondary);">Fill out the form below and we'll show you how PWRS can transform your tour revenue.</p>
       <form class="contact-form" action="mailto:jay@jrap.org" method="post" enctype="text/plain">
         <div class="form-group">
           <label for="name">Name</label>
@@ -999,102 +1039,133 @@
   </div>
 
   <footer>
-    <p>&copy; 2024 PWRS. All rights reserved.</p>
+    <p>&copy; 2025 PWRS. All rights reserved.</p>
   </footer>
 
   <!-- Deferred Loading of Heavy Scripts -->
   <script src="https://unpkg.com/three@0.157.0/build/three.min.js"></script>
   <script src="https://unpkg.com/globe.gl@2.32.1/dist/globe.gl.min.js"></script>
   <script>
-    // Globe Visualization
+    // Globe Visualization with Error Handling
     function initGlobe(containerId = 'heroGlobe') {
       const globeContainer = document.getElementById(containerId);
-      if (!globeContainer) return;
-
-      // Clear existing globe
-      globeContainer.innerHTML = '';
-
-      const globe = Globe()
-        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-        .backgroundColor('rgba(0,0,0,0)')
-        .width(globeContainer.clientWidth)
-        .height(globeContainer.clientHeight || 500)
-        .atmosphereColor('rgb(29, 185, 84)')
-        .atmosphereAltitude(0.25);
-
-      globe(globeContainer);
-
-      // Sample tour data
-      const tourData = [
-        { lat: 40.7128, lng: -74.0060, city: 'New York', date: '2024-01-15', revenue: '$2.1M', status: 'completed' },
-        { lat: 34.0522, lng: -118.2437, city: 'Los Angeles', date: '2024-02-20', revenue: '$1.8M', status: 'completed' },
-        { lat: 51.5074, lng: -0.1278, city: 'London', date: '2024-03-10', revenue: '$2.5M', status: 'completed' },
-        { lat: 48.8566, lng: 2.3522, city: 'Paris', date: '2024-05-15', revenue: '$2.3M', status: 'upcoming' },
-        { lat: 35.6762, lng: 139.6503, city: 'Tokyo', date: '2024-06-20', revenue: '$2.8M', status: 'upcoming' },
-        { lat: -33.8688, lng: 151.2093, city: 'Sydney', date: '2024-07-10', revenue: '$1.9M', status: 'upcoming' }
-      ];
-
-      globe.pointsData(tourData)
-        .pointColor(d => d.status === 'completed' ? '#1DB954' : '#FFB900')
-        .pointAltitude(0.1)
-        .pointRadius(0.5)
-        .pointLabel(d => `
-          <div style="color: white; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 5px;">
-            <div style="font-weight: bold;">${d.city}</div>
-            <div>${d.date}</div>
-            <div>Revenue: ${d.revenue}</div>
-            <div style="color: ${d.status === 'completed' ? '#1DB954' : '#FFB900'}">${d.status}</div>
-          </div>
-        `);
-
-      // Add arcs for tour routes
-      globe.arcsData(tourData.slice(0, -1).map((d, i) => ({
-        startLat: d.lat,
-        startLng: d.lng,
-        endLat: tourData[i + 1].lat,
-        endLng: tourData[i + 1].lng,
-        color: d.status === 'completed' ? '#1DB954' : '#FFB900'
-      })))
-      .arcColor('color')
-      .arcDashLength(0.5)
-      .arcDashGap(0.1)
-      .arcDashAnimateTime(2000);
-
-      // Auto-rotate
-      globe.controls().autoRotate = true;
-      globe.controls().autoRotateSpeed = 0.5;
-
-      // Hide loading screen after globe is initialized
-      const loadingScreen = document.querySelector('.loading');
-      if (loadingScreen) {
-        loadingScreen.classList.add('hidden');
-        setTimeout(() => {
-          loadingScreen.style.display = 'none';
-        }, 500);
+      if (!globeContainer) {
+        console.error('Globe container not found');
+        return;
       }
 
-      return globe;
+      // Show loading state
+      const loadingEl = globeContainer.querySelector('.globe-loading');
+      if (loadingEl) loadingEl.style.display = 'block';
+
+      // Remove any existing error message
+      const existingError = globeContainer.querySelector('.globe-error');
+      if (existingError) existingError.remove();
+
+      try {
+        // Clear existing globe
+        globeContainer.innerHTML = '<div class="globe-loading">Loading Globe...</div>';
+
+        // Check if Globe is available
+        if (typeof Globe === 'undefined') {
+          throw new Error('Globe.gl library not loaded');
+        }
+
+        const globe = Globe()
+          .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+          .backgroundColor('rgba(0,0,0,0)')
+          .width(globeContainer.clientWidth)
+          .height(globeContainer.clientHeight || 500)
+          .atmosphereColor('rgb(29, 185, 84)')
+          .atmosphereAltitude(0.25);
+
+        globe(globeContainer);
+
+        // Sample tour data
+        const tourData = [
+          { lat: 40.7128, lng: -74.0060, city: 'New York', date: '2024-01-15', revenue: '$2.1M', status: 'completed' },
+          { lat: 34.0522, lng: -118.2437, city: 'Los Angeles', date: '2024-02-20', revenue: '$1.8M', status: 'completed' },
+          { lat: 51.5074, lng: -0.1278, city: 'London', date: '2024-03-10', revenue: '$2.5M', status: 'completed' },
+          { lat: 48.8566, lng: 2.3522, city: 'Paris', date: '2024-05-15', revenue: '$2.3M', status: 'upcoming' },
+          { lat: 35.6762, lng: 139.6503, city: 'Tokyo', date: '2024-06-20', revenue: '$2.8M', status: 'upcoming' },
+          { lat: -33.8688, lng: 151.2093, city: 'Sydney', date: '2024-07-10', revenue: '$1.9M', status: 'upcoming' }
+        ];
+
+        globe.pointsData(tourData)
+          .pointColor(d => d.status === 'completed' ? '#1DB954' : '#FFB900')
+          .pointAltitude(0.1)
+          .pointRadius(0.5)
+          .pointLabel(d => `
+            <div style="color: white; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 5px;">
+              <div style="font-weight: bold;">${d.city}</div>
+              <div>${d.date}</div>
+              <div>Revenue: ${d.revenue}</div>
+              <div style="color: ${d.status === 'completed' ? '#1DB954' : '#FFB900'}">${d.status}</div>
+            </div>
+          `);
+
+        globe.arcsData(tourData.slice(0, -1).map((d, i) => ({
+          startLat: d.lat,
+          startLng: d.lng,
+          endLat: tourData[i + 1].lat,
+          endLng: tourData[i + 1].lng,
+          color: d.status === 'completed' ? '#1DB954' : '#FFB900'
+        })))
+        .arcColor('color')
+        .arcDashLength(0.5)
+        .arcDashGap(0.1)
+        .arcDashAnimateTime(2000);
+
+        globe.controls().autoRotate = true;
+        globe.controls().autoRotateSpeed = 0.5;
+
+        // Hide loading indicator
+        if (loadingEl) loadingEl.style.display = 'none';
+
+        return globe;
+      } catch (error) {
+        console.error('Error initializing globe:', error);
+        globeContainer.innerHTML = `
+          <div class="globe-error">
+            <h3>Error Loading Globe</h3>
+            <p>${error.message}</p>
+            <button onclick="initGlobe('${containerId}')">Retry</button>
+          </div>
+        `;
+      }
     }
 
-    // Initialize globe and other components when DOM is loaded
+    // Initialize both globes when the page loads
     document.addEventListener('DOMContentLoaded', () => {
-      // Initialize globe with a slight delay to ensure proper loading
-      setTimeout(() => {
-        initGlobe('heroGlobe');
-      }, 100);
-
-      // Initialize other components
-      initCarousel();
-      detectDeviceAndRedirect();
-      initWorldMap();
+      // Load scripts dynamically if needed
+      if (typeof Globe === 'undefined') {
+        const script = document.createElement('script');
+        script.src = 'https://unpkg.com/globe.gl@2.32.1/dist/globe.gl.min.js';
+        script.onload = () => {
+          setTimeout(() => {
+            initGlobe('heroGlobe');
+            initGlobe('demoGlobe');
+          }, 100);
+        };
+        script.onerror = () => {
+          console.error('Failed to load Globe.gl library');
+        };
+        document.head.appendChild(script);
+      } else {
+        setTimeout(() => {
+          initGlobe('heroGlobe');
+          initGlobe('demoGlobe');
+        }, 100);
+      }
     });
 
-    // Handle window resize
+    // Handle window resize for both globes
     let resizeTimeout;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
         initGlobe('heroGlobe');
+        initGlobe('demoGlobe');
       }, 250);
     });
 
